@@ -5,7 +5,7 @@ import { StompSessionProvider } from 'react-stomp-hooks';
 import Lobby from './Lobby';
 import StompHookProps, { STOMP_HOOK_PROPS_PATH } from './ServerQue/StompHookProps';
 
-const url = 'ws://localhost:5000/ws'
+const url = 'wss://coup.jestground.com/ws'
 
 const App = () => {
   return (
