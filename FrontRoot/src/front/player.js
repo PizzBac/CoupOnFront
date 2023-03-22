@@ -1,17 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useStompClient } from 'react-stomp-hooks';
 
 import './player.css';
 
 function Player(props) {
   const { localPlayerCards, name, coins, cardNumbers, userName, players, wasteUsersName, wasteUsersCard } = props;
+
   let card0 = localPlayerCards[0];
   let card1 = localPlayerCards[1];
   let card3 = "back";
   let card4 = "back";
-
-
+  // console.log(JSON.parse(players).name);
   let remainedCardNumber;
+  
+  const localPlayerCardsRef = useRef(localPlayerCards);
+
+  const removeDuplicates = (arr) => {
+    return arr.filter((item, index) => arr.indexOf(item) === index);
+  }
+  
+  useEffect(() => {
+    localPlayerCardsRef.current = removeDuplicates([...localPlayerCardsRef.current, ...localPlayerCards]);
+  }, [localPlayerCards]);
+
+  console.log(localPlayerCardsRef);
 
   if (wasteUsersName && wasteUsersCard) {
     for (let i = 0; i < players.length; i++) {
@@ -81,10 +93,12 @@ function Player(props) {
       {!owner && (
         <div className="player">
           <button className='player_font' onClick={handleButtonClick}>{name}</button>
-          <div>
-            <img src={require("" + `./images/${card3}.png`)} alt={card0} className="img cardImg" />
-            <img src={require("" + `./images/${card4}.png`)} alt={card0} className="img cardImg" />
-          </div>
+            {cardNumbers === 2 &&(
+            <div>
+              <img src={require("" + `./images/${card3}.png`)} alt={card0} className="img cardImg" />
+              <img src={require("" + `./images/${card4}.png`)} alt={card0} className="img cardImg" />
+            </div>
+            )}
           <div className='coin_container'>
             <div className='coin img'></div><span className='coin_font'>{coins}</span>
           </div>

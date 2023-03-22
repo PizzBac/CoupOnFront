@@ -8,6 +8,7 @@ import BlockConsole from '../front/blockConsole';
 import ScrollToBottom from 'react-scroll-to-bottom';
 
 import './StompHookProps.css';
+import '../reset.css';
 
 function StompHookProps() {
 
@@ -22,14 +23,12 @@ function StompHookProps() {
   const [receivedMessage, setReceivedMessage] = useState("");
   const messageListRef = useRef([]);
 
-
   const handleReceivedMessage = (message) => {
     setReceivedMessage(message);
     messageListRef.current = [...messageListRef.current, message];
   };
 
   console.log(messageListRef);
-  console.log(messageListRef.current);
 
   const updateMessages = messageListRef.current.filter((msg) => {
     // {로 시작하고 }로 끝나는 문자열 중에서 type이 UPDATE인 것만 필터링
@@ -158,6 +157,7 @@ function StompHookProps() {
               coins={obj.coins}
               userName={JSON.parse(latestUpdateMessage).content.userName}
               players={JSON.parse(latestUpdateMessage).content.players}
+              cardNumbers={obj.cardNumbers}
               wasteUsersName={wasteUsersName}
               wasteUsersCard={wasteUsersCard}
             />)}
