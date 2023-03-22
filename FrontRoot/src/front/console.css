@@ -15,6 +15,11 @@
   background-color: gray;
 }
 
+.logConsole {
+  height: 150px;
+  width: 400px;
+}
+
 .line-1 {
   position: relative;
 }

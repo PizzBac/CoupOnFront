@@ -5,6 +5,7 @@ import Banker from '../front/banker';
 import Console from '../front/console';
 import Player from '../front/player';
 import BlockConsole from '../front/blockConsole';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 import './StompHookProps.css';
 
@@ -16,18 +17,18 @@ function StompHookProps() {
   // const lobbyName = headers.lobbyName;
   const [destination, setDestination] = useState("/app/create");
   const [lobbyName, setLobbyName] = useState("test");
-  const [headers, setHeaders] = useState({lobbyName: lobbyName});
+  const [headers, setHeaders] = useState({ lobbyName: lobbyName });
   const subscription = "/user/lobby";
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
   const messageListRef = useRef([]);
-  
+
   let msg;
 
   const handleReceivedMessage = (message) => {
     msg = message;
     setReceivedMessage(message);
-    messageListRef.current = [...messageListRef.current, receivedMessage, msg];
+    messageListRef.current = [...messageListRef.current, receivedMessage];
   };
 
   console.log(messageListRef);
@@ -102,31 +103,38 @@ function StompHookProps() {
     let tmpmsg = JSON.parse(latestLogMessage).userMessage;
     if (tmpmsg.split(' ')[2] === "버림") {
       console.log("카드를 버림.");
-      wasteUsersName = tmpmsg.split(' ')[0].substring(0, tmpmsg.split(' ')[0].length-1);
-      wasteUsersCard = tmpmsg.split(' ')[1].substring(0, tmpmsg.split(' ')[1].length-1);
+      wasteUsersName = tmpmsg.split(' ')[0].substring(0, tmpmsg.split(' ')[0].length - 1);
+      wasteUsersCard = tmpmsg.split(' ')[1].substring(0, tmpmsg.split(' ')[1].length - 1);
     }
     // console.log(JSON.parse(latestLogMessage).userMessage);
   }
 
-  
-  return ( 
+
+  return (
     <div>
-        <StompHook
-          subscription={subscription}
-          destination={destination}
-          headers={headers}
-          body={body}
-          onReceivedMessage={handleReceivedMessage}
-          lobbyName={lobbyName}
-        />
-        <div className="BankerConsole">
-          <Banker receivedMessage={receivedMessage} />
-          <Console destination={destination} lobbyName={lobbyName} body={body} />
-          {blockedMessages &&
-            <BlockConsole lobbyName={lobbyName} blockedMessages={blockedMessages}/>
-          }
-        </div>
-        {latestUpdateMessage &&
+      <StompHook
+        subscription={subscription}
+        destination={destination}
+        headers={headers}
+        body={body}
+        onReceivedMessage={handleReceivedMessage}
+        lobbyName={lobbyName}
+      />
+      <div className="BankerConsole">
+        <Banker receivedMessage={receivedMessage} />
+        <Console destination={destination} lobbyName={lobbyName} body={body} />
+        {blockedMessages &&
+          <BlockConsole lobbyName={lobbyName} blockedMessages={blockedMessages} />
+        }
+      </div>
+
+      <ScrollToBottom className='logConsole'>
+          <ul>
+            {logMessages.map((obj, index) => <li>{JSON.parse(obj).userMessage}</li>)}
+          </ul>
+      </ScrollToBottom>
+
+      {latestUpdateMessage &&
         <div className="Player">
           {/* <Player localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards} 
                   lobbyName={lobbyName} 
@@ -134,19 +142,19 @@ function StompHookProps() {
                   coins={JSON.parse(latestUpdateMessage).content.coins}
           /> */}
           {/* {JSON.parse(latestUpdateMessage).content.players.map((obj, index) => <li>{obj.name} {obj.coins}</li>)} */}
-          {JSON.parse(latestUpdateMessage).content.players.map((obj, index) => 
-          <Player localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards} 
-                  lobbyName={lobbyName} 
-                  name={obj.name}
-                  coins={obj.coins}
-                  userName={JSON.parse(latestUpdateMessage).content.userName}
-                  players={JSON.parse(latestUpdateMessage).content.players}
-                  wasteUsersName={wasteUsersName}
-                  wasteUsersCard={wasteUsersCard}
-          />)}
+          {JSON.parse(latestUpdateMessage).content.players.map((obj, index) =>
+            <Player localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards}
+              lobbyName={lobbyName}
+              name={obj.name}
+              coins={obj.coins}
+              userName={JSON.parse(latestUpdateMessage).content.userName}
+              players={JSON.parse(latestUpdateMessage).content.players}
+              wasteUsersName={wasteUsersName}
+              wasteUsersCard={wasteUsersCard}
+            />)}
         </div>
-        
-        }
+
+      }
     </div>
   );
 }
