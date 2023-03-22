@@ -4,11 +4,10 @@ import { useLocation } from 'react-router-dom';
 import Banker from '../front/banker';
 import Console from '../front/console';
 import Player from '../front/player';
-import BlockConsole from '../front/blockConsole';
 import ScrollToBottom from 'react-scroll-to-bottom';
-
 import './StompHookProps.css';
 import '../reset.css';
+import Chat from '../front/Chat';
 
 function StompHookProps() {
 
@@ -138,6 +137,8 @@ function StompHookProps() {
             {logMessages.map((obj, index) => <li>{JSON.parse(obj).userMessage}</li>)}
           </ul>
         </ScrollToBottom>
+
+        <Chat />
       </div>
 
       {latestUpdateMessage &&
@@ -160,7 +161,6 @@ function StompHookProps() {
               wasteUsersCard={wasteUsersCard}
             />)}
         </div>
-
       }
     </div>
   );

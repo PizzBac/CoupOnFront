@@ -25,7 +25,9 @@ function BlockConsole({ lobbyName, body, blockedMessages }) {
         btnMsg = '블록(외교관)';
       } else if (msg === 'Block (Captain)') {
         btnMsg = '블록(사령관)';
-      }
+      } else if (msg === 'Block (Duke)') {
+        btnMsg = '블록(공작)';
+      } 
       return (
         <div className="hex btn-block" key={index} onClick={() => handleClick(msg)}>
           <div className="hex-inner1">
