@@ -8,34 +8,43 @@
   position: relative;
   float: left;
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.Card_section {
-  position: relative;
-  float: left;
-}
-.Coin_section {
-  position: relative;
-  float: left;
-}
+
 .player_font {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 4vw;
+  font-size: 2vw;
   font-weight: bold;
+}
+
+.card_container {
+  display: flex;
+}
+
+.cardImg {
+  position: relative;
+  float: left;
+  width: calc(1vw * 70 * 100 / 1080);
+  height: calc(1vw * 150 * 100 / 1920);
+  margin-left: 5px;
+}
+
+.coin_container {
+  display: flex;
 }
 
 .coin {
   position: relative;
   float: left;
   background-image: url(./images/coin.png);
-  width: 35px;
-  height: 35px;
-  margin-left: 50px;  
+  width: 3vw;
+  height: 3vw;
 }
 
-.cardImg {
-  position: relative;
-  float: left;
-  width: 70px;
-  height: 100px;
-  margin-left: 5px;
+.coin_font {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 3vw;
+  font-weight: bold;
 }

@@ -9,12 +9,12 @@ function Player(props) {
   let card1 = localPlayerCards[1];
   let card3 = "back";
   let card4 = "back";
-  
+
 
   let remainedCardNumber;
 
   if (wasteUsersName && wasteUsersCard) {
-    for (let i=0; i<players.length; i++) {
+    for (let i = 0; i < players.length; i++) {
       console.log(players[i].name);
       if (players[i].name === wasteUsersName) {
         remainedCardNumber = players[i].cardNumbers;
@@ -63,33 +63,33 @@ function Player(props) {
   return (
     <div>
       {owner && (
-    <div className="player">
-      <button className='player_font' onClick={handleButtonClick}>{name}</button>
-      <div>
-      {card0 &&
-        <img src={require(""+`./images/${card0}.png`)} alt={card0} className="img cardImg" onClick={handleCard0Click}/>
-      }
-      {card1 &&
-        <img src={require(""+`./images/${card1}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click}/>
-      }
-      </div>
-      <div>
-        <div className='coin img'></div><span className='player_font'>{coins}</span>
-      </div>
-    </div>
-    )}
-    {!owner &&(
-      <div className="player">
-      <button className='player_font' onClick={handleButtonClick}>{name}</button>
-      <div className='Card_section'>
-        <img src={require(""+`./images/${card3}.png`)} alt={card0} className="img cardImg"/>
-        <img src={require(""+`./images/${card4}.png`)} alt={card0} className="img cardImg"/>
-      </div>
-      <div className='Coin_section'>
-        <div className='coin img'></div><span className='player_font'>{coins}</span>
-      </div>
-    </div>
-    )}
+        <div className="player">
+          <button className='player_font' onClick={handleButtonClick}>{name}</button>
+          <div>
+            {card0 &&
+              <img src={require("" + `./images/${card0}.png`)} alt={card0} className="img cardImg" onClick={handleCard0Click} />
+            }
+            {card1 &&
+              <img src={require("" + `./images/${card1}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
+            }
+          </div>
+          <div className='coin_container'>
+            <div className='coin img'></div><span className='coin_font'>{coins}</span>
+          </div>
+        </div>
+      )}
+      {!owner && (
+        <div className="player">
+          <button className='player_font' onClick={handleButtonClick}>{name}</button>
+          <div>
+            <img src={require("" + `./images/${card3}.png`)} alt={card0} className="img cardImg" />
+            <img src={require("" + `./images/${card4}.png`)} alt={card0} className="img cardImg" />
+          </div>
+          <div className='coin_container'>
+            <div className='coin img'></div><span className='coin_font'>{coins}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
