@@ -1,6 +1,7 @@
-/* .chatWrapper {
-    position: relative;
-} */
+.chatWrapper {
+    display: flex;
+    flex-direction: column;
+}
 
 /* 채팅창 보이게 하려면 스타일 적용해야 함 */
 .chatcontainer {
@@ -10,9 +11,7 @@
     height: 35vmin;
     overflow-y: scroll;
     background-color: bisque;
-    /* 스크롤바 속성 적용 */
-    margin-top: 2vmin;
-    margin-bottom: 1vmin;
+    margin-bottom: 0.5vmin;
     padding: 2vmin;
     -ms-overflow-style: none;
     /* 인터넷 익스플로러 */
@@ -29,6 +28,7 @@
     border: 5px solid black;
     padding: 2vmin 5px;
     border-radius: 3%;
+    display: flex;
 }
 
 .messageInput {

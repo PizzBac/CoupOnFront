@@ -132,13 +132,12 @@ function StompHookProps() {
         <Console destination={destination} lobbyName={lobbyName} body={body} blockedMessages={blockedMessages} />
       </div>
       <div className='logConsoleDiv'>
+        <Chat lobbyName={lobbyName} />
         <ScrollToBottom className='logConsole'>
           <ul>
             {logMessages.map((obj, index) => <li>{JSON.parse(obj).userMessage}</li>)}
           </ul>
         </ScrollToBottom>
-
-        <Chat lobbyName={lobbyName} />
       </div>
 
       {latestUpdateMessage &&
