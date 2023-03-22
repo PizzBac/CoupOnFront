@@ -7,21 +7,49 @@ function StompHook(props) {
   const [destination, setDestination] = useState(props.destination);
   const stompClient = useStompClient();
   const [subscription, setSubscription] = useState("/user/lobby");
-  const [headers, setHeaders] = useState(""); //JSON stringfy 하면 안됨.
+  const [headers, setHeaders] = useState("default");
 
   useSubscription(subscription, (str) => {
     onReceivedMessage(str.body);
   });
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function seeAllUsers() {
+    if (stompClient) {
+      stompClient.publish({
+        destination: "/app/users"
+      })
+    } else {
+      console.log("stompClient is null");
+    }
+  }
 
+  function createLobby() {
     if (stompClient) {
       stompClient.publish({
         headers: {"lobbyName": headers},
-        destination: destination
-      });
-      onLobbyName(headers);
+        destination: "/app/create"
+      })
+    } else {
+      console.log("stompClient is null");
+    }
+  }
+
+  function seeAllGames() {
+    if (stompClient) {
+      stompClient.publish({
+        destination: "/app/showallgame"
+      })
+    } else {
+      console.log("stompClient is null");
+    }
+  }
+
+  function startGame() {
+    if (stompClient) {
+      stompClient.publish({
+        headers: {"lobbyName": headers},
+        destination: "/app/start"
+      })
     } else {
       console.log("stompClient is null");
     }
@@ -29,7 +57,6 @@ function StompHook(props) {
 
   return (
     <div style={{backgroundColor: "pink", paddingLeft: "300px"}}>
-      <form onSubmit={handleSubmit}>
         <div>
           <span>subscription:</span>
           <input
@@ -50,11 +77,18 @@ function StompHook(props) {
           <span>headers:</span>
           <input
             type="text"
-            onChange={(e) => setHeaders(e.target.value)}
+            value={headers}
+            onChange={(e) => {
+              setHeaders(e.target.value);
+              onLobbyName(e.target.value);
+              }
+            }
           />
         </div>
-        <button type="submit">서버로 메세지 보내기(통신)</button>
-      </form>
+        <button onClick={seeAllUsers}>모든 유저 보기</button>
+        <button onClick={seeAllGames}>모든 방 보기</button>
+        <button onClick={createLobby}>방 만들기</button>
+        <button onClick={startGame}>게임 시작하기</button>
     </div>
   );
 }
