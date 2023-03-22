@@ -2,8 +2,8 @@
   position: relative;
   display: inline;
   float: left;
-  width: 600px;
-  height: 230px;
+  width: calc(100vmin);
+  height: calc(100vmin * 230 / 1920);
   text-align: center;
 }
 

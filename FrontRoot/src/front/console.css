@@ -11,7 +11,7 @@
 } */
 .console {
   float: left;
-  width: 600px;
+  width: calc(100vmin);
 }
 
 .logConsole {

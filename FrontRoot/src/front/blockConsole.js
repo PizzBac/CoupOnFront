@@ -19,7 +19,7 @@ function BlockConsole({lobbyName, body, blockedMessages }) {
   return (
     <div>
       {blockedMessages.map((msg, index) => (
-        <button key={index} onClick={() => handleClick(msg)}>
+        <button className="blockBtn" key={index} onClick={() => handleClick(msg)}>
           {msg}
         </button>
       ))}

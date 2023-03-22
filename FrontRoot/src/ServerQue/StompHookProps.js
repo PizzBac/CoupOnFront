@@ -15,13 +15,12 @@ function StompHookProps() {
 
   // const { destination, headers } = location.state;
   // const lobbyName = headers.lobbyName;
+  const subscription = "/user/lobby";
   const [destination, setDestination] = useState("/app/game");
   const [lobbyName, setLobbyName] = useState("");
-  const subscription = "/user/lobby";
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
   const messageListRef = useRef([]);
-
 
   const handleReceivedMessage = (message) => {
     setReceivedMessage(message);
@@ -121,27 +120,28 @@ function StompHookProps() {
 
 
   return (
-    <div>
+    <div className='gameConsole'>
       <StompHook
         subscription={subscription}
         destination={destination}
         body={body}
         onReceivedMessage={handleReceivedMessage}
-        onLobbyName= {setLobbyName}
+        onLobbyName={setLobbyName}
       />
-      <div className="BankerConsole">
+      <div className="bankerConsole">
         <Banker receivedMessage={receivedMessage} />
         <Console destination={destination} lobbyName={lobbyName} body={body} />
+      </div>
+      <div className='logConsoleDiv'>
+        <ScrollToBottom className='logConsole'>
+          <ul>
+            {logMessages.map((obj, index) => <li>{JSON.parse(obj).userMessage}</li>)}
+          </ul>
+        </ScrollToBottom>
         {blockedMessages &&
           <BlockConsole lobbyName={lobbyName} blockedMessages={blockedMessages} />
         }
       </div>
-
-      <ScrollToBottom className='logConsole'>
-          <ul>
-            {logMessages.map((obj, index) => <li>{JSON.parse(obj).userMessage}</li>)}
-          </ul>
-      </ScrollToBottom>
 
       {latestUpdateMessage &&
         <div className="Player">
