@@ -1,0 +1,22 @@
+.banker {
+  position: relative;
+  display: inline;
+  float: left;
+  width: 600px;
+  height: 230px;
+  text-align: center;
+}
+
+.announcement {
+  /* display: block; */
+  padding: 10px;
+  font: bold 3vw "TmonMonsori";
+}
+
+.turn {
+  color: white;
+}
+
+.anc-message {
+  color: yellowgreen;
+}

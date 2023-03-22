@@ -1,0 +1,223 @@
+/* .wrap ul li {
+  display: inline-block;
+}
+
+.wrap-line-2 {
+  margin-left: 55px;
+}
+
+.wrap-line-3 {
+  margin-left: 110px;
+} */
+.console {
+  float: left;
+  width: 600px;
+  background-color: gray;
+}
+
+.line-1 {
+  position: relative;
+}
+
+.line-2 {
+  position: relative;
+  /* margin-top: 90px; */
+  margin-left: 7%;
+}
+
+.line-3 {
+  position: relative;
+  /* margin-top: 180px; */
+  margin-left: 7%;
+}
+
+.wrapper {
+  /* margin: 8vh auto; */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.hex {
+  width: 6vw;
+  height: calc(4vw*1.7430);
+  border-radius: 30%;
+  margin: .2vw;
+  position: relative;
+  overflow: hidden !important;
+  transform: rotate(60deg);
+}
+.hex-inner1 {
+  width: inherit;
+  height: inherit;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(60deg);
+  overflow: hidden;
+  /* background-color: red; */
+}
+.hex-inner2 {
+  display: flex;
+  width: inherit;
+  height: inherit;
+  background-size: 110%;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-120deg);
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* .hex:nth-of-type(n+5) {
+  margin-top: -17.3vw;
+} */
+
+.font {
+  color: black;
+  padding: 10px;
+  font: bold 1.2vw "TmonMonsori";
+  text-shadow: 3px 3px 0 white;
+}
+
+/* 이미지 설정 */
+.job-duke {
+  background-image: url(./images/Duke.png);
+}
+
+.job-assassin {
+  background-image: url(./images/Assassin.png);
+}
+.job-contessa {
+  background-image: url(./images/Contessa.png);
+}
+.job-ambassador {
+  background-image: url(./images/Ambassador.png);
+}
+.job-captain {
+  background-image: url(./images/Captain.png);
+}
+
+.coup {
+  background-color: aqua;
+}
+.income {
+  background-color: yellow;
+}
+.forgien {
+  background-color: pink;
+}
+.challenge {
+  background-color: greenyellow;
+}
+.pass {
+  background-color: wheat;
+}
+
+/* .hex:hover > .hex-inner1 .hex-inner2 {
+  background-image: url(images/back.png);
+  opacity: 0.3;
+} */
+
+
+
+
+
+.popup-msg {
+  visibility: hidden;
+  opacity:0;
+  transition:visibility 1.5s linear,opacity 1.5s linear;
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 20px;
+  background: skyblue; 
+  border-radius: 10px;
+  font: bold 1.0vw "TmonMonsori";
+  z-index: 1;
+}
+
+.popup-msg:after {
+  content: "";
+  border-top: Op solid transparent; 
+  border-left: 8px solid transparent; 
+  border-right: 8px solid transparent; 
+  border-bottom: 17px solid skyblue;
+  position: absolute;
+  top: -16px;
+  left: 93px;
+}
+/* 
+.btn-duke:hover ~ .duke-msg {
+  visibility:visible;
+  opacity:1;
+}
+.btn-assassin:hover ~ .assassin-msg {
+  visibility:visible;
+  opacity:1;
+}
+.btn-contessa:hover ~ .contessa-msg {
+  visibility:visible;
+  opacity:1;
+}
+.btn-coup:hover ~ .coup-msg {
+  visibility:visible;
+  opacity:1;
+}
+.btn-income:hover ~ .income-msg {
+  visibility:visible;
+  opacity:1;
+}
+.btn-forgein:hover ~ .forgein-msg {
+  visibility:visible;
+  opacity:1;
+}
+.btn-ambassador:hover ~ .ambassador-msg {
+  visibility:visible;
+  opacity:1;
+}
+.btn-captain:hover ~ .captain-msg {
+  visibility:visible;
+  opacity:1;
+} */
+
+
+/* 메세지 위치 */
+.duke-msg{
+  top:50%;
+  left: -40px;
+}
+.assassin-msg {
+  margin-top:200px;
+  left: 80px;
+}
+.contessa-msg {
+  margin-top: 210px;
+  left: 200px;
+}
+
+.coup-msg{
+  margin-top:170px;
+  left: -40px;
+}
+.income-msg {
+  margin-top:200px;
+  left: 80px;
+}
+.forgien-msg {
+  margin-top: 200px;
+  left: 150px;
+}
+
+.ambassador-msg{
+  margin-top:170px;
+  left: -40px;
+}
+.captain-msg {
+  margin-top:200px;
+  left: 80px;
+}
