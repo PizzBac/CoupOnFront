@@ -138,10 +138,6 @@ function StompHookProps() {
             {logMessages.map((obj, index) => <li>{JSON.parse(obj).userMessage}</li>)}
           </ul>
         </ScrollToBottom>
-        {/* {blockedMessages ?
-          <BlockConsole lobbyName={lobbyName} blockedMessages={blockedMessages} />
-          : <div>dd</div>
-        } */}
       </div>
 
       {latestUpdateMessage &&

@@ -83,7 +83,6 @@
 
 .font {
   color: white;
-  padding: 10px;
   font: bold calc(0.1rem + 1vw) "TmonMonsori";
   text-align : center;
   text-shadow: -1.1px 0 #000, 0 1.1px #000, 1.1px 0 #000, 0 -1.1px #000;

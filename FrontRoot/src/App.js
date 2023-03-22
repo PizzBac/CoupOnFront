@@ -15,7 +15,7 @@ const App = () => {
     >
       <BrowserRouter>
         <Routes>
-          {/* <Route exact path="/" element={<Lobby/>} /> */}
+          <Route exact path="/" element={<Lobby/>} />
           <Route exact path='/game' element={<StompHookProps/>} />
         </Routes>
       </BrowserRouter>

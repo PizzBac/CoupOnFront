@@ -75,6 +75,7 @@ function Player(props) {
   } else {
     owner = false;
   }
+  // 커밋용 주석
 
   return (
     <div>

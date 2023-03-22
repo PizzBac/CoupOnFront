@@ -133,9 +133,7 @@ function Console(Props) {
         </div>
       </div>
 
-
-
-
+      
 
       <div className="line-3">
         <div className="wrapper">
@@ -146,7 +144,6 @@ function Console(Props) {
           </div>
           <div className="popup-msg ambassador-msg"><p>외교관은 덱에서 카드 두 장을 골라 내 카드와 합친 네 장 중에 2장을 선택하여 교환 할 수 있습니다. 또한 사령관의 코인 강탈을 막을 수 있습니다.</p></div>
 
-
           <div className="hex btn-captain" onClick={handleCaptinClick}>
             <div className="hex-inner1">
               <div className="hex-inner2 job-action job-captain"></div>
@@ -154,9 +151,8 @@ function Console(Props) {
           </div>
           <div className="popup-msg captain-msg"><p>사령관은 플레이어의 코인 2개를 강탈 할 수 있습니다. 또한 다른 플레이어가 코인을 강탈하려할 때 막을 수 있습니다.</p></div>
 
-          {Props.blockedMessages ?
+          {Props.blockedMessages &&
             <BlockConsole lobbyName={lobbyName} blockedMessages={Props.blockedMessages} />
-            : <div>없음</div>
           }
         </div>
       </div>
