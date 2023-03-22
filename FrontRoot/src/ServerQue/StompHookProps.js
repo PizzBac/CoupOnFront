@@ -16,7 +16,7 @@ function StompHookProps() {
   // const { destination, headers } = location.state;
   // const lobbyName = headers.lobbyName;
   const [destination, setDestination] = useState("/app/create");
-  const [lobbyName, setLobbyName] = useState("test3");
+  const [lobbyName, setLobbyName] = useState("test5");
   const [headers, setHeaders] = useState({lobbyName: lobbyName});
   const subscription = "/user/lobby";
   const body = "Income";
