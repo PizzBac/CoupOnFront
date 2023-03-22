@@ -74,7 +74,7 @@ function StompHook(props) {
           />
         </div>
         <div>
-          <span>headers:</span>
+          <span>headers: &#123;"lobbyName":</span>
           <input
             type="text"
             value={headers}
@@ -84,6 +84,7 @@ function StompHook(props) {
               }
             }
           />
+          &#125;
         </div>
         <button onClick={seeAllUsers}>모든 유저 보기</button>
         <button onClick={seeAllGames}>모든 방 보기</button>
