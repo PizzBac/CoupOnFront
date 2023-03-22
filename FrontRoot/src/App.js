@@ -5,7 +5,7 @@ import { StompSessionProvider } from 'react-stomp-hooks';
 import Lobby from './Lobby';
 import StompHookProps, { STOMP_HOOK_PROPS_PATH } from './ServerQue/StompHookProps';
 
-const url = 'ws://localhost:5000/ws'
+const url = 'ws://javaspringbootcoupgamebackend-env.eba-2u3en2tr.ap-northeast-2.elasticbeanstalk.com/ws'
 
 const App = () => {
   return (
