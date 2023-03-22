@@ -9,6 +9,14 @@
   float: left;
   margin-left: 20px;
 }
+.Card_section {
+  position: relative;
+  float: left;
+}
+.Coin_section {
+  position: relative;
+  float: left;
+}
 .player_font {
   font-family: 'Courier New', Courier, monospace;
   font-size: 4vw;
