@@ -17,7 +17,7 @@ function StompHookProps() {
   // const lobbyName = headers.lobbyName;
   const subscription = "/user/lobby";
   const [destination, setDestination] = useState("/app/game");
-  const [lobbyName, setLobbyName] = useState("");
+  const [lobbyName, setLobbyName] = useState("default");
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
   const messageListRef = useRef([]);
