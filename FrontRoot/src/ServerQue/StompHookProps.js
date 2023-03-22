@@ -138,7 +138,7 @@ function StompHookProps() {
           </ul>
         </ScrollToBottom>
 
-        <Chat />
+        <Chat lobbyName={lobbyName} />
       </div>
 
       {latestUpdateMessage &&

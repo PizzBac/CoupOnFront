@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import "./Chat.css";
 import { FaPaperPlane } from "react-icons/fa";
 import { useSubscription, useStompClient } from 'react-stomp-hooks';
 
-function Chat() {
+function Chat(props) {
+    const { lobbyName } = props;
     const [message, setMessage] = useState("");
     const [chatLog, setChatLog] = useState([]);
 
     const stompClient = useStompClient();
-    useSubscription("/topic/chat/testlobbyname", (str) => {
+    useSubscription(`/topic/chat/${lobbyName}`, (str) => {
         console.log(str.body);
         const object = JSON.parse(str.body);
 
@@ -16,8 +17,8 @@ function Chat() {
     });
 
     // 새로운 메시지가 추가될 때마다 자동으로 스크롤을 아래쪽으로 이동
-    const messagesEndRef = React.useRef(null);
-    React.useEffect(() => {
+    const messagesEndRef = useRef(null);
+    useEffect(() => {
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }, [chatLog]);
 
@@ -28,10 +29,9 @@ function Chat() {
     function handleSubmit(event) {
         event.preventDefault();
         const newMessage = { message };
-
         if (stompClient) {
             stompClient.publish({
-                destination: "/app/chat/testlobbyname",
+                destination: `/app/chat/${lobbyName}`,
                 body: JSON.stringify(newMessage.message)
             });
         } else {
