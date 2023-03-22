@@ -81,11 +81,11 @@ function Player(props) {
     {!owner &&(
       <div className="player">
       <button className='player_font' onClick={handleButtonClick}>{name}</button>
-      <div>
+      <div className='Card_section'>
         <img src={require(""+`./images/${card3}.png`)} alt={card0} className="img cardImg"/>
         <img src={require(""+`./images/${card4}.png`)} alt={card0} className="img cardImg"/>
       </div>
-      <div>
+      <div className='Coin_section'>
         <div className='coin img'></div><span className='player_font'>{coins}</span>
       </div>
     </div>
