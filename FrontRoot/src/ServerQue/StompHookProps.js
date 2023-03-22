@@ -130,7 +130,7 @@ function StompHookProps() {
       />
       <div className="bankerConsole">
         <Banker receivedMessage={receivedMessage} />
-        <Console destination={destination} lobbyName={lobbyName} body={body} />
+        <Console destination={destination} lobbyName={lobbyName} body={body} blockedMessages={blockedMessages} />
       </div>
       <div className='logConsoleDiv'>
         <ScrollToBottom className='logConsole'>
@@ -138,9 +138,10 @@ function StompHookProps() {
             {logMessages.map((obj, index) => <li>{JSON.parse(obj).userMessage}</li>)}
           </ul>
         </ScrollToBottom>
-        {blockedMessages &&
+        {/* {blockedMessages ?
           <BlockConsole lobbyName={lobbyName} blockedMessages={blockedMessages} />
-        }
+          : <div>dd</div>
+        } */}
       </div>
 
       {latestUpdateMessage &&

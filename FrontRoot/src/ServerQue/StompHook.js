@@ -5,8 +5,8 @@ import './StompHook.css';
 
 function StompHook(props) {
   const { onReceivedMessage, onLobbyName } = props;
-  const [destination, setDestination] = useState(props.destination);
   const stompClient = useStompClient();
+  const [destination, setDestination] = useState(props.destination);
   const [subscription, setSubscription] = useState("/user/lobby");
   const [headers, setHeaders] = useState("default");
 
