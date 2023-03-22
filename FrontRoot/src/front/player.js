@@ -13,14 +13,18 @@ function Player(props) {
   // console.log(JSON.parse(players).name);
   let remainedCardNumber;
   
+  // 중복 요소를 제거하는 함수
+  const removeDuplicates = (arr) => {
+    const set = new Set(arr);
+    return Array.from(set);
+  };
+  
   const localPlayerCardsRef = useRef(localPlayerCards);
 
-  const removeDuplicates = (arr) => {
-    return arr.filter((item, index) => arr.indexOf(item) === index);
-  }
-  
   useEffect(() => {
-    localPlayerCardsRef.current = removeDuplicates([...localPlayerCardsRef.current, ...localPlayerCards]);
+    localPlayerCardsRef.current = [...localPlayerCardsRef.current, localPlayerCards];
+    // 배열에서 중복된 요소를 제거.
+    localPlayerCardsRef.current = removeDuplicates(localPlayerCardsRef.current);
   }, [localPlayerCards]);
 
   console.log(localPlayerCardsRef);
