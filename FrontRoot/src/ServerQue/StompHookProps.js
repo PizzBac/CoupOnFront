@@ -15,7 +15,7 @@ function StompHookProps() {
   // const { destination, headers } = location.state;
   // const lobbyName = headers.lobbyName;
   const [destination, setDestination] = useState("/app/create");
-  const [lobbyName, setLobbyName] = useState("test");
+  const [lobbyName, setLobbyName] = useState("test3");
   const [headers, setHeaders] = useState({lobbyName: lobbyName});
   const subscription = "/user/lobby";
   const body = "Income";
@@ -72,6 +72,18 @@ function StompHookProps() {
       return false;
     }
   });
+
+  const userMessages = messageListRef.current.filter((msg) => {
+    // {로 시작하고 }로 끝나는 문자열 중에서 type이 UPDATE인 것만 필터링
+    if (msg.startsWith("{") && msg.endsWith("}")) {
+      const parsedMsg = JSON.parse(msg);
+      console.log(parsedMsg);
+      return parsedMsg.userMessage
+    } else {
+      return false;
+    }
+  });
+  console.log(userMessages);
 
   let latestUpdateMessage = [...updateMessages].pop();
   let latestChosenUpdateMessage = [...chosenMessages].pop();

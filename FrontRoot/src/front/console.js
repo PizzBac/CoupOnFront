@@ -19,7 +19,6 @@ function Console(Props) {
   // "{"type":"CHOICE","userMessage":"액션을 고르시오.","content":["Income","ForeignAid","Tax","Assassinate","Exchange","Steal"]}"
 
   const handleIncomeClick = () => {
-    console.log("Income");
     publishMessage("Income");
   };
   
