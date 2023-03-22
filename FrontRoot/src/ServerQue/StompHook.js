@@ -3,18 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { useSubscription, useStompClient } from 'react-stomp-hooks';
 
 function StompHook(props) {
-  const { onReceivedMessage, lobbyName } = props;
+  const { onReceivedMessage, onLobbyName } = props;
   const [destination, setDestination] = useState(props.destination);
   const stompClient = useStompClient();
-  const [receivedMessage, setReceivedMessage] = useState("");
-  const [lobbyName2, setLobbyName2] = useState(lobbyName);
   const [subscription, setSubscription] = useState("/user/lobby");
-  const [headers, setHeaders] = useState({"lobbyName":lobbyName}); //JSON stringfy 하면 안됨.
-  const [body, setBody] = useState("");
-
-  useEffect(() => {
-    setHeaders({ "lobbyName": lobbyName2 });
-  }, [lobbyName2]);
+  const [headers, setHeaders] = useState(""); //JSON stringfy 하면 안됨.
 
   useSubscription(subscription, (str) => {
     onReceivedMessage(str.body);
@@ -22,15 +15,13 @@ function StompHook(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    // setHeaders({"lobbyName":lobbyName2});
 
     if (stompClient) {
       stompClient.publish({
-        destination,
-        headers,
-        body,
+        headers: {"lobbyName": headers},
+        destination: destination
       });
-      console.log(headers);
+      onLobbyName(headers);
     } else {
       console.log("stompClient is null");
     }
@@ -59,8 +50,7 @@ function StompHook(props) {
           <span>headers:</span>
           <input
             type="text"
-            value={lobbyName2}
-            onChange={(e) => setLobbyName2(e.target.value)}
+            onChange={(e) => setHeaders(e.target.value)}
           />
         </div>
         <button type="submit">서버로 메세지 보내기(통신)</button>

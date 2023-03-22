@@ -16,19 +16,16 @@ function StompHookProps() {
   // const { destination, headers } = location.state;
   // const lobbyName = headers.lobbyName;
   const [destination, setDestination] = useState("/app/create");
-  const [lobbyName, setLobbyName] = useState("test3");
-  const [headers, setHeaders] = useState({lobbyName: lobbyName});
+  const [lobbyName, setLobbyName] = useState("");
   const subscription = "/user/lobby";
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
   const messageListRef = useRef([]);
 
-  let msg;
 
   const handleReceivedMessage = (message) => {
-    msg = message;
     setReceivedMessage(message);
-    messageListRef.current = [...messageListRef.current, receivedMessage];
+    messageListRef.current = [...messageListRef.current, message];
   };
 
   console.log(messageListRef);
@@ -101,6 +98,7 @@ function StompHookProps() {
   // let aa = "yCXVg가 Contessa를 버림";
 
   let blockedMessages = null;
+  console.log("latestuserChoiceMessages: " + latestuserChoiceMessages);
   if (latestuserChoiceMessages) {
     console.log(JSON.parse(latestuserChoiceMessages).content);
     blockedMessages = JSON.parse(latestuserChoiceMessages).content.filter(message => message.substring(0, 5) === "Block");
@@ -127,10 +125,9 @@ function StompHookProps() {
       <StompHook
         subscription={subscription}
         destination={destination}
-        headers={headers}
         body={body}
         onReceivedMessage={handleReceivedMessage}
-        lobbyName={lobbyName}
+        onLobbyName= {setLobbyName}
       />
       <div className="BankerConsole">
         <Banker receivedMessage={receivedMessage} />

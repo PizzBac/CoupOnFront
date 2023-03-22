@@ -9,11 +9,10 @@ function Console(Props) {
   const [subscription, setSubscription] = useState("/user/lobby");
   const [destination, setDestination] = useState("/app/game");
   const lobbyName = Props.lobbyName;
-  const [headers, setHeaders] = useState({"lobbyName":lobbyName}); //JSON stringfy 하면 안됨.
   const [body, setBody] = useState("");
 
   const publishMessage = (body) => {
-    stompClient.publish({ subscription, destination: '/app/game', headers: { lobbyName: lobbyName }, body });
+    stompClient.publish({ subscription, destination: '/app/game', headers: { "lobbyName": lobbyName }, body });
   };
   
   // "{"type":"CHOICE","userMessage":"액션을 고르시오.","content":["Income","ForeignAid","Tax","Assassinate","Exchange","Steal"]}"
