@@ -1,6 +1,13 @@
-.BankerConsole {
-  display: inline-block;
+.gameConsole {
+  display: flex;
+  flex-direction: column;
+}
+.bankerConsole {
+  display: flex;
+}
+.logConsoleDiv {
+  display: flex;
 }
 .Player {
-  display: block;
+  display: flex;
 }

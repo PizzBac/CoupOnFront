@@ -11,7 +11,7 @@
 } */
 .console {
   float: left;
-  width: 600px;
+  width: calc(100vmin);
 }
 
 .logConsole {
@@ -82,10 +82,11 @@
 } */
 
 .font {
-  color: black;
+  color: white;
   padding: 10px;
-  font: bold 1.2vw "TmonMonsori";
-  text-shadow: 3px 3px 0 white;
+  font: bold calc(0.1rem + 1vw) "TmonMonsori";
+  text-align : center;
+  text-shadow: -1.1px 0 #000, 0 1.1px #000, 1.1px 0 #000, 0 -1.1px #000;
 }
 
 /* 이미지 설정 */
