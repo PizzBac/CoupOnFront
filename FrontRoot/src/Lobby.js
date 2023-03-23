@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate, useLocation, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { STOMP_HOOK_PROPS_PATH } from "./ServerQue/StompHookProps";
 import {
   StompSessionProvider,
@@ -8,7 +8,7 @@ import {
 } from 'react-stomp-hooks';
 const url = 'ws://javaspringbootcoupgamebackend-env.eba-2u3en2tr.ap-northeast-2.elasticbeanstalk.com/ws'
 
-const Lobby = () => {
+function Lobby(){
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [lobbyInput, setLobbyInput] = useState("test");
@@ -18,8 +18,10 @@ const Lobby = () => {
   const stompClient = useStompClient();
 
   const navigate = useNavigate();
+  const location= useLocation();
 
-  useEffect(() => {
+  useEffect(
+    () => {
     if (stompClient) {
       console.log("sucess");
     } else {
@@ -63,7 +65,7 @@ const Lobby = () => {
     }
   };
 
-  const sendMessage = () => {
+  function sendMessage(){
     if (input) {
       // send method takes a destination path, an optional body and an optional headers object
       stompClient.publish({
@@ -75,23 +77,22 @@ const Lobby = () => {
     }
   };
 
-  const createLobby = () => {
-    stompClient.publish({
-      destination: '/app/create',
-      headers: { lobbyName: lobbyInput },
-      body: '',
-    });
-  };
+  function createLobby() {
+    const roomName='room1'; // url 뒤에 game/room1 붙이는 거임
+    const url = `http://localhost:3000/game?roomName=${roomName}`;
+    window.location.href = url;
+    console.log(roomName);
+  }
 
-  const startGame = () => {
+  function startGame(){
     stompClient.publish({
       destination: '/app/start',
       headers: { lobbyName: lobbyInput },
     });
-    navigate('/game', { state: { destination: '/app/game',  headers: { lobbyName: lobbyInput }} });
+    navigate('/game', { state: { destination: '/app/game', headers:{lobbyName: lobbyInput}}});
   };
 
-  const seeAllUsers = () => {
+  function seeAllUsers(){
     stompClient.publish({
       destination: '/app/users',
     });
@@ -117,10 +118,10 @@ const Lobby = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button onClick={sendMessage}>Send</button>
-        <button onClick={createLobby}>Create Lobby</button>
-        <button onClick={startGame}>Start Game</button>
-        <button onClick={seeAllUsers}>See all users</button>
+        <button className='sendMessgae' onClick={sendMessage}>Send</button>
+        <button className='createLobby' onClick={createLobby}>Create Lobby</button>
+        <button className='startGame'  onClick={startGame}>Start Game</button>
+        <button className='seeAllUsers' onClick={seeAllUsers}>See all users</button>
         <div>
           <span>LobbyName:</span>
           <input

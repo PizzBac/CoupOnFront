@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useStompClient } from 'react-stomp-hooks';
+import './blockConsole.css';
 
 function BlockConsole({ lobbyName, body, blockedMessages }) {
 
@@ -17,24 +18,27 @@ function BlockConsole({ lobbyName, body, blockedMessages }) {
   };
 
   return (
-    // <div>
-    //   {blockedMessages.map((msg, index) => (
-    //     <button className="blockBtn" key={index} onClick={() => handleClick(msg)}>
-    //       {msg}
-    //     </button>
-    //   ))}
-    // </div>
     <>
-      {blockedMessages.map((msg, index) => (
-        <div className="hex btn-pass" key={index} onClick={() => handleClick(msg)}>
+    {blockedMessages.map((msg, index) => {
+      let btnMsg = '';
+      if (msg === 'Block (Ambassador)') {
+        btnMsg = '블록(외교관)';
+      } else if (msg === 'Block (Captain)') {
+        btnMsg = '블록(사령관)';
+      } else if (msg === 'Block (Duke)') {
+        btnMsg = '블록(공작)';
+      } 
+      return (
+        <div className="hex btn-block" key={index} onClick={() => handleClick(msg)}>
           <div className="hex-inner1">
-            <div className="hex-inner2 basic-action pass">
-              {msg}
+            <div className="hex-inner2 basic-action block">
+              <p>{btnMsg}</p>
             </div>
           </div>
         </div>
-      ))}
-    </>
+      );
+    })}
+  </>
   );
 }
 

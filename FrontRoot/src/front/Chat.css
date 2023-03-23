@@ -1,0 +1,51 @@
+.chatWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 채팅창 보이게 하려면 스타일 적용해야 함 */
+.chatcontainer {
+    border: 5px solid black;
+    border-radius: 3%;
+    width: 45vmin;
+    height: 25vmin;
+    overflow-y: scroll;
+    background-color: bisque;
+    margin-bottom: 0.5vmin;
+    padding: 2vmin;
+    -ms-overflow-style: none;
+    /* 인터넷 익스플로러 */
+    scrollbar-width: none;
+    /* 파이어폭스 */
+}
+
+.chatcontainer::-webkit-scrollbar {
+    display: none;
+}
+
+.messageLabel {
+    background-color: bisque;
+    border: 5px solid black;
+    padding: 2vmin 5px;
+    border-radius: 3%;
+    display: flex;
+}
+
+.messageInput {
+    width: 40vmin;
+    height: 4vmin;
+    font-size: 3vmin;
+    border: none;
+    background-color: bisque;
+    position: static;
+    bottom: 500;
+}
+
+.submitBtn {
+    background-color: DodgerBlue;
+    border: none;
+    color: bisque;
+    padding: 1.5vmin 2vmin;
+    font-size: 18px;
+    cursor: pointer;
+}

@@ -4,11 +4,10 @@ import { useLocation } from 'react-router-dom';
 import Banker from '../front/banker';
 import Console from '../front/console';
 import Player from '../front/player';
-import BlockConsole from '../front/blockConsole';
 import ScrollToBottom from 'react-scroll-to-bottom';
-
 import './StompHookProps.css';
 import '../reset.css';
+import Chat from '../front/Chat';
 
 function StompHookProps() {
   // const location = useLocation();
@@ -135,15 +134,12 @@ function StompHookProps() {
         <Console destination={destination} lobbyName={lobbyName} body={body} blockedMessages={blockedMessages} />
       </div>
       <div className='logConsoleDiv'>
+        <Chat lobbyName={lobbyName} />
         <ScrollToBottom className='logConsole'>
           <ul>
             {logMessages.map((obj, index) => <li>{JSON.parse(obj).userMessage}</li>)}
           </ul>
         </ScrollToBottom>
-        {/* {blockedMessages ?
-          <BlockConsole lobbyName={lobbyName} blockedMessages={blockedMessages} />
-          : <div>dd</div>
-        } */}
       </div>
 
       {latestUpdateMessage &&
@@ -168,7 +164,6 @@ function StompHookProps() {
               exchangedCardOptions={exchangedCardOptions}
             />)}
         </div>
-
       }
     </div>
   );

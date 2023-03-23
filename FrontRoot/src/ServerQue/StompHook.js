@@ -1,4 +1,3 @@
-//StompHook.js
 import React, { useState, useEffect } from 'react';
 import { useSubscription, useStompClient } from 'react-stomp-hooks';
 import './StompHook.css';
