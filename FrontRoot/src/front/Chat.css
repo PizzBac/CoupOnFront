@@ -8,7 +8,7 @@
     border: 5px solid black;
     border-radius: 3%;
     width: 45vmin;
-    height: 35vmin;
+    height: 25vmin;
     overflow-y: scroll;
     background-color: bisque;
     margin-bottom: 0.5vmin;
@@ -33,7 +33,7 @@
 
 .messageInput {
     width: 40vmin;
-    height: 6vmin;
+    height: 4vmin;
     font-size: 3vmin;
     border: none;
     background-color: bisque;

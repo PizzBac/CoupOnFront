@@ -50,7 +50,7 @@ function Console(Props) {
     publishMessage("Assassinate");
   };
 
-  const handleCaptinClick = () => {
+  const handleCaptainClick = () => {
     publishMessage("Steal");
   };
 
@@ -144,7 +144,7 @@ function Console(Props) {
           </div>
           <div className="popup-msg ambassador-msg"><p>외교관은 덱에서 카드 두 장을 골라 내 카드와 합친 네 장 중에 2장을 선택하여 교환 할 수 있습니다. 또한 사령관의 코인 강탈을 막을 수 있습니다.</p></div>
 
-          <div className="hex btn-captain" onClick={handleCaptinClick}>
+          <div className="hex btn-captain" onClick={handleCaptainClick}>
             <div className="hex-inner1">
               <div className="hex-inner2 job-action job-captain"></div>
             </div>

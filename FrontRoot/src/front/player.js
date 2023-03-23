@@ -81,7 +81,7 @@ function Player(props) {
     <div>
       {owner && (
         <div className="player">
-          <button className='player_font' onClick={handleButtonClick}>{name}</button>
+          <button className='player_font' onClick={handleButtonClick}>{name}(나)</button>
           <div>
             {card0 &&
               <img src={require("" + `./images/${card0}.png`)} alt={card0} className="img cardImg" onClick={handleCard0Click} />
