@@ -6,6 +6,9 @@ import {
   useSubscription,
   useStompClient,
 } from 'react-stomp-hooks';
+
+
+
 const url = 'ws://javaspringbootcoupgamebackend-env.eba-2u3en2tr.ap-northeast-2.elasticbeanstalk.com/ws'
 
 function Lobby(){
@@ -78,13 +81,23 @@ function Lobby(){
   };
 
   function createLobby() {
-    const roomName='room1'; // url 뒤에 game/room1 붙이는 거임
-    const url = `http://localhost:3000/game?roomName=${roomName}`;
-    window.location.href = url;
-    console.log(roomName);
-  }
+    stompClient.publish({
+    destination: '/app/create',
+    headers: { lobbyName: lobbyInput },
+    body: '',
+  });
+};
+    // const roomName='room1'; // url 뒤에 game/room1 붙이는 거임
+    // const url = `http://localhost:3000/game?roomName=${roomName}`;
+    // window.location.href = url;
+    // console.log(roomName);
+  
 
   function startGame(){
+
+    const roomName=lobbyInput;
+   const url = `http://localhost:3000/game?roomName=${roomName}`;
+    window.location.href = url;
     stompClient.publish({
       destination: '/app/start',
       headers: { lobbyName: lobbyInput },
