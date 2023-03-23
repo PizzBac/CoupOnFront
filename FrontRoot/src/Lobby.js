@@ -11,12 +11,18 @@ import {
 
 const url = 'ws://javaspringbootcoupgamebackend-env.eba-2u3en2tr.ap-northeast-2.elasticbeanstalk.com/ws'
 
-function Lobby(){
+function Lobby(props){
+  const { parentFunction } = props;
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [lobbyInput, setLobbyInput] = useState("test");
   const [destination, setDestination] = useState("/app/create");
   // const [subscription, setSubscription] = useState("/user/lobby");
+
+  if (lobbyInput) {
+    parentFunction(lobbyInput);
+
+  }
 
   const stompClient = useStompClient();
 
