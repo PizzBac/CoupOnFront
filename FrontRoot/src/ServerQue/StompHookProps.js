@@ -9,14 +9,17 @@ import './StompHookProps.css';
 import '../reset.css';
 import Chat from '../front/Chat';
 
-function StompHookProps() {
+function StompHookProps(props) {
+  const { lobbyName } = props;
+  console.log(lobbyName);
   // const location = useLocation();
   // const { destination, headers } = location.state;
   // const lobbyName = headers.lobbyName;
   const subscription = "/user/lobby";
   const [destination, setDestination] = useState("/app/game");
   
-  const [lobbyName, setLobbyName] = useState("default2");
+  const [lobbyName2, setLobbyName] = useState(lobbyName);
+  console.log(lobbyName2);
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
   const messageListRef = useRef([]); // 축적.
@@ -26,7 +29,6 @@ function StompHookProps() {
     messageListRef.current = [...messageListRef.current, message];
   };
 
-  console.log(lobbyName);
 
   console.log(messageListRef);
 
