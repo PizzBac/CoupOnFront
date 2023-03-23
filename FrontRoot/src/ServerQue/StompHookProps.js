@@ -11,17 +11,16 @@ import './StompHookProps.css';
 import '../reset.css';
 
 function StompHookProps() {
-
   // const location = useLocation();
-
   // const { destination, headers } = location.state;
   // const lobbyName = headers.lobbyName;
   const subscription = "/user/lobby";
   const [destination, setDestination] = useState("/app/game");
+  
   const [lobbyName, setLobbyName] = useState("default");
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
-  const messageListRef = useRef([]);
+  const messageListRef = useRef([]); // 축적.
 
   const handleReceivedMessage = (message) => {
     setReceivedMessage(message);
@@ -97,14 +96,17 @@ function StompHookProps() {
   // let aa = "yCXVg가 Contessa를 버림";
 
   let blockedMessages = null;
+  let exchangedCardOptions = null;
   console.log("latestuserChoiceMessages: " + latestuserChoiceMessages);
   if (latestuserChoiceMessages) {
-    console.log(JSON.parse(latestuserChoiceMessages).content);
+    if (JSON.parse(latestuserChoiceMessages).userMessage.substring(0,12) === "버릴 카드를 선택하세요") {
+      exchangedCardOptions = JSON.parse(latestuserChoiceMessages).content
+    }
     blockedMessages = JSON.parse(latestuserChoiceMessages).content.filter(message => message.substring(0, 5) === "Block");
   } else {
     console.log("아직 고를 수 있는게 없습니다.")
   }
-  console.log(blockedMessages);
+  console.log(exchangedCardOptions);
 
   let wasteUsersName = "";
   let wasteUsersCard = "";
@@ -153,7 +155,8 @@ function StompHookProps() {
           /> */}
           {/* {JSON.parse(latestUpdateMessage).content.players.map((obj, index) => <li>{obj.name} {obj.coins}</li>)} */}
           {JSON.parse(latestUpdateMessage).content.players.map((obj, index) =>
-            <Player localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards}
+            <Player 
+              localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards}
               lobbyName={lobbyName}
               name={obj.name}
               coins={obj.coins}
@@ -162,6 +165,7 @@ function StompHookProps() {
               cardNumbers={obj.cardNumbers}
               wasteUsersName={wasteUsersName}
               wasteUsersCard={wasteUsersCard}
+              exchangedCardOptions={exchangedCardOptions}
             />)}
         </div>
 
