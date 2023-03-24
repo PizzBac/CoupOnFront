@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "./Chat.css";
-import { FaPaperPlane } from "react-icons/fa";
+// import { FaPaperPlane } from "react-icons/fa";
 import { useSubscription, useStompClient } from 'react-stomp-hooks';
 
 function Chat(props) {
@@ -63,7 +63,7 @@ function Chat(props) {
                         placeholder="메시지를 입력하세요"
                     />
                     <span className="submitBtn" onClick={handleSubmit}>
-                        <FaPaperPlane />
+                        {/* <FaPaperPlane /> */}
                     </span>
                 </label>
             </form>

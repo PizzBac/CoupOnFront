@@ -4,7 +4,7 @@ import { useStompClient } from 'react-stomp-hooks';
 import './player.css';
 
 function Player(props) {
-  const { localPlayerCards, name, coins, cardNumbers, userName, players, wasteUsersName, wasteUsersCard } = props;
+  const { localPlayerCards, name, coins, cardNumbers, userName, players, wasteUsersName, wasteUsersCard, exchangedCardOptions} = props;
 
   let card0 = localPlayerCards[0];
   let card1 = localPlayerCards[1];
@@ -89,6 +89,19 @@ function Player(props) {
             {card1 &&
               <img src={require("" + `./images/${card1}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
             }
+            {exchangedCardOptions &&(
+              <>
+              {exchangedCardOptions.length === 3 &&
+                <img src={require("" + `./images/${exchangedCardOptions[2]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
+              }
+              {exchangedCardOptions.length === 4 &&
+                <>
+                <img src={require("" + `./images/${exchangedCardOptions[2]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
+                <img src={require("" + `./images/${exchangedCardOptions[3]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
+                </>
+              }
+              </>
+            )}
           </div>
           <div className='coin_container'>
             <div className='coin img'></div><span className='coin_font'>{coins}</span>

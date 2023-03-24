@@ -6,14 +6,26 @@ import {
   useSubscription,
   useStompClient,
 } from 'react-stomp-hooks';
+
+
+
 const url = 'ws://javaspringbootcoupgamebackend-env.eba-2u3en2tr.ap-northeast-2.elasticbeanstalk.com/ws'
 
+
 function Lobby(){
+
+function Lobby(props){
+  const { parentFunction } = props;
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [lobbyInput, setLobbyInput] = useState("test");
   const [destination, setDestination] = useState("/app/create");
   // const [subscription, setSubscription] = useState("/user/lobby");
+
+  if (lobbyInput) {
+    parentFunction(lobbyInput);
+
+  }
 
   const stompClient = useStompClient();
 
@@ -77,6 +89,7 @@ function Lobby(){
     }
   };
 
+
   function createLobby(){
      const Id='hsjm0893';
      const Name='김종진';
@@ -89,6 +102,25 @@ function Lobby(){
   };
 
   function startGame(){
+
+  function createLobby() {
+    stompClient.publish({
+    destination: '/app/create',
+    headers: { lobbyName: lobbyInput },
+    body: '',
+  });
+};
+    // const roomName='room1'; // url 뒤에 game/room1 붙이는 거임
+    // const url = `http://localhost:3000/game?roomName=${roomName}`;
+    // window.location.href = url;
+    // console.log(roomName);
+  
+
+  function startGame(){
+
+    const roomName=lobbyInput;
+   const url = `http://localhost:3000/game?roomName=${roomName}`;
+    window.location.href = url;
     stompClient.publish({
       destination: '/app/start',
       headers: { lobbyName: lobbyInput },
