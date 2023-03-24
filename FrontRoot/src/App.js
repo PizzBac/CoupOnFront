@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { StompSessionProvider } from "react-stomp-hooks";
 import Lobby from "./Lobby";
+import CreateRoom from "./front/CreateRoom";
 import StompHookProps, {
     STOMP_HOOK_PROPS_PATH,
 } from "./ServerQue/StompHookProps";
