@@ -11,24 +11,21 @@ import Chat from '../front/Chat';
 
 function StompHookProps(props) {
   const { lobbyName } = props;
-  console.log(lobbyName);
-  // const location = useLocation();
-  // const { destination, headers } = location.state;
-  // const lobbyName = headers.lobbyName;
   const subscription = "/user/lobby";
   const [destination, setDestination] = useState("/app/game");
-  
   const [lobbyName2, setLobbyName] = useState(lobbyName);
-  console.log(lobbyName2);
+
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
   const messageListRef = useRef([]); // 축적.
+
+  console.log(lobbyName);
+  console.log(lobbyName2);
 
   const handleReceivedMessage = (message) => {
     setReceivedMessage(message);
     messageListRef.current = [...messageListRef.current, message];
   };
-
 
   console.log(messageListRef);
 
@@ -102,7 +99,7 @@ function StompHookProps(props) {
   let exchangedCardOptions = null;
   console.log("latestuserChoiceMessages: " + latestuserChoiceMessages);
   if (latestuserChoiceMessages) {
-    if (JSON.parse(latestuserChoiceMessages).userMessage.substring(0,12) === "버릴 카드를 선택하세요") {
+    if (JSON.parse(latestuserChoiceMessages).userMessage.substring(0, 12) === "버릴 카드를 선택하세요") {
       exchangedCardOptions = JSON.parse(latestuserChoiceMessages).content
     }
     blockedMessages = JSON.parse(latestuserChoiceMessages).content.filter(message => message.substring(0, 5) === "Block");
@@ -155,7 +152,7 @@ function StompHookProps(props) {
           /> */}
           {/* {JSON.parse(latestUpdateMessage).content.players.map((obj, index) => <li>{obj.name} {obj.coins}</li>)} */}
           {JSON.parse(latestUpdateMessage).content.players.map((obj, index) =>
-            <Player 
+            <Player
               localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards}
               lobbyName={lobbyName}
               name={obj.name}
