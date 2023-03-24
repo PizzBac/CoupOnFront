@@ -23,21 +23,21 @@ function StompHook(props) {
     }
   }
 
-  function createLobby() {
+  function seeAllGames() {
     if (stompClient) {
       stompClient.publish({
-        headers: { "lobbyName": headers },
-        destination: "/app/create"
+        destination: "/app/showallgame"
       })
     } else {
       console.log("stompClient is null");
     }
   }
 
-  function seeAllGames() {
+  function createLobby() {
     if (stompClient) {
       stompClient.publish({
-        destination: "/app/showallgame"
+        headers: { "lobbyName": headers },
+        destination: "/app/create"
       })
     } else {
       console.log("stompClient is null");

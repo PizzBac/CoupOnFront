@@ -10,12 +10,16 @@ import StompHookProps, {
 const url = "wss://coup.jestground.com/ws";
 
 const App = () => {
-  const [lobbyName, setLobbyName] = useState("");
-  
     const parentFunction = (x) => {
       console.log(x);
       setLobbyName(x);
     };
+    const [lobbyName, setLobbyName] = useState("");
+
+    useEffect(() => {
+        // lobbyName이 변경될 때마다 StompHookProps를 다시 렌더링합니다.
+        console.log("lobbyName has changed:", lobbyName);
+    }, [lobbyName]);
 
     return (
         <StompSessionProvider url={url} debug={(s) => console.log(s)}>
@@ -25,7 +29,7 @@ const App = () => {
                         exact path="/"
                         element={
                             <Lobby
-                            parentFunction={parentFunction}
+                                SettingLobbyName={SettingLobbyName}
                             />
                         }
                     />
