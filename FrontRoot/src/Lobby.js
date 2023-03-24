@@ -66,7 +66,7 @@ function Lobby(props) {
     }
   };
 
-  // 무슨 기능?
+  // 무슨 기능인지 아시는 분 형민한테 설명 좀 부탁드려요.
   function sendMessage() {
     if (input) {
       // send method takes a destination path, an optional body and an optional headers object
