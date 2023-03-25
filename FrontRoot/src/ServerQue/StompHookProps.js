@@ -8,6 +8,9 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import './StompHookProps.css';
 import '../reset.css';
 import Chat from '../front/Chat';
+import { saveAs } from 'file-saver';
+
+
 
 function StompHookProps(props) {
   const { lobbyName } = props;
@@ -27,8 +30,18 @@ function StompHookProps(props) {
     messageListRef.current = [...messageListRef.current, message];
   };
 
-  console.log(messageListRef);
+  const saveAs = require('file-saver');
 
+const logFilePath = 'serverRecievedMsg.txt';
+
+const log = (msg) => {
+  const blob = new Blob([msg], { type: 'text/plain;charset=utf-8' });
+  saveAs(blob, logFilePath);
+  console.log(msg);
+};
+
+log(messageListRef.current);
+  
   const updateMessages = messageListRef.current.filter((msg) => {
     // {로 시작하고 }로 끝나는 문자열 중에서 type이 UPDATE인 것만 필터링
     if (msg.startsWith("{") && msg.endsWith("}") && msg.length > 100) {
@@ -164,6 +177,7 @@ function StompHookProps(props) {
               wasteUsersCard={wasteUsersCard}
               exchangedCardOptions={exchangedCardOptions}
             />)}
+            
         </div>
       }
     </div>
