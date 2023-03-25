@@ -11,6 +11,9 @@ function Lobby(props) {
   const [destination, setDestination] = useState("/app/create");
   // const [subscription, setSubscription] = useState("/user/lobby");
 
+  const [value, setValue] = useState(''); //얘는 이름 입력하면 로비 만들기 위한 선언임
+  const [tableData, setTableData] = useState([]); //얘도 마찬가지
+
   const stompClient = useStompClient();
 
   const navigate = useNavigate();
@@ -26,6 +29,30 @@ function Lobby(props) {
     console.log("stompClient is null");
   }
 
+  function handleChange(event) {//얘가 1이고 1~4는 이름 입력하면 그 이름을 가진 테이블을 생성하기 위한 코드
+    setValue(event.target.value);
+  };
+
+  function handleSubmit(event) {//2
+    event.preventDefault();
+    if (!value) return; // 입력값이 없는 경우 처리
+    const rowData = <tr ><td style={{ border: "1px solid black" }}>{value}</td></tr>;
+    setTableData([...tableData, rowData]);
+    setValue("");
+  }
+
+  function handleDelete(rowDataToDelete){//3
+    const newData = tableData.filter(rowData => rowData !== rowDataToDelete);
+    setTableData(newData);
+  }
+
+  function deleteTableRow(index) {//4
+    const newData = [...tableData];
+    newData.splice(index, 1);
+    setTableData(newData);
+  }
+
+  
   function handleCheck(event) {
     event.preventDefault();
 
@@ -66,19 +93,6 @@ function Lobby(props) {
     }
   };
 
-  // 무슨 기능?
-  function sendMessage() {
-    if (input) {
-      // send method takes a destination path, an optional body and an optional headers object
-      stompClient.publish({
-        headers: { lobbyName: lobbyInput },
-        destination: '/app/game',
-        body: input,
-      });
-      setInput('');
-    }
-  };
-
   function seeAllUsers() {
     stompClient.publish({
       destination: '/app/users',
@@ -100,15 +114,25 @@ function Lobby(props) {
       body: '',
     });
   };
+  
+  function MoveMyRoom(row) { //순서를 조정해야겠다. 
+    const startButton = document.querySelector('button[disabled]');
+    //비활성화된 버튼을 찾는 코드이다.
+    startButton.disabled = false;
+    //그 버튼을 찾아서 false로 만든다. (활성화 시킨다는 뜻)
+    startButton.addEventListener('click', startGame); //과연 이 코드가 꼭 있어야 한다.
+  }
 
-  function startGame() {
+  function startGame() { //만약 stompClient 객체가 존재할 경우, lobbyInput을 가지고 app/start로 이동
     if (stompClient) {
       stompClient.publish({
         headers: { "lobbyName": lobbyInput },
         destination: "/app/start"
       })
-    }
-    navigate('/game');
+    }navigate('/game');
+    //코드가 잘 작동되는지 확인해 보고 싶으면
+    //alert를 찍어보거나 console.log를 찍어보면 된다.
+    //지금도 alert 찍어보고 작동을 안 하니까 alert 작동 코드 물어봐서 해결했다.
   }
 
   return (
@@ -125,7 +149,7 @@ function Lobby(props) {
         <button type='button' onClick={handleCheck}>서버 연결 체크하기(콘솔 창 통해 확인)</button>
       </div>
       <div className="chat-input">
-        {/* <input
+        {/*<input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -134,7 +158,7 @@ function Lobby(props) {
         <button className='seeAllUsers' onClick={seeAllUsers}>See all users</button>
         <button className='seeAllGames' onClick={seeAllGames}>See all games</button>
         <button className='createLobby' onClick={createLobby}>Create Lobby</button>
-        <button className='startGame' onClick={startGame}>Start Game</button>
+        {/* <button className='startGame' onClick={startGame}>Start Game</button> */}
         <div>
           <span>LobbyName:</span>
           <input
@@ -144,6 +168,32 @@ function Lobby(props) {
           />
         </div>
       </div>
+
+      {/* 얘네가 테이블 생성하는 코드임 */}
+      <div> 
+      <form onSubmit={handleSubmit}>
+  <label>
+    <input type="text" value={value} onChange={handleChange} />
+  </label>
+  <button type="submit">추가</button>
+</form>
+<table style={{ border: "1px solid black" }}>
+  <tbody>
+    {tableData.map((row, index)=>(
+      <tr key={index}>{/* 여기서 이 함수를 호출하면서 row 값을 전달 */}
+        <td>{row}</td>
+        <td>
+          <button onClick={()=>MoveMyRoom(row)}>참여</button>
+          <button onClick={()=>deleteTableRow(index)}>삭제</button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+<button onClick={startGame} disabled={true}>Start Game</button>
+
+
+    </div>
     </div>
   );
 };

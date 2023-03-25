@@ -12,45 +12,45 @@ function Console(Props) {
   const lobbyName = Props.lobbyName;
   const [body, setBody] = useState("");
 
-  const publishMessage = (body) => {
+  function publishMessage(body){
     stompClient.publish({ subscription, destination: '/app/game', headers: { "lobbyName": lobbyName }, body });
   };
 
   // "{"type":"CHOICE","userMessage":"액션을 고르시오.","content":["Income","ForeignAid","Tax","Assassinate","Exchange","Steal"]}"
 
-  const handleIncomeClick = () => {
+  function handleIncomeClick(){
     publishMessage("Income");
   };
 
-  const handleForgeinClick = () => {
+  function handleForgeinClick(){
     publishMessage("ForeignAid");
   };
 
-  const handleCoupClick = () => {
+  function handleCoupClick(){
     publishMessage("Coup");
   };
 
-  const handleChallengeClick = () => {
+  function handleChallengeClick(){
     publishMessage("Challenge");
   };
 
-  const handlePassClick = () => {
+  function handlePassClick(){
     publishMessage("Pass");
   };
 
-  const handleDukeClick = () => {
+  function handleDukeClick(){
     publishMessage("Tax");
   };
 
-  const handleAmbassadorClick = () => {
+  function handleAmbassadorClick(){
     publishMessage("Exchange");
   };
 
-  const handleAssassinClick = () => {
+  function handleAssassinClick(){
     publishMessage("Assassinate");
   };
 
-  const handleCaptainClick = () => {
+  function handleCaptainClick(){
     publishMessage("Steal");
   };
 

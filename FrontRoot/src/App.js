@@ -9,14 +9,14 @@ import StompHookProps, {
 
 const url = "wss://coup.jestground.com/ws";
 
-const App = () => {
-    const parentFunction = (x) => {
+function App(){
+    function parentFunction(x){
       console.log(x);
       setLobbyName(x);
     };
     const [lobbyName, setLobbyName] = useState("");
 
-    const SettingLobbyName = (x) => {
+    function SettingLobbyName(x){
         setLobbyName(x);
     };
     
@@ -26,7 +26,7 @@ const App = () => {
     }, [lobbyName]);
 
     return (
-        <StompSessionProvider url={url} debug={(s) => console.log(s)}>
+        <StompSessionProvider url={url} debug={(s) => console.log(s)}> {/*여기서 생성된다는데 잘 모르겠다. */}
             <BrowserRouter>
                 <Routes>
                     <Route
@@ -40,7 +40,7 @@ const App = () => {
                     <Route exact path="/game" element={<StompHookProps lobbyName={lobbyName} />} />
                 </Routes>
             </BrowserRouter>
-        </StompSessionProvider>
+         </StompSessionProvider>
     );
 };
 
