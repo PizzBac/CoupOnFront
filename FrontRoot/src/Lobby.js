@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { StompSessionProvider, useSubscription, useStompClient } from 'react-stomp-hooks'; //이게 백엔드랑 통신하는 코드
-import { STOMP_HOOK_PROPS_PATH } from "./ServerQue/StompHookProps";
 
 function Lobby(props) {
   const { SettingLobbyName } = props;
   const [messages, setMessages] = useState([]);
   const [lobbyInput, setLobbyInput] = useState("test");
   // const [subscription, setSubscription] = useState("/user/lobby");
-  const [value, setValue] = useState(''); //얘는 이름 입력하면 로비 만들기 위한 선언임
+  const [forCreateLobbyInputName, setForCreateLobbyInputName] = useState(''); //얘는 이름 입력하면 로비 만들기 위한 선언임
   const [tableData, setTableData] = useState([]); //얘도 마찬가지
 
   const stompClient = useStompClient();
@@ -25,15 +24,15 @@ function Lobby(props) {
   }
 
   function handleChange(event) {//얘가 1이고 1~4는 이름 입력하면 그 이름을 가진 테이블을 생성하기 위한 코드
-    setValue(event.target.value);
+    setForCreateLobbyInputName(event.target.value);
   };
 
   function ParticipationButton(event) {//2
     event.preventDefault();
-    if (!value) return; // 입력값이 없는 경우 처리
-    const rowData = <tr ><td style={{ border: "1px solid black" }}>{value}</td></tr>;
+    if (!forCreateLobbyInputName) return; // 입력값이 없는 경우 처리
+    const rowData = <tr ><td style={{ border: "1px solid black" }}>{forCreateLobbyInputName}</td></tr>;
     setTableData([...tableData, rowData]);
-    setValue("");
+    setForCreateLobbyInputName("");
   }
 
   function deleteTableRow(index) {//4
@@ -41,10 +40,9 @@ function Lobby(props) {
     newData.splice(index, 1);
     setTableData(newData);
   }
-  
+
   function handleCheck(event) {
     event.preventDefault();
-
     if (stompClient) {
       console.log("sucess");
     } else {
@@ -52,7 +50,7 @@ function Lobby(props) {
     }
   }
 
-// 마지막으로, setMessages 함수는 이전 메시지 배열(messages)과 새로운 메시지(usermsg)를 결합하여 메시지 배열을 업데이트합니다. 이 배열은 화면에 표시되는 채팅 창에 표시됩니다.
+  // 마지막으로, setMessages 함수는 이전 메시지 배열(messages)과 새로운 메시지(usermsg)를 결합하여 메시지 배열을 업데이트합니다. 이 배열은 화면에 표시되는 채팅 창에 표시됩니다.
   useSubscription('/user/lobby', (message) => { // '/user/lobby' 채널에서 메세지를 수신하고 해당 메세지를 처리하는 함수
     //useSubscription은 React Hook인데, 얘가 WebSocket 연결을 생성하고 해당 연결을 통해 데이터를 수신하는데 사용
     const msg = tryParseJSON(message.body);
@@ -104,7 +102,7 @@ function Lobby(props) {
       body: '',
     });
   };
-  
+
   let startButton = null; //참여 여러번 눌러도 오류 안 뜨게 고쳐주는 코드.
   function MoveMyRoom(row) {
     startButton = startButton || document.querySelector('button[disabled]'); //비활성화된 버튼을 찾는 코드이다.
@@ -112,7 +110,7 @@ function Lobby(props) {
     startButton.disabled = false; //그 버튼을 찾아서 false로 만든다.(활성화 사킨다는 뜻)
     startButton.addEventListener('click', startGame); //이 코드가 없으면 startGame()이 작동을 안한다.
   }
-  
+
 
   function startGame() { //만약 stompClient 객체가 존재할 경우, lobbyInput을 가지고 app/start로 이동
     if (stompClient) {
@@ -120,7 +118,8 @@ function Lobby(props) {
         headers: { "lobbyName": lobbyInput },
         destination: "/app/start"
       })
-    }navigate('/game');
+    }
+    navigate('/game');
   }
 
   return (
@@ -140,7 +139,7 @@ function Lobby(props) {
         <button className='seeAllUsers' onClick={seeAllUsers}>See all users</button>
         <button className='seeAllGames' onClick={seeAllGames}>See all games</button>
         <button className='createLobby' onClick={createLobby}>Create Lobby</button>
-        {/* <button className='startGame' onClick={startGame}>Start Game</button> */}
+        <button className='startGame' onClick={startGame}>Start Game</button>
         <div>
           <span>LobbyName:</span>
           <input
@@ -151,29 +150,31 @@ function Lobby(props) {
         </div>
       </div>
 
+      <hr />
+
       {/* 얘네가 테이블 생성하는 코드임 */}
-      <div> 
-      <form onSubmit={ParticipationButton}>
-  <label>
-    <input type="text" value={value} onChange={handleChange} />
-  </label>
-<button type="submit">추가</button>
-</form>
-<table style={{ border: "1px solid black" }}>
-  <tbody>
-    {tableData.map((row, index)=>(
-      <tr key={index}>{/* 여기서 이 함수를 호출하면서 row 값을 전달 */}
-        <td>{row}</td>
-        <td>
-          <button onClick={()=>MoveMyRoom(row)}>참여</button>
-          <button onClick={()=>deleteTableRow(index)}>삭제</button>
-        </td>
-      </tr>
-    ))}
-  </tbody>
-</table>
-<button onClick={startGame} disabled={true}>Start Game</button>
-    </div>
+      <div>
+        <form onSubmit={ParticipationButton}>
+          <label>
+            <input type="text" value={forCreateLobbyInputName} onChange={handleChange} />
+          </label>
+          <button type="submit">추가</button>
+        </form>
+        <table style={{ border: "1px solid black" }}>
+          <tbody>
+            {tableData.map((row, index) => (
+              <tr key={index}>{/* 여기서 이 함수를 호출하면서 row 값을 전달 */}
+                <td>{row}</td>
+                <td>
+                  <button onClick={() => MoveMyRoom(row)}>참여</button>
+                  <button onClick={() => deleteTableRow(index)}>삭제</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <button onClick={startGame} disabled={true}>Start Game</button>
+      </div>
     </div>
   );
 };

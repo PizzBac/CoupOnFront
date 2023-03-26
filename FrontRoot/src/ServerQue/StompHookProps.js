@@ -8,22 +8,17 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import './StompHookProps.css';
 import '../reset.css';
 import Chat from '../front/Chat';
-import { saveAs } from 'file-saver';
-
-
 
 function StompHookProps(props) {
   const { lobbyName } = props;
   const subscription = "/user/lobby";
   const [destination, setDestination] = useState("/app/game");
-  const [lobbyName2, setLobbyName] = useState(lobbyName);
 
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
   const messageListRef = useRef([]); // 축적.
 
   console.log(lobbyName);
-  console.log(lobbyName2);
 
   function handleReceivedMessage(message){
     setReceivedMessage(message);
