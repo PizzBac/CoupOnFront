@@ -3,7 +3,7 @@ import { useStompClient } from 'react-stomp-hooks';
 import './player.css';
 
 function Player(props) {
-  const { className, localPlayerCards, name, coins, cardNumbers, userName, players, wasteUsersName, wasteUsersCard, exchangedCardOptions} = props;
+  const { className, localPlayerCards, name, coins, cardNumbers, userName, players, wasteUsersName, wasteUsersCard, exchangedCardOptions } = props;
 
   let card0 = localPlayerCards[0];
   let card1 = localPlayerCards[1];
@@ -11,13 +11,13 @@ function Player(props) {
   let card4 = "back";
   // console.log(JSON.parse(players).name);
   let remainedCardNumber;
-  
+
   // 중복 요소를 제거하는 함수
   const removeDuplicates = (arr) => {
     const set = new Set(arr);
     return Array.from(set);
   };
-  
+
   const localPlayerCardsRef = useRef(localPlayerCards);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ function Player(props) {
   }
 
   return (
-    <div>
+    <div className={className}>
       {owner && (
         <div>
           <button className='player_font' onClick={handleButtonClick}>{name}(나)</button>
@@ -87,17 +87,17 @@ function Player(props) {
             {card1 &&
               <img src={require("" + `./images/${card1}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
             }
-            {exchangedCardOptions &&(
+            {exchangedCardOptions && (
               <>
-              {exchangedCardOptions.length === 3 &&
-                <img src={require("" + `./images/${exchangedCardOptions[2]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
-              }
-              {exchangedCardOptions.length === 4 &&
-                <>
-                <img src={require("" + `./images/${exchangedCardOptions[2]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
-                <img src={require("" + `./images/${exchangedCardOptions[3]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
-                </>
-              }
+                {exchangedCardOptions.length === 3 &&
+                  <img src={require("" + `./images/${exchangedCardOptions[2]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
+                }
+                {exchangedCardOptions.length === 4 &&
+                  <>
+                    <img src={require("" + `./images/${exchangedCardOptions[2]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
+                    <img src={require("" + `./images/${exchangedCardOptions[3]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
+                  </>
+                }
               </>
             )}
           </div>
@@ -109,12 +109,12 @@ function Player(props) {
       {!owner && (
         <div>
           <button className='player_font' onClick={handleButtonClick}>{name}</button>
-            {cardNumbers === 2 &&(
+          {cardNumbers === 2 && (
             <div>
               <img src={require("" + `./images/${card3}.png`)} alt={card0} className="img cardImg" />
               <img src={require("" + `./images/${card4}.png`)} alt={card0} className="img cardImg" />
             </div>
-            )}
+          )}
           <div className='coin_container'>
             <div className='coin img'></div><span className='coin_font'>{coins}</span>
           </div>
