@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { StompSessionProvider, useSubscription, useStompClient } from 'react-stomp-hooks';
+import { StompSessionProvider, useSubscription, useStompClient } from 'react-stomp-hooks'; //이게 백엔드랑 통신하는 코드
 import { STOMP_HOOK_PROPS_PATH } from "./ServerQue/StompHookProps";
 
 function Lobby(props) {
@@ -10,7 +10,7 @@ function Lobby(props) {
   const [lobbyInput, setLobbyInput] = useState("test");
   const [destination, setDestination] = useState("/app/create");
   // const [subscription, setSubscription] = useState("/user/lobby");
-
+  const [numPlayers, setNumPlayers]= useState(0); //현재 접속한 플레이어의 수
   const [value, setValue] = useState(''); //얘는 이름 입력하면 로비 만들기 위한 선언임
   const [tableData, setTableData] = useState([]); //얘도 마찬가지
 
@@ -63,13 +63,37 @@ function Lobby(props) {
     }
   }
 
-  // 서버에서 메시지 받아서 출력 및 게임 이동
-  useSubscription('/user/lobby', (message) => {
-    const msg = tryParseJSON(message.body);
-    let usermsg = '';
+  //서버에서 메세지를 출력받아서 몇 명인지 표시
+  useSubscription(
+    '/user/numPlayers',
+    (message)=>{
+      setNumPlayers(Number(message.body));
+    },
+    {autoSubscribe: true}
+  );
 
-    if (typeof msg === 'object') {
-      usermsg = 'User Message: ' + msg.userMessage;
+  useEffect(() => {
+    if (numPlayers > 0) {
+      alert(`현재 접속한 플레이어는 ${numPlayers}명 입니다.`);
+    }
+  }, [numPlayers]);
+
+
+  // 서버에서 메시지 받아서 출력 및 게임 이동, 서버에서 메세지 받는 코드 발견!! 이거 연구좀 해보자
+// 메시지가 수신되면, 먼저 tryParseJSON 함수를 사용하여 JSON 문자열을 객체로 변환하려고 시도합니다. 변환이 성공하면 msg 객체가 만들어집니다. 그렇지 않으면 msg 변수는 그대로 문자열 값으로 유지됩니다.
+
+// usermsg 변수는 최종적으로 표시할 메시지의 문자열 템플릿입니다. 이 코드는 msg 객체가 있다면 객체의 속성을 사용하여 메시지를 구성합니다. 구성된 메시지는 setMessages 함수를 사용하여 상태를 업데이트합니다.
+
+// 이 코드에서 msg 객체가 있으면, 객체에서 userMessage 속성을 확인하여 '게임 시작' 메시지를 확인합니다. 이 메시지가 수신되면 startGame 함수를 호출합니다.
+
+// 마지막으로, setMessages 함수는 이전 메시지 배열(messages)과 새로운 메시지(usermsg)를 결합하여 메시지 배열을 업데이트합니다. 이 배열은 화면에 표시되는 채팅 창에 표시됩니다.
+  useSubscription('/user/lobby', (message) => { // '/user/lobby' 채널에서 메세지를 수신하고 해당 메세지를 처리하는 함수
+    //useSubscription은 React Hook인데, 얘가 WebSocket 연결을 생성하고 해당 연결을 통해 데이터를 수신하는데 사용
+    const msg = tryParseJSON(message.body);
+    let usermsg = ''; //메시지가 수신되면, tryParseJSON함수를 이용해서 JSON 문자열을 객체로 변환하려고 시도
+
+    if (typeof msg === 'object') { //만약 변환이 성공하면 
+      usermsg = 'User Message: ' + msg.userMessage; // msg 객체가 만들어진다. 얘가 바로 메세지를 확인해주는 친구이다.
       usermsg += '\n' + 'Content: ' + JSON.stringify(tryParseJSON(msg.content));
       if (msg.userMessage == "게임 시작") {
         startGame();
@@ -115,13 +139,15 @@ function Lobby(props) {
     });
   };
   
-  function MoveMyRoom(row) { //순서를 조정해야겠다. 
-    const startButton = document.querySelector('button[disabled]');
-    //비활성화된 버튼을 찾는 코드이다.
-    startButton.disabled = false;
-    //그 버튼을 찾아서 false로 만든다. (활성화 시킨다는 뜻)
-    startButton.addEventListener('click', startGame); //과연 이 코드가 꼭 있어야 한다.
+  
+  let startButton = null; //참여 여러번 눌러도 오류 안 뜨게 고쳐주는 코드.
+  function MoveMyRoom(row) {
+    startButton = startButton || document.querySelector('button[disabled]'); //비활성화된 버튼을 찾는 코드이다.
+    //전역 변수인 startButton을 사용하고, 값이 없는 경우에만 찾아서 할당합니다.
+    startButton.disabled = false; //그 버튼을 찾아서 false로 만든다.(활성화 사킨다는 뜻)
+    startButton.addEventListener('click', startGame); //이 코드가 없으면 startGame()이 작동을 안한다.
   }
+  
 
   function startGame() { //만약 stompClient 객체가 존재할 경우, lobbyInput을 가지고 app/start로 이동
     if (stompClient) {
@@ -175,7 +201,7 @@ function Lobby(props) {
   <label>
     <input type="text" value={value} onChange={handleChange} />
   </label>
-  <button type="submit">추가</button>
+<button type="submit">추가</button>
 </form>
 <table style={{ border: "1px solid black" }}>
   <tbody>
