@@ -13,6 +13,7 @@ function StompHookProps(props) {
   const { lobbyName } = props;
   const subscription = "/user/lobby";
   const [destination, setDestination] = useState("/app/game");
+  const [lobbyName2, setLobbyName] = useState(lobbyName);
 
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
