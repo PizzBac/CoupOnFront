@@ -107,7 +107,7 @@ function Player(props) {
         </div>
       )}
       {!owner && (
-        <div>
+        <div className={className}>
           <button className='player_font' onClick={handleButtonClick}>{name}</button>
           {cardNumbers === 2 && (
             <div>
