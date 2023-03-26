@@ -25,6 +25,8 @@ function StompHookProps(props) {
     messageListRef.current = [...messageListRef.current, message];
   };
 
+  console.log(messageListRef);
+
   const updateMessages = messageListRef.current.filter((msg) => {
     // {로 시작하고 }로 끝나는 문자열 중에서 type이 UPDATE인 것만 필터링
     if (msg.startsWith("{") && msg.endsWith("}") && msg.length > 100) {
