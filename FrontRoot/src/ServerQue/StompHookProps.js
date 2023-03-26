@@ -29,18 +29,6 @@ function StompHookProps(props) {
     setReceivedMessage(message);
     messageListRef.current = [...messageListRef.current, message];
   };
-
-  const saveAs = require('file-saver');
-
-const logFilePath = 'serverRecievedMsg.txt';
-
-function log(msg){
-  const blob = new Blob([msg], { type: 'text/plain;charset=utf-8' });
-  saveAs(blob, logFilePath);
-  console.log(msg);
-};
-
-log(messageListRef.current);
   
   const updateMessages = messageListRef.current.filter((msg) => {
     // {로 시작하고 }로 끝나는 문자열 중에서 type이 UPDATE인 것만 필터링

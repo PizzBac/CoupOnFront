@@ -6,18 +6,13 @@ import { STOMP_HOOK_PROPS_PATH } from "./ServerQue/StompHookProps";
 function Lobby(props) {
   const { SettingLobbyName } = props;
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
   const [lobbyInput, setLobbyInput] = useState("test");
-  const [destination, setDestination] = useState("/app/create");
   // const [subscription, setSubscription] = useState("/user/lobby");
-  const [numPlayers, setNumPlayers]= useState(0); //현재 접속한 플레이어의 수
   const [value, setValue] = useState(''); //얘는 이름 입력하면 로비 만들기 위한 선언임
   const [tableData, setTableData] = useState([]); //얘도 마찬가지
 
   const stompClient = useStompClient();
-
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     SettingLobbyName(lobbyInput)
@@ -33,7 +28,7 @@ function Lobby(props) {
     setValue(event.target.value);
   };
 
-  function handleSubmit(event) {//2
+  function ParticipationButton(event) {//2
     event.preventDefault();
     if (!value) return; // 입력값이 없는 경우 처리
     const rowData = <tr ><td style={{ border: "1px solid black" }}>{value}</td></tr>;
@@ -41,17 +36,11 @@ function Lobby(props) {
     setValue("");
   }
 
-  function handleDelete(rowDataToDelete){//3
-    const newData = tableData.filter(rowData => rowData !== rowDataToDelete);
-    setTableData(newData);
-  }
-
   function deleteTableRow(index) {//4
     const newData = [...tableData];
     newData.splice(index, 1);
     setTableData(newData);
   }
-
   
   function handleCheck(event) {
     event.preventDefault();
@@ -116,7 +105,6 @@ function Lobby(props) {
     });
   };
   
-  
   let startButton = null; //참여 여러번 눌러도 오류 안 뜨게 고쳐주는 코드.
   function MoveMyRoom(row) {
     startButton = startButton || document.querySelector('button[disabled]'); //비활성화된 버튼을 찾는 코드이다.
@@ -133,9 +121,6 @@ function Lobby(props) {
         destination: "/app/start"
       })
     }navigate('/game');
-    //코드가 잘 작동되는지 확인해 보고 싶으면
-    //alert를 찍어보거나 console.log를 찍어보면 된다.
-    //지금도 alert 찍어보고 작동을 안 하니까 alert 작동 코드 물어봐서 해결했다.
   }
 
   return (
@@ -152,12 +137,6 @@ function Lobby(props) {
         <button type='button' onClick={handleCheck}>서버 연결 체크하기(콘솔 창 통해 확인)</button>
       </div>
       <div className="chat-input">
-        {/*<input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <button className='sendMessgae' onClick={sendMessage}>Send</button> */}
         <button className='seeAllUsers' onClick={seeAllUsers}>See all users</button>
         <button className='seeAllGames' onClick={seeAllGames}>See all games</button>
         <button className='createLobby' onClick={createLobby}>Create Lobby</button>
@@ -174,7 +153,7 @@ function Lobby(props) {
 
       {/* 얘네가 테이블 생성하는 코드임 */}
       <div> 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={ParticipationButton}>
   <label>
     <input type="text" value={value} onChange={handleChange} />
   </label>
@@ -194,12 +173,9 @@ function Lobby(props) {
   </tbody>
 </table>
 <button onClick={startGame} disabled={true}>Start Game</button>
-
-
     </div>
     </div>
   );
 };
-
 // StompSessionProvider component takes a url prop that specifies the websocket endpoint
 export default Lobby;
