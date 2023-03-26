@@ -63,29 +63,6 @@ function Lobby(props) {
     }
   }
 
-  //서버에서 메세지를 출력받아서 몇 명인지 표시
-  useSubscription(
-    '/user/numPlayers',
-    (message)=>{
-      setNumPlayers(Number(message.body));
-    },
-    {autoSubscribe: true}
-  );
-
-  useEffect(() => {
-    if (numPlayers > 0) {
-      alert(`현재 접속한 플레이어는 ${numPlayers}명 입니다.`);
-    }
-  }, [numPlayers]);
-
-
-  // 서버에서 메시지 받아서 출력 및 게임 이동, 서버에서 메세지 받는 코드 발견!! 이거 연구좀 해보자
-// 메시지가 수신되면, 먼저 tryParseJSON 함수를 사용하여 JSON 문자열을 객체로 변환하려고 시도합니다. 변환이 성공하면 msg 객체가 만들어집니다. 그렇지 않으면 msg 변수는 그대로 문자열 값으로 유지됩니다.
-
-// usermsg 변수는 최종적으로 표시할 메시지의 문자열 템플릿입니다. 이 코드는 msg 객체가 있다면 객체의 속성을 사용하여 메시지를 구성합니다. 구성된 메시지는 setMessages 함수를 사용하여 상태를 업데이트합니다.
-
-// 이 코드에서 msg 객체가 있으면, 객체에서 userMessage 속성을 확인하여 '게임 시작' 메시지를 확인합니다. 이 메시지가 수신되면 startGame 함수를 호출합니다.
-
 // 마지막으로, setMessages 함수는 이전 메시지 배열(messages)과 새로운 메시지(usermsg)를 결합하여 메시지 배열을 업데이트합니다. 이 배열은 화면에 표시되는 채팅 창에 표시됩니다.
   useSubscription('/user/lobby', (message) => { // '/user/lobby' 채널에서 메세지를 수신하고 해당 메세지를 처리하는 함수
     //useSubscription은 React Hook인데, 얘가 WebSocket 연결을 생성하고 해당 연결을 통해 데이터를 수신하는데 사용

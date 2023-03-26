@@ -25,7 +25,7 @@ function StompHookProps(props) {
   console.log(lobbyName);
   console.log(lobbyName2);
 
-  const handleReceivedMessage = (message) => {
+  function handleReceivedMessage(message){
     setReceivedMessage(message);
     messageListRef.current = [...messageListRef.current, message];
   };
@@ -34,7 +34,7 @@ function StompHookProps(props) {
 
 const logFilePath = 'serverRecievedMsg.txt';
 
-const log = (msg) => {
+function log(msg){
   const blob = new Blob([msg], { type: 'text/plain;charset=utf-8' });
   saveAs(blob, logFilePath);
   console.log(msg);
