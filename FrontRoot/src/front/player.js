@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useStompClient } from 'react-stomp-hooks';
-
 import './player.css';
 
 function Player(props) {
-  const { localPlayerCards, name, coins, cardNumbers, userName, players, wasteUsersName, wasteUsersCard, exchangedCardOptions} = props;
+  const { className, localPlayerCards, name, coins, cardNumbers, userName, players, wasteUsersName, wasteUsersCard, exchangedCardOptions} = props;
 
   let card0 = localPlayerCards[0];
   let card1 = localPlayerCards[1];
@@ -75,12 +74,11 @@ function Player(props) {
   } else {
     owner = false;
   }
-  // 커밋용 주석
 
   return (
     <div>
       {owner && (
-        <div className="player">
+        <div>
           <button className='player_font' onClick={handleButtonClick}>{name}(나)</button>
           <div>
             {card0 &&
@@ -109,7 +107,7 @@ function Player(props) {
         </div>
       )}
       {!owner && (
-        <div className="player">
+        <div>
           <button className='player_font' onClick={handleButtonClick}>{name}</button>
             {cardNumbers === 2 &&(
             <div>
