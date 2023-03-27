@@ -1,3 +1,4 @@
+//StompHookProps.js
 import React, { useState, useRef } from 'react';
 import { useSubscription } from 'react-stomp-hooks';
 import Banker from '../front/banker';
