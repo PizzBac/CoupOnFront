@@ -1,3 +1,4 @@
+// player.js
 import React, { useState, useEffect, useRef } from 'react';
 import { useStompClient } from 'react-stomp-hooks';
 import './player.css';
