@@ -2,12 +2,15 @@
   display: flex;
   flex-direction: column;
 }
+
 .bankerConsole {
   display: flex;
 }
+
 .logConsoleDiv {
   display: flex;
 }
+
 .Player {
   display: flex;
 }

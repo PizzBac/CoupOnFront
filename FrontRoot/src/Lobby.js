@@ -1,23 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { StompSessionProvider, useSubscription, useStompClient } from 'react-stomp-hooks';
-import { STOMP_HOOK_PROPS_PATH } from "./ServerQue/StompHookProps";
+import { StompSessionProvider, useSubscription, useStompClient } from 'react-stomp-hooks'; //이게 백엔드랑 통신하는 코드
 
 function Lobby(props) {
   const { SettingLobbyName } = props;
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
   const [lobbyInput, setLobbyInput] = useState("test");
-  const [destination, setDestination] = useState("/app/create");
   // const [subscription, setSubscription] = useState("/user/lobby");
-
-  const [value, setValue] = useState(''); //얘는 이름 입력하면 로비 만들기 위한 선언임
+  const [forCreateLobbyInputName, setForCreateLobbyInputName] = useState(''); //얘는 이름 입력하면 로비 만들기 위한 선언임
   const [tableData, setTableData] = useState([]); //얘도 마찬가지
 
   const stompClient = useStompClient();
-
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     SettingLobbyName(lobbyInput)
@@ -30,20 +24,15 @@ function Lobby(props) {
   }
 
   function handleChange(event) {//얘가 1이고 1~4는 이름 입력하면 그 이름을 가진 테이블을 생성하기 위한 코드
-    setValue(event.target.value);
+    setForCreateLobbyInputName(event.target.value);
   };
 
-  function handleSubmit(event) {//2
+  function ParticipationButton(event) {//2
     event.preventDefault();
-    if (!value) return; // 입력값이 없는 경우 처리
-    const rowData = <tr ><td style={{ border: "1px solid black" }}>{value}</td></tr>;
+    if (!forCreateLobbyInputName) return; // 입력값이 없는 경우 처리
+    const rowData = <tr ><td style={{ border: "1px solid black" }}>{forCreateLobbyInputName}</td></tr>;
     setTableData([...tableData, rowData]);
-    setValue("");
-  }
-
-  function handleDelete(rowDataToDelete){//3
-    const newData = tableData.filter(rowData => rowData !== rowDataToDelete);
-    setTableData(newData);
+    setForCreateLobbyInputName("");
   }
 
   function deleteTableRow(index) {//4
@@ -52,10 +41,8 @@ function Lobby(props) {
     setTableData(newData);
   }
 
-  
   function handleCheck(event) {
     event.preventDefault();
-
     if (stompClient) {
       console.log("sucess");
     } else {
@@ -63,13 +50,14 @@ function Lobby(props) {
     }
   }
 
-  // 서버에서 메시지 받아서 출력 및 게임 이동
-  useSubscription('/user/lobby', (message) => {
+  // 마지막으로, setMessages 함수는 이전 메시지 배열(messages)과 새로운 메시지(usermsg)를 결합하여 메시지 배열을 업데이트합니다. 이 배열은 화면에 표시되는 채팅 창에 표시됩니다.
+  useSubscription('/user/lobby', (message) => { // '/user/lobby' 채널에서 메세지를 수신하고 해당 메세지를 처리하는 함수
+    //useSubscription은 React Hook인데, 얘가 WebSocket 연결을 생성하고 해당 연결을 통해 데이터를 수신하는데 사용
     const msg = tryParseJSON(message.body);
-    let usermsg = '';
+    let usermsg = ''; //메시지가 수신되면, tryParseJSON함수를 이용해서 JSON 문자열을 객체로 변환하려고 시도
 
-    if (typeof msg === 'object') {
-      usermsg = 'User Message: ' + msg.userMessage;
+    if (typeof msg === 'object') { //만약 변환이 성공하면 
+      usermsg = 'User Message: ' + msg.userMessage; // msg 객체가 만들어진다. 얘가 바로 메세지를 확인해주는 친구이다.
       usermsg += '\n' + 'Content: ' + JSON.stringify(tryParseJSON(msg.content));
       if (msg.userMessage == "게임 시작") {
         startGame();
@@ -114,25 +102,24 @@ function Lobby(props) {
       body: '',
     });
   };
-  
-  function MoveMyRoom(row) { //순서를 조정해야겠다. 
-    const startButton = document.querySelector('button[disabled]');
-    //비활성화된 버튼을 찾는 코드이다.
-    startButton.disabled = false;
-    //그 버튼을 찾아서 false로 만든다. (활성화 시킨다는 뜻)
-    startButton.addEventListener('click', startGame); //과연 이 코드가 꼭 있어야 한다.
+
+  let startButton = null; //참여 여러번 눌러도 오류 안 뜨게 고쳐주는 코드.
+  function MoveMyRoom(row) {
+    startButton = startButton || document.querySelector('button[disabled]'); //비활성화된 버튼을 찾는 코드이다.
+    //전역 변수인 startButton을 사용하고, 값이 없는 경우에만 찾아서 할당합니다.
+    startButton.disabled = false; //그 버튼을 찾아서 false로 만든다.(활성화 사킨다는 뜻)
+    startButton.addEventListener('click', startGame); //이 코드가 없으면 startGame()이 작동을 안한다.
   }
 
+
   function startGame() { //만약 stompClient 객체가 존재할 경우, lobbyInput을 가지고 app/start로 이동
+    navigate('/game');
     if (stompClient) {
       stompClient.publish({
         headers: { "lobbyName": lobbyInput },
         destination: "/app/start"
       })
-    }navigate('/game');
-    //코드가 잘 작동되는지 확인해 보고 싶으면
-    //alert를 찍어보거나 console.log를 찍어보면 된다.
-    //지금도 alert 찍어보고 작동을 안 하니까 alert 작동 코드 물어봐서 해결했다.
+    }
   }
 
   return (
@@ -149,16 +136,10 @@ function Lobby(props) {
         <button type='button' onClick={handleCheck}>서버 연결 체크하기(콘솔 창 통해 확인)</button>
       </div>
       <div className="chat-input">
-        {/*<input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <button className='sendMessgae' onClick={sendMessage}>Send</button> */}
         <button className='seeAllUsers' onClick={seeAllUsers}>See all users</button>
         <button className='seeAllGames' onClick={seeAllGames}>See all games</button>
         <button className='createLobby' onClick={createLobby}>Create Lobby</button>
-        {/* <button className='startGame' onClick={startGame}>Start Game</button> */}
+        <button className='startGame' onClick={startGame}>Start Game</button>
         <div>
           <span>LobbyName:</span>
           <input
@@ -169,34 +150,33 @@ function Lobby(props) {
         </div>
       </div>
 
+      <hr />
+
       {/* 얘네가 테이블 생성하는 코드임 */}
-      <div> 
-      <form onSubmit={handleSubmit}>
-  <label>
-    <input type="text" value={value} onChange={handleChange} />
-  </label>
-  <button type="submit">추가</button>
-</form>
-<table style={{ border: "1px solid black" }}>
-  <tbody>
-    {tableData.map((row, index)=>(
-      <tr key={index}>{/* 여기서 이 함수를 호출하면서 row 값을 전달 */}
-        <td>{row}</td>
-        <td>
-          <button onClick={()=>MoveMyRoom(row)}>참여</button>
-          <button onClick={()=>deleteTableRow(index)}>삭제</button>
-        </td>
-      </tr>
-    ))}
-  </tbody>
-</table>
-<button onClick={startGame} disabled={true}>Start Game</button>
-
-
-    </div>
+      <div>
+        <form onSubmit={ParticipationButton}>
+          <label>
+            <input type="text" value={forCreateLobbyInputName} onChange={handleChange} />
+          </label>
+          <button type="submit">추가</button>
+        </form>
+        <table style={{ border: "1px solid black" }}>
+          <tbody>
+            {tableData.map((row, index) => (
+              <tr key={index}>{/* 여기서 이 함수를 호출하면서 row 값을 전달 */}
+                <td>{row}</td>
+                <td>
+                  <button onClick={() => MoveMyRoom(row)}>참여</button>
+                  <button onClick={() => deleteTableRow(index)}>삭제</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <button onClick={startGame} disabled={true}>Start Game</button>
+      </div>
     </div>
   );
 };
-
 // StompSessionProvider component takes a url prop that specifies the websocket endpoint
 export default Lobby;
