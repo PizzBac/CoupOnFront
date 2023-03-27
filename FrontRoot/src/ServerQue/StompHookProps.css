@@ -1,4 +1,5 @@
 .gameConsole {
+  background-image: url(../front/images/wood2.jpg);
   display: flex;
   flex-direction: column;
 }
@@ -19,6 +20,6 @@
   font-size: 2vmin;
 }
 
-.Player {
+/* .Player {
   display: flex;
-}
+} */

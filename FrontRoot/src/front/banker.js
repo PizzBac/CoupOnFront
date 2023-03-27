@@ -19,9 +19,9 @@ function Banker(props) {
 
   return (
     <div className="banker">
-      <p className="announcement anc-message">
+      <div className="announcement anc-message">
         {receivedMessage ? receivedMessage : message}
-      </p>
+      </div>
     </div>
   );
 }

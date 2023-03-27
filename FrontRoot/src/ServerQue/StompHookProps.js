@@ -93,9 +93,9 @@ function StompHookProps(props) {
 
   let blockedMessages = null;
   let exchangedCardOptions = null;
-  
+
   console.log("latestuserChoiceMessages: " + latestuserChoiceMessages);
-  
+
   if (latestuserChoiceMessages) {
     if (JSON.parse(latestuserChoiceMessages).userMessage.substring(0, 12) === "버릴 카드를 선택하세요") {
       exchangedCardOptions = JSON.parse(latestuserChoiceMessages).content
@@ -136,7 +136,7 @@ function StompHookProps(props) {
         <div className="Player">
           {JSON.parse(latestUpdateMessage).content.players.map((obj, index) =>
             <Player
-              className={`player${index + 1}`}
+              className={`player${index + 1} ${index < 3 ? 'top' : 'bottom'}`}
               localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards}
               lobbyName={lobbyName}
               name={obj.name}

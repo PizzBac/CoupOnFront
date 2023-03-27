@@ -3,13 +3,13 @@
   display: inline;
   float: left;
   width: calc(100vmin);
-  height: calc(100vmin * 230 / 1920);
-  text-align: left;
+  height: auto;
+  background-color: black;
 }
 
 .announcement {
   /* display: block; */
-  padding: 10px;
+  padding: 2vmin;
   /* margin: 10px; */
   font: bold 4vmin "TmonMonsori";
 }
