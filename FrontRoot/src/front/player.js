@@ -50,7 +50,6 @@ function Player(props) {
   const stompClient = useStompClient();
   const [subscription, setSubscription] = useState("/user/lobby");
   const lobbyName = props.lobbyName;
-  const [body, setBody] = useState("");
   let owner = false;
 
   const publishMessage = (body) => {
@@ -77,9 +76,9 @@ function Player(props) {
   }
 
   return (
-    <div className={className}>
+    <>
       {owner && (
-        <div>
+        <div className={`player ${className}`}>
           <button className='player_font' onClick={handleButtonClick}>{name}(나)</button>
           <div>
             {card0 &&
@@ -108,7 +107,7 @@ function Player(props) {
         </div>
       )}
       {!owner && (
-        <div className={className}>
+        <div className={`player ${className}`}>
           <button className='player_font' onClick={handleButtonClick}>{name}</button>
           {cardNumbers === 2 && (
             <div>
@@ -121,7 +120,7 @@ function Player(props) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

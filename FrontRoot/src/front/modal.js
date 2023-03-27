@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import {useStompClient } from 'react-stomp-hooks';
+import { useStompClient } from 'react-stomp-hooks';
 
 const ExampleModal = ({ showModal, closeModal, handleChoice }) => {
   const [selected, setSelected] = useState(null);
@@ -49,12 +49,11 @@ const MyComponent = () => {
   const [body, setBody] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-
   const stompClient = useStompClient();
   const [subscription, setSubscription] = useState("/user/lobby");
   const [destination, setDestination] = useState("/app/game");
   const [lobbyName, setLobbyName] = useState("Room6");
-  const [headers, setHeaders] = useState({"lobbyName":lobbyName}); //JSON stringfy 하면 안됨
+  const [headers, setHeaders] = useState({ "lobbyName": lobbyName }); //JSON stringfy 하면 안됨
 
   const handleChoice = (choice) => {
     setBody(choice);
@@ -63,7 +62,7 @@ const MyComponent = () => {
   const handleIncomeClick = () => {
     setBody("Income");
     console.log(subscription, destination, headers, body);
-    
+
     stompClient.publish({ subscription, destination, headers, body });
   };
 

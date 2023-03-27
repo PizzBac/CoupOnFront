@@ -1,10 +1,10 @@
 //StompHookProps.js
 import React, { useState, useRef } from 'react';
 import { useSubscription } from 'react-stomp-hooks';
+import ScrollToBottom from 'react-scroll-to-bottom';
 import Banker from '../front/banker';
 import Console from '../front/console';
 import Player from '../front/player';
-import ScrollToBottom from 'react-scroll-to-bottom';
 import Chat from '../front/Chat';
 import './StompHookProps.css';
 import '../reset.css';
@@ -93,7 +93,9 @@ function StompHookProps(props) {
 
   let blockedMessages = null;
   let exchangedCardOptions = null;
+  
   console.log("latestuserChoiceMessages: " + latestuserChoiceMessages);
+  
   if (latestuserChoiceMessages) {
     if (JSON.parse(latestuserChoiceMessages).userMessage.substring(0, 12) === "버릴 카드를 선택하세요") {
       exchangedCardOptions = JSON.parse(latestuserChoiceMessages).content

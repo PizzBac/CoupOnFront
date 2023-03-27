@@ -4,14 +4,14 @@
   float: left;
   width: calc(100vmin);
   height: calc(100vmin * 230 / 1920);
-  text-align: center;
+  text-align: left;
 }
 
 .announcement {
   /* display: block; */
   padding: 10px;
   /* margin: 10px; */
-  font: bold 3vw "TmonMonsori";
+  font: bold 4vmin "TmonMonsori";
 }
 
 .turn {
