@@ -87,6 +87,30 @@ function Lobby(props) {
     });
   };
 
+  function checkExistingLobby(lobbyName) {
+    // 기존 로비 목록에서 lobbyName과 같은 이름의 로비를 찾아서 반환
+    const gameLobbies = []; //초기화 하는 코드는 이런식으로 []를 쓴다.
+    return gameLobbies.find(lobby => lobby.name === lobbyName) !== undefined;
+  }
+  function createLobby(){
+    // 이미 존재하는 로비인지 확인
+    const existingLobby = checkExistingLobby(lobbyInput);
+    if (existingLobby) {
+      // 이미 존재하는 로비가 있을 경우 처리
+      alert(`"${lobbyInput}" 로비는 이미 존재합니다. 다른 이름으로 로비를 만들어주세요.`);
+      return seeAllGames();
+    }
+    
+    // 새로운 로비 생성
+    stompClient.publish({
+      headers: { lobbyName: lobbyInput },
+      destination: '/app/create',
+      body: '',
+    });
+  
+    seeAllGames();
+  };
+
   function seeAllGames() {
     if (stompClient) {
       stompClient.publish({
@@ -95,23 +119,10 @@ function Lobby(props) {
     }
   }
 
-  function createLobby() {
-    stompClient.publish({
-      headers: { lobbyName: lobbyInput },
-      destination: '/app/create',
-      body: '',
-    });
+  function MoveMyRoom(lobbyName) { //참여버튼임. 기존에 방이 있을경우 입장하시겠습니까? 가 뜸.
+
+
   };
-
-  let startButton = null; //참여 여러번 눌러도 오류 안 뜨게 고쳐주는 코드.
-  function MoveMyRoom(row) {
-    startButton = startButton || document.querySelector('button[disabled]'); //비활성화된 버튼을 찾는 코드이다.
-    //전역 변수인 startButton을 사용하고, 값이 없는 경우에만 찾아서 할당합니다.
-    startButton.disabled = false; //그 버튼을 찾아서 false로 만든다.(활성화 사킨다는 뜻)
-    startButton.addEventListener('click', startGame); //이 코드가 없으면 startGame()이 작동을 안한다.
-  }
-
-
   function startGame() { //만약 stompClient 객체가 존재할 경우, lobbyInput을 가지고 app/start로 이동
     if (stompClient) {
       stompClient.publish({
@@ -121,7 +132,7 @@ function Lobby(props) {
     }
     navigate('/game');
   }
-
+  
   return (
     <div className="chat-app">
       <h1>Coup Online 로비</h1>
@@ -146,35 +157,10 @@ function Lobby(props) {
             type="text"
             value={lobbyInput}
             onChange={(e) => setLobbyInput(e.target.value)}
-          />
+          /> <button onClick={() => MoveMyRoom()}>참여</button>
         </div>
       </div>
-
       <hr />
-
-      {/* 얘네가 테이블 생성하는 코드임 */}
-      <div>
-        <form onSubmit={ParticipationButton}>
-          <label>
-            <input type="text" value={forCreateLobbyInputName} onChange={handleChange} />
-          </label>
-          <button type="submit">추가</button>
-        </form>
-        <table style={{ border: "1px solid black" }}>
-          <tbody>
-            {tableData.map((row, index) => (
-              <tr key={index}>{/* 여기서 이 함수를 호출하면서 row 값을 전달 */}
-                <td>{row}</td>
-                <td>
-                  <button onClick={() => MoveMyRoom(row)}>참여</button>
-                  <button onClick={() => deleteTableRow(index)}>삭제</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <button onClick={startGame} disabled={true}>Start Game</button>
-      </div>
     </div>
   );
 };
