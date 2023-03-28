@@ -1,31 +1,33 @@
-import React, { useState, useEffect, useRef } from 'react';
-import StompHook from './StompHook';
-import { useLocation } from 'react-router-dom';
+//StompHookProps.js
+import React, { useState, useRef } from 'react';
+import { useSubscription } from 'react-stomp-hooks';
+import ScrollToBottom from 'react-scroll-to-bottom';
 import Banker from '../front/banker';
 import Console from '../front/console';
 import Player from '../front/player';
-import ScrollToBottom from 'react-scroll-to-bottom';
+import Chat from '../front/Chat';
 import './StompHookProps.css';
 import '../reset.css';
-import Chat from '../front/Chat';
 
 function StompHookProps(props) {
-  const { lobbyName } = props;
-  const subscription = "/user/lobby";
   const [destination, setDestination] = useState("/app/game");
-  const [lobbyName2, setLobbyName] = useState(lobbyName);
+  const [lobbyName, setLobbyName] = useState(props.lobbyName);
 
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
-  const messageListRef = useRef([]); // 축적.
+  const messageListRef = useRef([]); // 축적
 
-  console.log(lobbyName);
+  useSubscription("/user/lobby", (str) => {
+    handleReceivedMessage(str.body);
+  });
 
-  function handleReceivedMessage(message){
+  function handleReceivedMessage(message) {
     setReceivedMessage(message);
     messageListRef.current = [...messageListRef.current, message];
   };
-  
+
+  console.log(messageListRef);
+
   const updateMessages = messageListRef.current.filter((msg) => {
     // {로 시작하고 }로 끝나는 문자열 중에서 type이 UPDATE인 것만 필터링
     if (msg.startsWith("{") && msg.endsWith("}") && msg.length > 100) {
@@ -47,7 +49,6 @@ function StompHookProps(props) {
   });
 
   const logMessages = messageListRef.current.filter((msg) => {
-    // {로 시작하고 }로 끝나는 문자열 중에서 type이 UPDATE인 것만 필터링
     if (msg.startsWith("{") && msg.endsWith("}")) {
       const parsedMsg = JSON.parse(msg);
       return parsedMsg.type === "LOG";
@@ -57,7 +58,6 @@ function StompHookProps(props) {
   });
 
   const userChoiceMessages = messageListRef.current.filter((msg) => {
-    // {로 시작하고 }로 끝나는 문자열 중에서 type이 UPDATE인 것만 필터링
     if (msg.startsWith("{") && msg.endsWith("}")) {
       const parsedMsg = JSON.parse(msg);
       return parsedMsg.type === "CHOICE";
@@ -67,7 +67,6 @@ function StompHookProps(props) {
   });
 
   const userMessages = messageListRef.current.filter((msg) => {
-    // {로 시작하고 }로 끝나는 문자열 중에서 type이 UPDATE인 것만 필터링
     if (msg.startsWith("{") && msg.endsWith("}")) {
       const parsedMsg = JSON.parse(msg);
       console.log(parsedMsg);
@@ -94,7 +93,9 @@ function StompHookProps(props) {
 
   let blockedMessages = null;
   let exchangedCardOptions = null;
+
   console.log("latestuserChoiceMessages: " + latestuserChoiceMessages);
+
   if (latestuserChoiceMessages) {
     if (JSON.parse(latestuserChoiceMessages).userMessage.substring(0, 12) === "버릴 카드를 선택하세요") {
       exchangedCardOptions = JSON.parse(latestuserChoiceMessages).content
@@ -114,19 +115,10 @@ function StompHookProps(props) {
       wasteUsersName = tmpmsg.split(' ')[0].substring(0, tmpmsg.split(' ')[0].length - 1);
       wasteUsersCard = tmpmsg.split(' ')[1].substring(0, tmpmsg.split(' ')[1].length - 1);
     }
-    // console.log(JSON.parse(latestLogMessage).userMessage);
   }
-
 
   return (
     <div className='gameConsole'>
-      <StompHook
-        subscription={subscription}
-        destination={destination}
-        body={body}
-        onReceivedMessage={handleReceivedMessage}
-        onLobbyName={setLobbyName}
-      />
       <div className="bankerConsole">
         <Banker receivedMessage={receivedMessage} />
         <Console destination={destination} lobbyName={lobbyName} body={body} blockedMessages={blockedMessages} />
@@ -142,14 +134,9 @@ function StompHookProps(props) {
 
       {latestUpdateMessage &&
         <div className="Player">
-          {/* <Player localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards} 
-                  lobbyName={lobbyName} 
-                  name={JSON.parse(latestUpdateMessage).content.userName}
-                  coins={JSON.parse(latestUpdateMessage).content.coins}
-          /> */}
-          {/* {JSON.parse(latestUpdateMessage).content.players.map((obj, index) => <li>{obj.name} {obj.coins}</li>)} */}
           {JSON.parse(latestUpdateMessage).content.players.map((obj, index) =>
             <Player
+              className={`player${index + 1} ${index < 3 ? 'top' : 'bottom'}`}
               localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards}
               lobbyName={lobbyName}
               name={obj.name}
@@ -160,8 +147,8 @@ function StompHookProps(props) {
               wasteUsersName={wasteUsersName}
               wasteUsersCard={wasteUsersCard}
               exchangedCardOptions={exchangedCardOptions}
-            />)}
-            
+            />
+          )}
         </div>
       }
     </div>

@@ -124,13 +124,13 @@ function Lobby(props) {
 
   };
   function startGame() { //만약 stompClient 객체가 존재할 경우, lobbyInput을 가지고 app/start로 이동
+    navigate('/game');
     if (stompClient) {
       stompClient.publish({
         headers: { "lobbyName": lobbyInput },
         destination: "/app/start"
       })
     }
-    navigate('/game');
   }
   
   return (

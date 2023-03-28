@@ -12,8 +12,10 @@
 .console {
   float: right;
   width: calc(100vmin);
-  border: 1vmin dashed green;
-  background-color: rgb(236, 233, 38);
+  background-image: url(../front/images/table1.png);
+  background-repeat: no-repeat;
+  background-size: 150% 180%;
+  background-position: 50% 50%;
   padding: 1vmin;
 }
 

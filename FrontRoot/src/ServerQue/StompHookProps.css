@@ -1,13 +1,25 @@
 .gameConsole {
+  background-image: url(../front/images/wood2.jpg);
   display: flex;
   flex-direction: column;
 }
+
 .bankerConsole {
   display: flex;
 }
+
 .logConsoleDiv {
   display: flex;
 }
-.Player {
-  display: flex;
+
+.logConsole {
+  border: 0.5vmin solid black;
+  height: 36.5vmin;
+  padding: 0.5vmin;
+  border-radius: 3%;
+  font-size: 2vmin;
 }
+
+/* .Player {
+  display: flex;
+} */

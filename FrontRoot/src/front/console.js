@@ -12,45 +12,45 @@ function Console(Props) {
   const lobbyName = Props.lobbyName;
   const [body, setBody] = useState("");
 
-  function publishMessage(body){
+  function publishMessage(body) {
     stompClient.publish({ subscription, destination: '/app/game', headers: { "lobbyName": lobbyName }, body });
   };
 
   // "{"type":"CHOICE","userMessage":"액션을 고르시오.","content":["Income","ForeignAid","Tax","Assassinate","Exchange","Steal"]}"
 
-  function handleIncomeClick(){
+  function handleIncomeClick() {
     publishMessage("Income");
   };
 
-  function handleForgeinClick(){
+  function handleForgeinClick() {
     publishMessage("ForeignAid");
   };
 
-  function handleCoupClick(){
+  function handleCoupClick() {
     publishMessage("Coup");
   };
 
-  function handleChallengeClick(){
+  function handleChallengeClick() {
     publishMessage("Challenge");
   };
 
-  function handlePassClick(){
+  function handlePassClick() {
     publishMessage("Pass");
   };
 
-  function handleDukeClick(){
+  function handleDukeClick() {
     publishMessage("Tax");
   };
 
-  function handleAmbassadorClick(){
+  function handleAmbassadorClick() {
     publishMessage("Exchange");
   };
 
-  function handleAssassinClick(){
+  function handleAssassinClick() {
     publishMessage("Assassinate");
   };
 
-  function handleCaptainClick(){
+  function handleCaptainClick() {
     publishMessage("Steal");
   };
 
@@ -61,8 +61,24 @@ function Console(Props) {
 
   return (
     <div className="console">
+
       <div className="line-1">
         <div className="wrapper">
+
+          <div className="hex btn-ambassador" onClick={handleAmbassadorClick}>
+            <div className="hex-inner1">
+              <div className="hex-inner2 job-action job-ambassador"></div>
+            </div>
+          </div>
+          <div className="popup-msg ambassador-msg">
+            <p>외교관은 덱에서 카드 두 장을 골라 내 카드와 합친 네 장 중에 2장을 선택하여 교환 할 수 있습니다. 또한 사령관의 코인 강탈을 막을 수 있습니다.</p></div>
+
+          <div className="hex btn-captain" onClick={handleCaptainClick}>
+            <div className="hex-inner1">
+              <div className="hex-inner2 job-action job-captain"></div>
+            </div>
+          </div>
+          <div className="popup-msg captain-msg"><p>사령관은 플레이어의 코인 2개를 강탈 할 수 있습니다. 또한 다른 플레이어가 코인을 강탈하려할 때 막을 수 있습니다.</p></div>
 
           <div className="hex btn-duke" onClick={handleDukeClick}>
             <div className="hex-inner1">
@@ -89,9 +105,9 @@ function Console(Props) {
             </div>
           </div>
           <div className="popup-msg contessa-msg"><p>귀부인은 암살자의 공격을 막을 수 있습니다.(단, 쿠를 막을 수는 없습니다.)</p></div>
+
         </div>
       </div>
-
 
 
       <div className="line-2">
@@ -133,30 +149,14 @@ function Console(Props) {
         </div>
       </div>
 
-      
 
       <div className="line-3">
         <div className="wrapper">
-          <div className="hex btn-ambassador" onClick={handleAmbassadorClick}>
-            <div className="hex-inner1">
-              <div className="hex-inner2 job-action job-ambassador"></div>
-            </div>
-          </div>
-          <div className="popup-msg ambassador-msg"><p>외교관은 덱에서 카드 두 장을 골라 내 카드와 합친 네 장 중에 2장을 선택하여 교환 할 수 있습니다. 또한 사령관의 코인 강탈을 막을 수 있습니다.</p></div>
-
-          <div className="hex btn-captain" onClick={handleCaptainClick}>
-            <div className="hex-inner1">
-              <div className="hex-inner2 job-action job-captain"></div>
-            </div>
-          </div>
-          <div className="popup-msg captain-msg"><p>사령관은 플레이어의 코인 2개를 강탈 할 수 있습니다. 또한 다른 플레이어가 코인을 강탈하려할 때 막을 수 있습니다.</p></div>
-
           {Props.blockedMessages &&
             <BlockConsole lobbyName={lobbyName} blockedMessages={Props.blockedMessages} />
           }
         </div>
       </div>
-
     </div>
   )
 }

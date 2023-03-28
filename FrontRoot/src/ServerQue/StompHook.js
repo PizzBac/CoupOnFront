@@ -91,7 +91,6 @@ function StompHook(props) {
         <button onClick={seeAllGames}>모든 방 보기</button>
         <button onClick={createLobby}>방 만들기</button>
         <button onClick={startGame}>게임 시작하기</button>
-      
       </div>
     </div>
   );
