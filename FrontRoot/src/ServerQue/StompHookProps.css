@@ -1,25 +1,55 @@
-.gameConsole {
+.gameDiv {
   background-image: url(../front/images/wood2.jpg);
   display: flex;
   flex-direction: column;
+  width: 100vw;
+  height: 100vh;
 }
 
-.bankerConsole {
+.topDiv {
+  background-color: white;
+  background-image: url(../front/images/title.png);
+  background-repeat: no-repeat;
+  background-size: 50vmin 100%;
+  width: 100vw;
+  height: 10vh;
+}
+
+.bankerDiv {
+  height: 10vh;
+}
+
+.bottomDiv {
   display: flex;
+  height: 80vh;
 }
 
-.logConsoleDiv {
+.logAndChatDiv {
   display: flex;
+  flex-direction: column;
+  width: 30vw;
+  height: 80vh;
 }
 
-.logConsole {
-  border: 0.5vmin solid black;
-  height: 36.5vmin;
-  padding: 0.5vmin;
+.logDiv {
+  border: 1px solid black;
+  height: 40vh;
+  margin: 0.5vmin;
   border-radius: 3%;
   font-size: 2vmin;
+  overflow-y: scroll;
 }
 
-/* .Player {
-  display: flex;
-} */
+.logDiv::-webkit-scrollbar {
+  display: none;
+}
+
+.consoleAndPlayerDiv {
+  /* border: 1px solid black; */
+  width: 70vw;
+  margin: 0.5vmin;
+}
+
+.playerDiv {
+  border: 1px solid black;
+}

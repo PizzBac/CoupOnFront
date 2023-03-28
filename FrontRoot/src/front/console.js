@@ -146,17 +146,18 @@ function Console(Props) {
             </div>
           </div>
 
-        </div>
-      </div>
-
-
-      <div className="line-3">
-        <div className="wrapper">
           {Props.blockedMessages &&
             <BlockConsole lobbyName={lobbyName} blockedMessages={Props.blockedMessages} />
           }
         </div>
       </div>
+
+
+      {/* <div className="line-3">
+        <div className="wrapper">
+
+        </div>
+      </div> */}
     </div>
   )
 }

@@ -2,7 +2,7 @@
   position: relative;
   display: inline;
   float: left;
-  width: calc(100vmin);
+  width: 100vw;
   height: auto;
   background-color: black;
 }
@@ -12,6 +12,12 @@
   padding: 2vmin;
   /* margin: 10px; */
   font: bold 4vmin "TmonMonsori";
+  text-align: center;
+  overflow-y: scroll;
+}
+
+.announcement::-webkit-scrollbar {
+  display: none;
 }
 
 .turn {

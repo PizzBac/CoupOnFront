@@ -134,39 +134,52 @@ function StompHookProps(props) {
   }
 
   return (
-    <div className='gameConsole'>
-      <div className="bankerConsole">
-        <Banker receivedMessage={receivedMessage} />
-        <Console destination={destination} lobbyName={lobbyName} body={body} blockedMessages={blockedMessages} />
-      </div>
-      <div className='logConsoleDiv'>
-        <Chat lobbyName={lobbyName} />
-        <ScrollToBottom className='logConsole'>
-          <ul>
-            {logMessages.map((obj, index) => <li>{JSON.parse(obj).userMessage}</li>)}
-          </ul>
-        </ScrollToBottom>
+    <div className='gameDiv'>
+
+      <div className='topDiv'>
+        
       </div>
 
-      {latestUpdateMessage &&
-        <div className="Player">
-          {JSON.parse(latestUpdateMessage).content.players.map((obj, index) =>
-            <Player
-              className={`player${index + 1} ${index < 3 ? 'top' : 'bottom'}`}
-              localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards}
-              lobbyName={lobbyName}
-              name={obj.name}
-              coins={obj.coins}
-              userName={JSON.parse(latestUpdateMessage).content.userName}
-              players={JSON.parse(latestUpdateMessage).content.players}
-              cardNumbers={obj.cardNumbers}
-              wasteUsersName={wasteUsersName}
-              wasteUsersCard={wasteUsersCard}
-              exchangedCardOptions={exchangedCardOptions}
-            />
-          )}
+      <div className="bankerDiv">
+        <Banker receivedMessage={receivedMessage} />
+      </div>
+
+      <div className='bottomDiv'>
+
+        <div className='logAndChatDiv'>
+          <ScrollToBottom className='logDiv'>
+            <ul>
+              {logMessages.map((obj, index) => <li>{JSON.parse(obj).userMessage}</li>)}
+            </ul>
+          </ScrollToBottom>
+          <Chat lobbyName={lobbyName} />
         </div>
-      }
+
+        <div className='consoleAndPlayerDiv'>
+          <Console destination={destination} lobbyName={lobbyName} body={body} blockedMessages={blockedMessages} />
+          {latestUpdateMessage &&
+            <div className="playerDiv">
+              {JSON.parse(latestUpdateMessage).content.players.map((obj, index) =>
+                <Player
+                  className={`player${index + 1} ${index < 3 ? 'top' : 'bottom'}`}
+                  localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards}
+                  lobbyName={lobbyName}
+                  name={obj.name}
+                  coins={obj.coins}
+                  userName={JSON.parse(latestUpdateMessage).content.userName}
+                  players={JSON.parse(latestUpdateMessage).content.players}
+                  cardNumbers={obj.cardNumbers}
+                  wasteUsersName={wasteUsersName}
+                  wasteUsersCard={wasteUsersCard}
+                  exchangedCardOptions={exchangedCardOptions}
+                />
+              )}
+            </div>
+          }
+        </div>
+
+      </div>
+
     </div>
   );
 }

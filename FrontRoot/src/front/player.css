@@ -27,7 +27,7 @@
   position: relative;
   float: left;
   width: calc(1vw * 70 * 100 / 1080);
-  height: calc(1vw * 150 * 100 / 1920);
+  height: calc(1vh * 150 * 100 / 1920);
   margin-left: 5px;
 }
 

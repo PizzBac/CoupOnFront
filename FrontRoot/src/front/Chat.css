@@ -1,18 +1,18 @@
 .chatWrapper {
     display: flex;
     flex-direction: column;
+    height: 40vh;
+    width: 30vw;
 }
 
 /* 채팅창 보이게 하려면 스타일 적용해야 함 */
 .chatcontainer {
     border: 0.5vmin solid black;
     border-radius: 3%;
-    width: 45vmin;
-    height: 25vmin;
+    height: 35vh;
     overflow-y: scroll;
     background-color: bisque;
-    margin-bottom: 0.5vmin;
-    padding: 2vmin;
+    margin: 0.5vmin;
     font-size: 2vmin;
     -ms-overflow-style: none;
     /* 인터넷 익스플로러 */
@@ -23,32 +23,38 @@
 .chatcontainer::-webkit-scrollbar {
     display: none;
 }
+/* .chatcontainer::-webkit-scrollbar-thumb {
+    display: none;
+} */
+/* .chatcontainer::-webkit-scrollbar-track {
+    display: none;
+} */
 
 .messageLabel {
     background-color: bisque;
     border: 0.5vmin solid black;
-    padding: 1vmin 5px;
+    margin: 0.5vmin;
     border-radius: 3%;
-    height: 5vmin;
+    height: 5vh;
     display: flex;
     align-items: center;
 }
 
 .messageInput {
-    width: 40vmin;
-    height: 4vmin;
+    width: 28vw;
+    height: 4vh;
     font-size: 2vmin;
     border: none;
     background-color: bisque;
-    position: static;
-    bottom: 500;
+    float: left;
 }
 
 .submitBtn {
     background-color: DodgerBlue;
     border: none;
     color: bisque;
-    padding: 1.5vmin 1.8vmin;
+    padding: 1.2vh 1.2vw;
     font-size: 2.5vmin;
     cursor: pointer;
+    float: right;
 }

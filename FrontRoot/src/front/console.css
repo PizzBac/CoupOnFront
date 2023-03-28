@@ -1,27 +1,14 @@
-/* .wrap ul li {
-  display: inline-block;
-}
-
-.wrap-line-2 {
-  margin-left: 55px;
-}
-
-.wrap-line-3 {
-  margin-left: 110px;
-} */
 .console {
-  float: right;
-  width: calc(100vmin);
   background-image: url(../front/images/table1.png);
   background-repeat: no-repeat;
   background-size: 150% 180%;
   background-position: 50% 50%;
-  padding: 1vmin;
-}
-
-.logConsole {
-  height: 150px;
-  width: 400px;
+  height: 40vh;
+  margin: 0.5vmin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .line-1 {
@@ -30,28 +17,25 @@
 
 .line-2 {
   position: relative;
-  /* margin-top: 90px; */
   margin-left: 7%;
 }
 
 .line-3 {
   position: relative;
-  /* margin-top: 180px; */
   margin-left: 7%;
 }
 
 .wrapper {
-  /* margin: 8vh auto; */
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 }
 .hex {
-  width: 6vw;
-  height: calc(4vw*1.7430);
+  width: 9vmin;
+  height: calc(6vmin*1.7430);
   border-radius: 30%;
-  margin: .2vw;
+  margin: .5vmin;
   position: relative;
   overflow: hidden !important;
   transform: rotate(60deg);
@@ -87,7 +71,7 @@
 
 .font {
   color: white;
-  font: bold calc(0.1rem + 1vw) "TmonMonsori";
+  font: bold calc(3.002vmin) "TmonMonsori";
   text-align : center;
   text-shadow: -1.1px 0 #000, 0 1.1px #000, 1.1px 0 #000, 0 -1.1px #000;
 }
@@ -96,7 +80,6 @@
 .job-duke {
   background-image: url(./images/Duke.png);
 }
-
 .job-assassin {
   background-image: url(./images/Assassin.png);
 }
@@ -130,9 +113,6 @@
   background-image: url(images/back.png);
   opacity: 0.3;
 } */
-
-
-
 
 
 .popup-msg {
