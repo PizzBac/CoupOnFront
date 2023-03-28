@@ -1,5 +1,5 @@
 //StompHookProps.js
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSubscription } from 'react-stomp-hooks';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import Banker from '../front/banker';
@@ -9,6 +9,17 @@ import Chat from '../front/Chat';
 import './StompHookProps.css';
 import '../reset.css';
 
+// import { saveAs } from 'file-saver';
+// const logFilePath = 'serverRecievedMsg.txt';
+// const log = (msgList) => {
+//   const now = new Date();
+//   const timestamp = now.toLocaleString();
+//   const logMessage = msgList.map((msg, index) => `[${index}] ${msg}`).join('\n');
+//   const blob = new Blob([logMessage], { type: 'text/plain;charset=utf-8' });
+//   saveAs(blob, logFilePath);
+//   console.info(`${timestamp}:\n${logMessage}`);
+// };
+
 function StompHookProps(props) {
   const [destination, setDestination] = useState("/app/game");
   const [lobbyName, setLobbyName] = useState(props.lobbyName);
@@ -16,6 +27,11 @@ function StompHookProps(props) {
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
   const messageListRef = useRef([]); // 축적
+
+  // useEffect(() => {
+  //   log(messageListRef.current);
+  // }, []);
+
 
   useSubscription("/user/lobby", (str) => {
     handleReceivedMessage(str.body);
