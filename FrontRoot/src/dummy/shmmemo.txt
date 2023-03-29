@@ -3,3 +3,6 @@ Spring Boot Extension Pack > Spring Boot DashBoard > Apps > Run
 
 게시판 주소
 http://3.36.196.244:5000/board
+
+포스트맨 테스트
+Body > raw > JSON
