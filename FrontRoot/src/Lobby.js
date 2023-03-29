@@ -3,7 +3,7 @@ import { useNavigate, useLocation, BrowserRouter as Router, Routes, Route } from
 import { StompSessionProvider, useSubscription, useStompClient } from 'react-stomp-hooks'; //이게 백엔드랑 통신하는 코드
 
 function Lobby(props) {
-  const { SettingLobbyName } = props;
+  const { SettingLobbyName, SettingUrl } = props;
   const [messages, setMessages] = useState([]);
   const [lobbyInput, setLobbyInput] = useState("test");
   // const [subscription, setSubscription] = useState("/user/lobby");
@@ -92,7 +92,7 @@ function Lobby(props) {
     const gameLobbies = []; //초기화 하는 코드는 이런식으로 []를 쓴다.
     return gameLobbies.find(lobby => lobby.name === lobbyName) !== undefined;
   }
-  function createLobby(){
+  function createLobby() {
     // 이미 존재하는 로비인지 확인
     const existingLobby = checkExistingLobby(lobbyInput);
     if (existingLobby) {
@@ -100,14 +100,14 @@ function Lobby(props) {
       alert(`"${lobbyInput}" 로비는 이미 존재합니다. 다른 이름으로 로비를 만들어주세요.`);
       return seeAllGames();
     }
-    
+
     // 새로운 로비 생성
     stompClient.publish({
       headers: { lobbyName: lobbyInput },
       destination: '/app/create',
       body: '',
     });
-  
+
     seeAllGames();
   };
 
@@ -121,8 +121,8 @@ function Lobby(props) {
 
   function MoveMyRoom(lobbyName) { //참여버튼임. 기존에 방이 있을경우 입장하시겠습니까? 가 뜸.
 
-
   };
+
   function startGame() { //만약 stompClient 객체가 존재할 경우, lobbyInput을 가지고 app/start로 이동
     navigate('/game');
     if (stompClient) {
@@ -132,7 +132,12 @@ function Lobby(props) {
       })
     }
   }
-  
+
+  function toBoard() {
+    navigate('/board');
+    SettingUrl("http://localhost:5000/board");
+  }
+
   return (
     <div className="chat-app">
       <h1>Coup Online 로비</h1>
@@ -151,6 +156,7 @@ function Lobby(props) {
         <button className='seeAllGames' onClick={seeAllGames}>See all games</button>
         <button className='createLobby' onClick={createLobby}>Create Lobby</button>
         <button className='startGame' onClick={startGame}>Start Game</button>
+        {/* <button className='toBoard' onClick={toBoard}>To Board</button> */}
         <div>
           <span>LobbyName:</span>
           <input

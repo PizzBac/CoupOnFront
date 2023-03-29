@@ -137,7 +137,7 @@ function StompHookProps(props) {
     <div className='gameDiv'>
 
       <div className='topDiv'>
-
+        
       </div>
 
       <div className="bankerDiv">
