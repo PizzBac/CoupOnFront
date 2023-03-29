@@ -3,12 +3,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { StompSessionProvider } from "react-stomp-hooks";
 import Lobby from "./Lobby";
 import StompHookProps from "./ServerQue/StompHookProps";
-
-const url = "wss://coup.jestground.com/ws"; // 현오씨 서버
-// const url = "ws://3.36.196.244:5000/ws"; // 현석씨 서버
+// import UserBoard from "./Board/UserBoard";
+// const url = "wss://coup.jestground.com/ws"; // 현오씨 서버
+const url = "http://3.36.196.244:5000/board"; // 현석씨 서버
 
 function App() {
     const [lobbyName, setLobbyName] = useState("");
+    
 
     function SettingLobbyName(x) {
         setLobbyName(x);
@@ -23,15 +24,17 @@ function App() {
         <StompSessionProvider url={url} debug={(s) => console.log(s)}>
             <BrowserRouter>
                 <Routes>
-                    <Route
+                    {/* <Route
                         exact path="/"
                         element={
                             <Lobby
                                 SettingLobbyName={SettingLobbyName}
                             />
                         }
-                    />
+                    /> */}
+                    <Route exact path="/userBoard"></Route>
                     <Route exact path="/game" element={<StompHookProps lobbyName={lobbyName} />} />
+                    
                 </Routes>
             </BrowserRouter>
         </StompSessionProvider>
