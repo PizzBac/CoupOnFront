@@ -1,27 +1,13 @@
-.banker {
-  position: relative;
-  display: inline;
-  float: left;
-  width: 100vw;
-  height: auto;
-  background-color: black;
-}
-
 .announcement {
-  /* display: block; */
-  padding: 2vmin;
-  /* margin: 10px; */
-  font: bold 4vmin "TmonMonsori";
+  padding: 1vmin;
+  font: bold 2.5vmin "TmonMonsori";
   text-align: center;
   overflow-y: scroll;
+  height: 7.5vh;
 }
 
 .announcement::-webkit-scrollbar {
   display: none;
-}
-
-.turn {
-  color: white;
 }
 
 .anc-message {

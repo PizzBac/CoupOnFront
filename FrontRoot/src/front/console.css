@@ -13,11 +13,12 @@
 
 .line-1 {
   position: relative;
+  margin-left: -6.25%;
 }
 
 .line-2 {
   position: relative;
-  margin-left: 7%;
+  margin-left: 6.25%;
 }
 
 .line-3 {
@@ -63,6 +64,13 @@
   align-items: center;
   background-position: center;
   background-repeat: no-repeat;
+  cursor: pointer;
+  opacity: 0.92;
+  transition: opacity 0 ease-in-out;
+}
+.hex-inner2:hover {
+  background-size: 120%;
+  opacity: 1;
 }
 
 /* .hex:nth-of-type(n+5) {
@@ -71,7 +79,7 @@
 
 .font {
   color: white;
-  font: bold calc(3.002vmin) "TmonMonsori";
+  font: bold 3.002vmin "TmonMonsori";
   text-align : center;
   text-shadow: -1.1px 0 #000, 0 1.1px #000, 1.1px 0 #000, 0 -1.1px #000;
 }

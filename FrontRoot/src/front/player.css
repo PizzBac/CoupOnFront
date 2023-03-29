@@ -5,18 +5,30 @@
 }
 
 .player {
+  /* border: 0.5vmin solid black; */
+  width: 20vw;
+  height: 19vh;
   position: relative;
   float: left;
-  margin-left: 5vmin;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .player_font {
+  width: auto;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 4vmin;
+  font-size: 3vmin;
   font-weight: bold;
+  margin: 1px;
+  background-color: white;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.player_font:hover {
+  background-color: yellow;
+  border: 2px solid red;
 }
 
 .card_container {
@@ -26,22 +38,22 @@
 .cardImg {
   position: relative;
   float: left;
-  width: calc(1vw * 70 * 100 / 1080);
-  height: calc(1vh * 150 * 100 / 1920);
+  width: 7vw;
+  height: 10vh;
   margin-left: 5px;
 }
 
 .coin_container {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .coin {
   position: relative;
   float: left;
   background-image: url(./images/coin.png);
-  width: 5vmin;
-  height: 5vmin;
+  width: 4vmin;
+  height: 4vmin;
 }
 
 .coin_font {

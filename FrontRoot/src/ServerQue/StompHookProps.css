@@ -16,7 +16,9 @@
 }
 
 .bankerDiv {
+  width: 100vw;
   height: 10vh;
+  background-color: black;
 }
 
 .bottomDiv {
@@ -37,19 +39,15 @@
   margin: 0.5vmin;
   border-radius: 3%;
   font-size: 2vmin;
-  overflow-y: scroll;
-}
-
-.logDiv::-webkit-scrollbar {
-  display: none;
 }
 
 .consoleAndPlayerDiv {
-  /* border: 1px solid black; */
   width: 70vw;
   margin: 0.5vmin;
 }
 
 .playerDiv {
-  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }

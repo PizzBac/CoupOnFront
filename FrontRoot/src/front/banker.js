@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './banker.css';
 
 function Banker(props) {
   const { receivedMessage } = props;
   const [message, setMessage] = useState("");
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     if (typeof receivedMessage === 'string' && receivedMessage.trim().startsWith('{') && receivedMessage.trim().endsWith('}')) {
@@ -15,13 +16,15 @@ function Banker(props) {
     } else {
       console.log('JSON형태가 아닙니다.');
     }
+
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
   }, [receivedMessage]);
 
   return (
-    <div className="banker">
-      <div className="announcement anc-message">
-        {receivedMessage ? receivedMessage : message}
-      </div>
+    <div className="announcement anc-message" ref={scrollRef}>
+      {receivedMessage ? receivedMessage : message}
     </div>
   );
 }

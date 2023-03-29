@@ -1,0 +1,2 @@
+server
+Spring Boot Extension Pack > Spring Boot DashBoard > Apps > Run

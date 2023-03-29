@@ -43,14 +43,13 @@ function Chat(props) {
 
     return (
         <div className="chatWrapper">
-            {/* 채팅 목록 */}
             <div className="chatcontainer" >
                 {chatLog.map((item, index) => (
                     <div className="text" key={index + 1}>
                         <strong>{item.sender}:</strong> {item.message}
                     </div>
                 ))}
-                < div ref={messagesEndRef} />
+                <div ref={messagesEndRef} />
                 {/* ref 속성을 이용하여 messagesEndRef 변수와 div 요소를 연결 */}
             </div >
             <form onSubmit={handleSubmit}>

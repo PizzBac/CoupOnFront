@@ -10,10 +10,10 @@
     border: 0.5vmin solid black;
     border-radius: 3%;
     height: 35vh;
-    overflow-y: scroll;
     background-color: bisque;
     margin: 0.5vmin;
     font-size: 2vmin;
+    overflow-y: scroll;
     -ms-overflow-style: none;
     /* 인터넷 익스플로러 */
     scrollbar-width: none;
@@ -23,12 +23,6 @@
 .chatcontainer::-webkit-scrollbar {
     display: none;
 }
-/* .chatcontainer::-webkit-scrollbar-thumb {
-    display: none;
-} */
-/* .chatcontainer::-webkit-scrollbar-track {
-    display: none;
-} */
 
 .messageLabel {
     background-color: bisque;
