@@ -1,8 +1,11 @@
-local server
+- local server
 Spring Boot Extension Pack > Spring Boot DashBoard > Apps > Run
+- 포트 주소 설정 위치
+src > main > resources > application.yml
 
-게시판 주소
+- 게시판 주소
 http://3.36.196.244:5000/board
 
-포스트맨 테스트
+- 포스트맨 테스트
 Body > raw > JSON
+

@@ -3,13 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { StompSessionProvider } from "react-stomp-hooks";
 import Lobby from "./Lobby";
 import StompHookProps from "./ServerQue/StompHookProps";
-import TestBoard from "./dummy/TestBoard"
+import Board from "./Board"
 
 // const url = "wss://coup.jestground.com/ws"; // 현오씨 서버
 // const url = "ws://3.36.196.244:5000/ws"; // 현석씨 서버
-// const url = "ws://localhost:5000/ws"; // 로컬호스트
 // const url = "http://3.36.196.244:5000/board";
-// const url = "http://localhost:5000/board";
+// 서버에서 돌릴 때 보드의 주소값 localhost에서 3.36.196.244로 바꿔야 합니다.
 
 function App() {
     const [lobbyName, setLobbyName] = useState("");
@@ -20,11 +19,6 @@ function App() {
         setLobbyName(x);
     };
 
-    function SettingUrl(x) {
-        url = x;
-        console.log("url 변경" + url)
-    }
-
     return (
         <StompSessionProvider url={url} debug={(s) => console.log(s)}>
             <BrowserRouter>
@@ -34,12 +28,11 @@ function App() {
                         element={
                             <Lobby
                                 SettingLobbyName={SettingLobbyName}
-                                SettingUrl={SettingUrl}
                             />
                         }
                     />
                     <Route exact path="/game" element={<StompHookProps lobbyName={lobbyName} />} />
-                    <Route exact path="/board" element={<TestBoard />} />
+                    <Route exact path="/board" element={<Board />} />
                 </Routes>
             </BrowserRouter>
         </StompSessionProvider>

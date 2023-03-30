@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { StompSessionProvider, useSubscription, useStompClient } from 'react-stomp-hooks'; //이게 백엔드랑 통신하는 코드
+import { useSubscription, useStompClient } from 'react-stomp-hooks'; //이게 백엔드랑 통신하는 코드
 
 function Lobby(props) {
-  const { SettingLobbyName, SettingUrl } = props;
+  const { SettingLobbyName } = props;
   const [messages, setMessages] = useState([]);
   const [lobbyInput, setLobbyInput] = useState("test");
   // const [subscription, setSubscription] = useState("/user/lobby");
@@ -135,7 +135,6 @@ function Lobby(props) {
 
   function toBoard() {
     navigate('/board');
-    SettingUrl("http://localhost:5000/board");
   }
 
   return (
@@ -156,7 +155,7 @@ function Lobby(props) {
         <button className='seeAllGames' onClick={seeAllGames}>See all games</button>
         <button className='createLobby' onClick={createLobby}>Create Lobby</button>
         <button className='startGame' onClick={startGame}>Start Game</button>
-        {/* <button className='toBoard' onClick={toBoard}>To Board</button> */}
+        <button className='toBoard' onClick={toBoard}>To Board</button>
         <div>
           <span>LobbyName:</span>
           <input
