@@ -229,7 +229,7 @@ function Lobby(props) {
             type="text"
             value={lobbyInput}
             onChange={(e) => setLobbyInput(e.target.value)}
-          /> <button onClick={() => MoveMyRoom()}>참여</button>
+          />
         </div>
       </div>
       <hr />
