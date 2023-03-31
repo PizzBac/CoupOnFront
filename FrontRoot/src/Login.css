@@ -2,6 +2,42 @@
 
 @import url('https://webfontworld.github.io/pocheon/MakGeolli.css');
 
+
+.btn-popUp-login {
+  background-color: #ff6b6b;
+  /* border-radius: 50px 50px 0 0; */
+  border-radius: 50px 50px 50px 50px;
+  border: none;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 3s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+
+.btn-popUp-login p {
+  font-family: 'MakGeolli';
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+
+
 .font {
   font-family: 'MakGeolli';
   font-size: 1.5rem;
@@ -48,14 +84,15 @@
 
 
 .login-container {
-  background-color: rgba(22, 164, 231, 0.9);
+  background-color: rgba(22, 164, 231, 0.95);
   border-radius: 20px;
   box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.3);
   padding: 60px;
+  
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: slide-up 0.5s ease-out forwards;
+  animation: slide-up 1s ease-out forwards;
   transform: translateY(100%);
 }
 
@@ -111,7 +148,7 @@ label {
 .form-control {
   border-radius: 20px;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 10px;
   font-size: 1rem;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.8);

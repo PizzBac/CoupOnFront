@@ -184,9 +184,9 @@ function Lobby(props) {
       {/* <div className="lobby-container"> */}
       <button className='startGame' onClick={startGame}><p>로비: {lobbyInput} 의</p>게임 시작</button>
         <div className="chat-input">
-          <button className='seeAllUsers' onClick={seeAllUsers}>See all users</button>
-          <button className='seeAllGames' onClick={seeAllGames}>See all games</button>
-          <button className='toBoard' onClick={toBoard}>To Board</button>
+          <button className='seeAllUsers' onClick={seeAllUsers}>모든 유저 보기</button>
+          <button className='seeAllGames' onClick={seeAllGames}>모든 게임 보기</button>
+          {/* <button className='toBoard' onClick={toBoard}>To Board</button> */}
         </div>
         <div className="div-lobby-input">
         <span className="lobby-input-label">생성할 로비이름:</span>

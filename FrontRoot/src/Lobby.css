@@ -129,7 +129,9 @@
 }
 
 .lobby-input-text {
-  border: 2px solid #ccc;
+  border: 1px solid #ccc;
+  /* border: none; */
+  /* bac */
   border-radius: 5px;
   padding: 0.5rem;
   margin-right: 1rem;
