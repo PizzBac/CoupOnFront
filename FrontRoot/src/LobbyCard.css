@@ -1,0 +1,77 @@
+/* .lobby-card {
+  margin: 10px;
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+
+.lobby-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.lobby-card .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.lobby-card .card-text {
+  margin: 0.5rem 0;
+}
+
+
+ */
+
+ .lobby-card-container {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.lobby-card {
+  max-width: 30rem;
+  /* width: 100%; */
+  background-color: #fff;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 30px;
+}
+
+.list-group-item {
+  background-color: #f5f5f5;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 10px;
+}
+
+.card-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-title.open {
+  /* background-color: green; */
+  color: green;
+}
+
+.card-title.started {
+  color: #FFA07A;
+}
+
+.card-subtitle {
+  font-size: 16px;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+
+/* .list-group-item:hover {
+  background-color: #e9ecef;
+} */
+
+

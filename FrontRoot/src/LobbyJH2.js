@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSubscription, useStompClient } from 'react-stomp-hooks'; //이게 백엔드랑 통신하는 코드
+import LobbyCard from "./LobbyCard"
+import './Lobby.css';
+
 
 function Lobby(props) {
   const { SettingLobbyName } = props;
   const [messages, setMessages] = useState([]);
-  const [lobbyInput, setLobbyInput] = useState("test");
-  // const [subscription, setSubscription] = useState("/user/lobby");
-  const [forCreateLobbyInputName, setForCreateLobbyInputName] = useState(''); //얘는 이름 입력하면 로비 만들기 위한 선언임
-  const [tableData, setTableData] = useState([]); //얘도 마찬가지
+  const [lobbyInput, setLobbyInput] = useState("Default");
 
   const stompClient = useStompClient();
   const navigate = useNavigate();
@@ -21,24 +21,6 @@ function Lobby(props) {
     console.log("success");
   } else {
     console.log("stompClient is null");
-  }
-
-  function handleChange(event) {//얘가 1이고 1~4는 이름 입력하면 그 이름을 가진 테이블을 생성하기 위한 코드
-    setForCreateLobbyInputName(event.target.value);
-  };
-
-  function ParticipationButton(event) {//2
-    event.preventDefault();
-    if (!forCreateLobbyInputName) return; // 입력값이 없는 경우 처리
-    const rowData = <tr ><td style={{ border: "1px solid black" }}>{forCreateLobbyInputName}</td></tr>;
-    setTableData([...tableData, rowData]);
-    setForCreateLobbyInputName("");
-  }
-
-  function deleteTableRow(index) {//4
-    const newData = [...tableData];
-    newData.splice(index, 1);
-    setTableData(newData);
   }
 
   function handleCheck(event) {
@@ -81,38 +63,13 @@ function Lobby(props) {
     }
   };
 
-//   function parseLobbyInfo(messages) {
-//     if (typeof messages !== 'string') {
-//       console.error('Invalid messages: not a string');
-//       return null;
-//     }
-  
-//     const regex = /로비명 (.*?) 로비를 생성했다.\n로비 이름 : (.*?)\n현재 상태 : (.*?)\n현재 플레이어: \[(.*?)\]/;
-//     const match = messages.match(regex);
-  
-//     if (!match) {
-//       console.error('No lobby information found in messages');
-//       return null;
-//     }
-  
-//     const lobby = {
-//       lobbyName: match[2],
-//       status: match[3],
-//       currentPlayer: match[4]
-//     };
-  
-//     return lobby;
-//   }
-  
-
-//   const lobbyRef = useRef([]);
 
   console.log(messages);
 
   let lobbyInfo;
 
   function parseLobbyInfo(messages) {
-    let regex = /로비 이름 : (.*?)\n현재 상태 : (.*?)\n현재 플레이어: (\[.*?\])/;
+    let regex = /로비 이름 : (.*?)\n현재 상태 : (.*?)\n현재 플레이어: (\[(.*?)])/;
     const match = messages.match(regex);
     console.log(match);
   
@@ -120,7 +77,7 @@ function Lobby(props) {
       const lobbyInfo = {
         lobbyName: match[1],
         status: match[2],
-        currentPlayer: match[3]
+        currentPlayer: match[3].split(',').map(player => player.replace(/[\[\]']+/g, '').trim())
       };
       return lobbyInfo;
     } else {
@@ -133,17 +90,35 @@ function Lobby(props) {
 // 예시로 messages 변수를 만들어 parseLobbyInfo 함수를 호출합니다.
 // const aa = "로비명 test44 로비를 생성했다.\n로비 이름 : test44\n현재 상태 : OPEN\n현재 플레이어: [MU1F2]\n";
   
+  let currentMsg = [];
   if (messages.length > 0) {
-    // messages.forEach(message => {
-    lobbyInfo = parseLobbyInfo(messages[messages.length - 1]);
-    //     if (lobbyInfo) {
-    //         lobbyInfoRef.current.push(lobbyInfo);
-    //     }
-    //     });
-    if (lobbyInfo) {
-        lobbyInfoRef.current[lobbyInfo.lobbyName] = lobbyInfo;
-      }
+    if (messages[messages.length - 1].includes('\n\n')) {
+      currentMsg = messages[messages.length - 1].split('\n\n').map(msg => msg.trim());
+    } else {
+      currentMsg = [messages[messages.length - 1]];
     }
+  }
+  if (currentMsg.length > 0) {
+    currentMsg.forEach((msg) => {
+      const lobbyInfo = parseLobbyInfo(msg);
+      if (lobbyInfo) {
+          lobbyInfoRef.current[lobbyInfo.lobbyName] = lobbyInfo;
+      }
+    })
+  };
+  //   currenMsg.forEach((msg) => {
+    //     const lobbyInfo = parseLobbyInfo(msg);
+    //     if (lobbyInfo) {
+      //       lobbyInfoRef.current[lobbyInfo.lobbyName] = lobbyInfo;
+      //     }
+      //   })
+      // };
+      // lobbyInfo = parseLobbyInfo(messages[messages.length - 1]);
+      // if (lobbyInfo) {
+        //     lobbyInfoRef.current[lobbyInfo.lobbyName] = lobbyInfo;
+        //   }
+        // }
+  console.log(currentMsg);
   console.log(lobbyInfoRef);
 
 
@@ -153,30 +128,18 @@ function Lobby(props) {
     });
   };
 
-  function checkExistingLobby(lobbyName) {
-    // 기존 로비 목록에서 lobbyName과 같은 이름의 로비를 찾아서 반환
-    const gameLobbies = []; //초기화 하는 코드는 이런식으로 []를 쓴다.
-    return gameLobbies.find(lobby => lobby.name === lobbyName) !== undefined;
-  }
-
-  function createLobby() {
-    // 이미 존재하는 로비인지 확인
-    const existingLobby = checkExistingLobby(lobbyInput);
-    if (existingLobby) {
-      // 이미 존재하는 로비가 있을 경우 처리
-      alert(`"${lobbyInput}" 로비는 이미 존재합니다. 다른 이름으로 로비를 만들어주세요.`);
-      return seeAllGames();
-    }
-
+  function createLobby(lobbyInput) {
     // 새로운 로비 생성
     stompClient.publish({
       headers: { lobbyName: lobbyInput },
       destination: '/app/create',
       body: '',
     });
-
+    // setLobbyInput(''); // LobbyInput을 초기화
     seeAllGames();
-  };
+  }
+
+  console.log("현재 선택된 로비", lobbyInput);
 
   function seeAllGames() {
     if (stompClient) {
@@ -186,18 +149,19 @@ function Lobby(props) {
     }
   }
 
-  function MoveMyRoom(lobbyName) { //참여버튼임. 기존에 방이 있을경우 입장하시겠습니까? 가 뜸.
-
-  };
-
   function startGame() { //만약 stompClient 객체가 존재할 경우, lobbyInput을 가지고 app/start로 이동
     navigate('/game');
     if (stompClient) {
       stompClient.publish({
-        headers: { "lobbyName": lobbyInput },
+        headers: { lobbyName: lobbyInput },
         destination: "/app/start"
       })
     }
+  }
+
+  function joinLobby(lobbyName) {
+    setLobbyInput(lobbyName);
+    createLobby(lobbyName);
   }
 
   function toBoard() {
@@ -220,19 +184,28 @@ function Lobby(props) {
       <div className="chat-input">
         <button className='seeAllUsers' onClick={seeAllUsers}>See all users</button>
         <button className='seeAllGames' onClick={seeAllGames}>See all games</button>
-        <button className='createLobby' onClick={createLobby}>Create Lobby</button>
         <button className='startGame' onClick={startGame}>Start Game</button>
         <button className='toBoard' onClick={toBoard}>To Board</button>
         <div>
-          <span>LobbyName:</span>
+          <span>생성할 로비이름:</span>
           <input
             type="text"
             value={lobbyInput}
             onChange={(e) => setLobbyInput(e.target.value)}
-          />
+          /><button className='createLobby' onClick={() => createLobby(lobbyInput)}>로비 만들기</button>
         </div>
       </div>
       <hr />
+      <div className="lobby-cards">
+        {Object.keys(lobbyInfoRef.current).map((name, index) => (
+              <LobbyCard
+              key={index}
+              lobbyInfoRef={lobbyInfoRef}
+              lobbyName={name}
+              onJoinLobby={() => joinLobby(name)}
+            />
+        ))}
+      </div>
     </div>
   );
 };
