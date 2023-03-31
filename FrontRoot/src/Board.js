@@ -67,14 +67,14 @@ function Board(props) {
     }
 
     return (
-        <>
-            테스트보드
+        <div>
+            <p>테스트보드</p>
             <button className='uploadNewPosts' onClick={uploadNewPost}>새 글 등록</button>
             <button className='seeAllPosts' onClick={seeAllPosts}>모든 글 보기</button>
             <button className='seeOnePosts' onClick={seeOnePosts}>1번 글 보기</button>
             <button className='modifyPost' onClick={modifyPost}>1번 글 수정하기</button>
             <button className='deletePost' onClick={deletePost}>1번 글 삭제하기</button>
-        </>
+        </div>
     )
 }
 

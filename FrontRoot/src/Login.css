@@ -1,5 +1,15 @@
 /* Login.css */
 
+@import url('https://webfontworld.github.io/pocheon/MakGeolli.css');
+
+.font {
+  font-family: 'MakGeolli';
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .background {
   /* background-image: url("https://picsum.photos/1920/1080"); */
   background-image: url("./front/images/coup-logo-explain.png");
@@ -10,8 +20,32 @@
   justify-content: center;
   align-items: center;
   background-repeat: no-repeat;
-  /* filter: blur(10px); */
+  position: relative;
 }
+
+.background::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  animation: fade-out 3s linear forwards;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 
 .login-container {
   background-color: rgba(22, 164, 231, 0.9);
@@ -20,8 +54,32 @@
   padding: 60px;
   display: flex;
   justify-content: center;
-  /* filter: blur(none); */
+  align-items: center;
+  animation: slide-up 0.5s ease-out forwards;
+  transform: translateY(100%);
 }
+
+.login-container.animate {
+  animation: slide-down 0.5s ease-out forwards;
+  transform: translateY(0%);
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+
+@keyframes slide-up {
+  to {
+    transform: translateY(0%);
+  }
+}
+
 
 
 .login-form {
@@ -30,8 +88,9 @@
   align-items: center;
 }
 
-h2 {
-  font-size: 2rem;
+.title {
+  font-family: 'MakGeolli';
+  font-size: 5rem;
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
@@ -43,6 +102,7 @@ h2 {
 }
 
 label {
+  font-family: 'MakGeolli';
   display: block;
   font-size: 1.2rem;
   margin-bottom: 5px;
@@ -58,17 +118,40 @@ label {
 }
 
 .btn-primary {
+  font-family: 'MakGeolli';
   border-radius: 20px;
   border: none;
   padding: 10px 20px;
-  font-size: 1.2rem;
+  font-size: 2rem;
   width: 100%;
   background-color: #ff6b6b;
+  margin-top: 20px;
   color: white;
-  transition: all 0.3s ease-in-out;
+  animation: bounce 5s infinite;
 }
 
+@keyframes bounce {
+  0% {
+    transform: translateY(0%);
+  }
+  30% {
+    transform: translateY(-30%);
+  }
+  50% {
+    transform: translateY(0%);
+  }
+  70% {
+    transform: translateY(-30%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+
+
 .btn-primary:hover {
+  font-family: 'MakGeolli';
   background-color: #ff4757;
   transform: scale(1.1);
 }

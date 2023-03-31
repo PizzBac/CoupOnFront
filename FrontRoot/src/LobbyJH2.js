@@ -182,7 +182,7 @@ function Lobby(props) {
         <button type='button' onClick={handleCheck}>서버 연결 체크하기(콘솔 창 통해 확인)</button>
       </div> */}
       {/* <div className="lobby-container"> */}
-      <button className='startGame' onClick={startGame}>게임 시작</button>
+      <button className='startGame' onClick={startGame}><p>로비: {lobbyInput} 의</p>게임 시작</button>
         <div className="chat-input">
           <button className='seeAllUsers' onClick={seeAllUsers}>See all users</button>
           <button className='seeAllGames' onClick={seeAllGames}>See all games</button>
