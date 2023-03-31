@@ -170,42 +170,45 @@ function Lobby(props) {
 
   return (
     <div className="chat-app">
-      <h1>Coup Online 로비</h1>
+      {/* <h1>Coup Online 로비</h1>
       <ul className="chat-log">
         {messages.map((message, index) => (
           <li key={index}>
             <pre>{message}</pre>
           </li>
         ))}
-      </ul>
-      <div>
+      </ul> */}
+      {/* <div>
         <button type='button' onClick={handleCheck}>서버 연결 체크하기(콘솔 창 통해 확인)</button>
-      </div>
-      <div className="chat-input">
-        <button className='seeAllUsers' onClick={seeAllUsers}>See all users</button>
-        <button className='seeAllGames' onClick={seeAllGames}>See all games</button>
-        <button className='startGame' onClick={startGame}>Start Game</button>
-        <button className='toBoard' onClick={toBoard}>To Board</button>
-        <div>
-          <span>생성할 로비이름:</span>
+      </div> */}
+      {/* <div className="lobby-container"> */}
+      <button className='startGame' onClick={startGame}>게임 시작</button>
+        <div className="chat-input">
+          <button className='seeAllUsers' onClick={seeAllUsers}>See all users</button>
+          <button className='seeAllGames' onClick={seeAllGames}>See all games</button>
+          <button className='toBoard' onClick={toBoard}>To Board</button>
+        </div>
+        <div className="div-lobby-input">
+        <span className="lobby-input-label">생성할 로비이름:</span>
           <input
             type="text"
+            className="lobby-input-text"
             value={lobbyInput}
             onChange={(e) => setLobbyInput(e.target.value)}
-          /><button className='createLobby' onClick={() => createLobby(lobbyInput)}>로비 만들기</button>
+          /><button className='createLobby lobby-button' onClick={() => createLobby(lobbyInput)}>로비 만들기</button>
         </div>
-      </div>
-      <hr />
-      <div className="lobby-cards">
-        {Object.keys(lobbyInfoRef.current).map((name, index) => (
-              <LobbyCard
-              key={index}
-              lobbyInfoRef={lobbyInfoRef}
-              lobbyName={name}
-              onJoinLobby={() => joinLobby(name)}
-            />
-        ))}
-      </div>
+        <hr />
+        <div className="lobby-cards">
+          {Object.keys(lobbyInfoRef.current).map((name, index) => (
+                <LobbyCard
+                key={index}
+                lobbyInfoRef={lobbyInfoRef}
+                lobbyName={name}
+                onJoinLobby={() => joinLobby(name)}
+              />
+          ))}
+        </div>
+      {/* </div> */}
     </div>
   );
 };

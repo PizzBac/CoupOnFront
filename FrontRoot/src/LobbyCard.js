@@ -29,7 +29,7 @@ function LobbyCard(props) {
             {lobbyInfo.status === 'OPEN' ? (
               <div className="card-buttons">
                 <button className="btn btn-primary btn-sm" onClick={() => props.onJoinLobby(lobbyName)}>참가</button>
-                <button className="btn btn-success btn-sm">게임시작</button>
+                {/* <button className="btn btn-success btn-sm">게임시작</button> */}
               </div>
             ) : (
               <p>게임이 시작되었습니다.</p>

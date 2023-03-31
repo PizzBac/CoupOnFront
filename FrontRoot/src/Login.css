@@ -1,0 +1,74 @@
+/* Login.css */
+
+.background {
+  /* background-image: url("https://picsum.photos/1920/1080"); */
+  background-image: url("./front/images/coup-logo-explain.png");
+  background-size: contain;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  /* filter: blur(10px); */
+}
+
+.login-container {
+  background-color: rgba(22, 164, 231, 0.9);
+  border-radius: 20px;
+  box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.3);
+  padding: 60px;
+  display: flex;
+  justify-content: center;
+  /* filter: blur(none); */
+}
+
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+label {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  border-radius: 20px;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-primary {
+  border-radius: 20px;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  width: 100%;
+  background-color: #ff6b6b;
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #ff4757;
+  transform: scale(1.1);
+}

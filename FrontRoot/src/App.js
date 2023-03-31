@@ -5,6 +5,8 @@ import Lobby from "./Lobby";
 import StompHookProps from "./ServerQue/StompHookProps";
 import Board from "./Board"
 import LobbyJH2 from "./LobbyJH2"
+import MainPage from "./MainPage"
+import Login from "./Login"
 
 // const url = "wss://coup.jestground.com/ws"; // 현오씨 서버
 const url = "ws://3.36.196.244:5000/ws"; // 현석씨 서버
@@ -35,6 +37,8 @@ function App() {
                     />
                     <Route exact path="/game" element={<StompHookProps lobbyName={lobbyName} />} />
                     <Route exact path="/board" element={<Board />} />
+                    <Route exact path="/main" element={<MainPage SettingLobbyName={SettingLobbyName}/>} />
+                    <Route exact path="/login" element={<Login/>} />
                 </Routes>
             </BrowserRouter>
         </StompSessionProvider>
