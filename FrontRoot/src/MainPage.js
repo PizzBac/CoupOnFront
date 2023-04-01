@@ -5,7 +5,7 @@ import LobbyJH2 from './LobbyJH2'
 import logo1 from './front/images/coup-main.png'; // 이미지 파일 경로
 import logo2 from './front/images/coup-logo-explain.png'; // 이미지 파일 경로
 import youtubeLogo from './front/images/youtube-logo.png';
-import Board from "./Board"
+import Board from "./Board/Board"
 
 function MainPage(props) {
   const { SettingLobbyName } = props;
