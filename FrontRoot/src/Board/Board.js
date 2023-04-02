@@ -13,6 +13,9 @@ function Board(props) {
     const [pageNum, setPageNum] = useState(1); // 현재 페이지 번호 state
     const numPerPage = 5; // 한 페이지에 보이는 글의 개수
 
+    const [savedSearchFilterCondition, setSavedSearchFilterCondition] = useState('');
+    const [savedSearchFilterInput, setSavedSearchFilterInput] = useState('');
+
     useEffect(() => {
         if (boardScreen === "board") {
             seeAllPosts();
@@ -122,11 +125,11 @@ function Board(props) {
                         numPerPage={numPerPage}
                         setBoardScreen={setBoardScreen}
                         seeAllPosts={seeAllPosts}
+                        savedSearchFilterCondition = {savedSearchFilterCondition}
+                        setSavedSearchFilterCondition = {setSavedSearchFilterCondition}
+                        savedSearchFilterInput = {savedSearchFilterInput}
+                        setSavedSearchFilterInput = {setSavedSearchFilterInput}
                     />
-                    {/* <div>
-                        <button className="writeNewPost" onClick={() => setBoardScreen("write")}>새 글 쓰러가기</button>
-                        <button className='seeAllPosts' onClick={seeAllPosts}>글 목록 새로고침</button>
-                    </div> */}
                 </>
             ) : (
                 <>

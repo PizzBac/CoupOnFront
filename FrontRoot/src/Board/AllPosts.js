@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './AllPosts.css'
 
-function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBoardScreen, seeAllPosts }) {
+function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBoardScreen, seeAllPosts, savedSearchFilterCondition, setSavedSearchFilterCondition, savedSearchFilterInput, setSavedSearchFilterInput }) {
 
     const [sortedPosts, setSortedPosts] = useState([]);
-    // const sortedPosts = allPosts.slice().reverse(); // slice() - 원본 배열에 영향 안 주기 위해 사용
-    const totalPosts = sortedPosts.length;
+
+    const [searchFilterCondition, setSearchFilterCondition] = useState('title');
+    const [searchFilterInput, setSearchFilterInput] = useState('');
+    const [filteredPosts, setFilteredPosts] = useState(sortedPosts);
+
+    const totalPosts = filteredPosts.length;
     const totalPageNum = Math.ceil(totalPosts / numPerPage); // ceil() - 올림 처리하여 마지막 페이지까지 생성
 
     const handleClickPrevPage = () => {
@@ -52,20 +56,7 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
         setInputPage('');
     };
 
-
     // 글 검색
-
-    const [searchFilterCondition, setSearchFilterCondition] = useState('title');
-    const [searchFilterInput, setSearchFilterInput] = useState('');
-    const [filteredPosts, setFilteredPosts] = useState(sortedPosts);
-
-    useEffect(() => {
-        setSortedPosts(allPosts.slice().reverse());
-    }, [allPosts]);
-
-    useEffect(() => {
-        handleSearchFilter();
-    }, [sortedPosts]);
 
     const handleSearchFilterConditionChange = (event) => {
         setSearchFilterCondition(event.target.value);
@@ -83,6 +74,39 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
         setPageNum(1);
         setFilteredPosts(newFilteredPosts);
     };
+
+    const handleRefreshPosts = () => {
+        seeAllPosts();
+        setSearchFilterCondition('title');
+        setSearchFilterInput('');
+        setPageNum(1);
+    };
+
+    const handleSeeOnePost = (index) => {
+        setSavedSearchFilterCondition(searchFilterCondition);
+        setSavedSearchFilterInput(searchFilterInput);
+        seeOnePost(index);
+    };
+    
+    const handleWriteNewPost = () => {
+        setSavedSearchFilterCondition(searchFilterCondition);
+        setSavedSearchFilterInput(searchFilterInput);
+        setBoardScreen("write");
+    };
+
+    useEffect(() => {
+        setSortedPosts(allPosts.slice().reverse()); // slice() - 원본 배열에 영향 안 주기 위해 사용
+    }, [allPosts]);
+
+    useEffect(() => {
+        if (savedSearchFilterCondition !== '' && savedSearchFilterInput !== '') {
+            setSearchFilterCondition(savedSearchFilterCondition);
+            setSearchFilterInput(savedSearchFilterInput);
+            setSavedSearchFilterCondition('');
+            setSavedSearchFilterInput('');
+        }
+        handleSearchFilter();
+    }, [sortedPosts]);
 
     return (
         <>
@@ -102,7 +126,7 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                             <tr key={post.index}>
                                 <td>{post.index}</td>
                                 <td>
-                                    <button onClick={() => seeOnePost(post.index)}>
+                                    <button onClick={() => handleSeeOnePost(post.index)}>
                                         {post.title}
                                     </button>
                                 </td>
@@ -113,6 +137,10 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                 </tbody>
             </table>
             <div>
+                <div>
+                    <button className='seeAllPosts' onClick={handleRefreshPosts}>전체 글 보기</button>
+                    <button className="writeNewPost" onClick={handleWriteNewPost}>새 글 쓰러가기</button>
+                </div>
                 <div>
                     <button onClick={handleClickFirstPage}>◀◀</button>
                     <button onClick={handleClickPrevPage}>◀</button>
@@ -146,13 +174,10 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                             type="text"
                             value={searchFilterInput}
                             onChange={handleSearchFilterInputChange}
-                            placeholder="내용을 입력하지 않으면 모든 글이 검색됩니다."
+                            placeholder="내용 입력"
                         />
                         <button onClick={handleSearchFilter}>검색하기</button>
                     </div>
-                </div>
-                <div>
-                    <button className="writeNewPost" onClick={() => setBoardScreen("write")}>새 글 쓰러가기</button>
                 </div>
             </div>
         </>
