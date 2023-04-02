@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import './AllPosts.css';
+import React, { useState, useEffect } from 'react';
+import './AllPosts.css'
 
-function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage }) {
-    const sortedPosts = allPosts.slice().reverse(); // slice() - 원본 배열에 영향 안 주기 위해 사용
+function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBoardScreen, seeAllPosts }) {
+
+    const [sortedPosts, setSortedPosts] = useState([]);
+    // const sortedPosts = allPosts.slice().reverse(); // slice() - 원본 배열에 영향 안 주기 위해 사용
     const totalPosts = sortedPosts.length;
     const totalPageNum = Math.ceil(totalPosts / numPerPage); // ceil() - 올림 처리하여 마지막 페이지까지 생성
 
@@ -50,47 +52,108 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage }) {
         setInputPage('');
     };
 
+
+    // 글 검색
+
+    const [searchFilterCondition, setSearchFilterCondition] = useState('title');
+    const [searchFilterInput, setSearchFilterInput] = useState('');
+    const [filteredPosts, setFilteredPosts] = useState(sortedPosts);
+
+    useEffect(() => {
+        setSortedPosts(allPosts.slice().reverse());
+    }, [allPosts]);
+
+    useEffect(() => {
+        handleSearchFilter();
+    }, [sortedPosts]);
+
+    const handleSearchFilterConditionChange = (event) => {
+        setSearchFilterCondition(event.target.value);
+        setSearchFilterInput('')
+    };
+
+    const handleSearchFilterInputChange = (event) => {
+        setSearchFilterInput(event.target.value);
+    };
+
+    const handleSearchFilter = () => {
+        const newFilteredPosts = sortedPosts.filter((post) => {
+            return post[searchFilterCondition].toLowerCase().includes(searchFilterInput.toLowerCase());
+        });
+        setPageNum(1);
+        setFilteredPosts(newFilteredPosts);
+    };
+
     return (
         <>
-            <ul>
-                <div>
-                    {sortedPosts
+            <table>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>글쓴이</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {filteredPosts
                         .slice((pageNum - 1) * numPerPage, pageNum * numPerPage)
                         .map((post) => (
-                            <li key={post.index}>
-                                <div className="postIndex">글 번호 : {post.index}</div>
-                                <div className="postTitle">
+                            <tr key={post.index}>
+                                <td>{post.index}</td>
+                                <td>
                                     <button onClick={() => seeOnePost(post.index)}>
                                         {post.title}
                                     </button>
-                                </div>
-                                <div className="postReadCount">
-                                    조회 수 : {post.readCount}
-                                </div>
-                            </li>
+                                </td>
+                                <td>{post.writer}</td>
+                                <td>{post.readCount}</td>
+                            </tr>
                         ))}
+                </tbody>
+            </table>
+            <div>
+                <div>
+                    <button onClick={handleClickFirstPage}>◀◀</button>
+                    <button onClick={handleClickPrevPage}>◀</button>
+                    {[...Array(totalPageNum)].map((_, index) => (
+                        <button key={index} onClick={() => handleClickPage(index + 1)}>
+                            {index + 1}
+                        </button>
+                    ))}
+                    <button onClick={handleClickNextPage}>▶</button>
+                    <button onClick={handleClickLastPage}>▶▶</button>
                 </div>
-            </ul>
-            <div>
-                <button onClick={handleClickFirstPage}>⏪</button>
-                <button onClick={handleClickPrevPage}>◀</button>
-                {[...Array(totalPageNum)].map((_, index) => (
-                    <button key={index} onClick={() => handleClickPage(index + 1)}>
-                        {index + 1}
-                    </button>
-                ))}
-                <button onClick={handleClickNextPage}>▶</button>
-                <button onClick={handleClickLastPage}>⏩</button>
-            </div>
-            <div>
-                <form onSubmit={handleInputPageSubmit}>
-                    <input
-                        value={inputPage}
-                        onChange={handleInputPage}
-                        placeholder={`페이지로 이동`}
-                    />
-                    <button type="submit">이동</button>
-                </form>
+                <div>
+                    <form onSubmit={handleInputPageSubmit}>
+                        <input
+                            value={inputPage}
+                            onChange={handleInputPage}
+                            placeholder={`페이지로 이동`}
+                        />
+                        <button type="submit">이동</button>
+                    </form>
+                </div>
+                <div>
+                    <div className='filterConditon'>
+                        <select id="searchFilterCondition" value={searchFilterCondition} onChange={handleSearchFilterConditionChange}>
+                            <option value="title">제목</option>
+                            <option value="writer">글쓴이</option>
+                        </select>
+                    </div>
+                    <div className='filterInput'>
+                        <input
+                            type="text"
+                            value={searchFilterInput}
+                            onChange={handleSearchFilterInputChange}
+                            placeholder="내용을 입력하지 않으면 모든 글이 검색됩니다."
+                        />
+                        <button onClick={handleSearchFilter}>검색하기</button>
+                    </div>
+                </div>
+                <div>
+                    <button className="writeNewPost" onClick={() => setBoardScreen("write")}>새 글 쓰러가기</button>
+                </div>
             </div>
         </>
     );

@@ -114,26 +114,19 @@ function Board(props) {
             ) : boardScreen === "board" ? (
                 <>
                     <p>테스트보드</p>
-                    {/* <ul>
-                        {allPosts.map(post => (
-                            <li key={post.index}>
-                                <button onClick={() => seeOnePost(post.index)}>
-                                    {post.title}
-                                </button>
-                            </li>
-                        ))}
-                    </ul> */}
                     <AllPosts
                         allPosts={allPosts}
                         seeOnePost={seeOnePost}
                         pageNum={pageNum}
                         setPageNum={setPageNum}
                         numPerPage={numPerPage}
+                        setBoardScreen={setBoardScreen}
+                        seeAllPosts={seeAllPosts}
                     />
-                    <div>
+                    {/* <div>
                         <button className="writeNewPost" onClick={() => setBoardScreen("write")}>새 글 쓰러가기</button>
                         <button className='seeAllPosts' onClick={seeAllPosts}>글 목록 새로고침</button>
-                    </div>
+                    </div> */}
                 </>
             ) : (
                 <>
