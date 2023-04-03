@@ -67,7 +67,7 @@ function MainPage(props) {
 
       <div className="card-container">
         <section className="card">
-          <Board className="Board-container"></Board>
+          <Board className="Board-container" server={props.server}></Board>
         </section>
         <section className="card">
           <LobbyJH2 className="Lobby-container" SettingLobbyName={SettingLobbyName}></LobbyJH2>

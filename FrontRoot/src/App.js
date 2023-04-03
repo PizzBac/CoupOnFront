@@ -16,7 +16,8 @@ import Login from "./Login"
 function App() {
     const [lobbyName, setLobbyName] = useState("");
 
-    let url = "ws://localhost:5001/ws";
+    let server = "localhost:5001";
+    let url = `ws://${server}/ws`;
     // let url = "ws://3.36.196.244:5000/ws"; // 현석씨 서버
 
     function SettingLobbyName(x) {
@@ -37,8 +38,8 @@ function App() {
                     />
                     <Route exact path="/game" element={<StompHookProps lobbyName={lobbyName} />} />
                     <Route exact path="/board" element={<Board />} />
-                    <Route exact path="/main" element={<MainPage SettingLobbyName={SettingLobbyName}/>} />
-                    <Route exact path="/login" element={<Login/>} />
+                    <Route exact path="/main" element={<MainPage SettingLobbyName={SettingLobbyName} server={server}/>} />
+                    <Route exact path="/login" element={<Login />} />
                 </Routes>
             </BrowserRouter>
         </StompSessionProvider>
