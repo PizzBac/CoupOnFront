@@ -47,7 +47,6 @@ function Lobby(props) {
 
     // setMessages([...messages, usermsg]);
     setMessages(prevMessages => [...prevMessages, usermsg]);
-
   });
 
   const tryParseJSON = (jsonString) => {
@@ -67,11 +66,26 @@ function Lobby(props) {
 
   let lobbyInfo;
 
-  function parseLobbyInfo(messages) {
-    let regex = /로비 이름 : (.*?)\n현재 상태 : (.*?)\n현재 플레이어: (\[(.*?)])/;
-    const match = messages.match(regex);
-    console.log(match);
+  // function parseLobbyInfo(messages) {
+  //   let regex = /로비 이름 : (.*?)\n현재 상태 : (.*?)\n현재 플레이어: (\[(.*?)])/;
+  //   const match = messages.match(regex);
+  //   console.log(match);
 
+  //   if (match) {
+  //     const lobbyInfo = {
+  //       lobbyName: match[1],
+  //       status: match[2],
+  //       currentPlayer: match[3].split(',').map(player => player.replace(/[\[\]']+/g, '').trim())
+  //     };
+  //     return lobbyInfo;
+  //   } else {
+  //     console.error('No lobby information found in messages');
+  //     return null;
+  //   }
+  // }
+
+  function parseLobbyInfo(message) {
+    const match = message.match(/로비 이름 : (.*?)\n현재 상태 : (.*?)\n현재 플레이어: (\[(.*?)])/);
     if (match) {
       const lobbyInfo = {
         lobbyName: match[1],
@@ -84,27 +98,54 @@ function Lobby(props) {
       return null;
     }
   }
+
+  
   const lobbyInfoRef = useRef({});
 
   // 예시로 messages 변수를 만들어 parseLobbyInfo 함수를 호출합니다.
   // const aa = "로비명 test44 로비를 생성했다.\n로비 이름 : test44\n현재 상태 : OPEN\n현재 플레이어: [MU1F2]\n";
 
-  let currentMsg = [];
-  if (messages.length > 0) {
-    if (messages[messages.length - 1].includes('\n\n')) {
-      currentMsg = messages[messages.length - 1].split('\n\n').map(msg => msg.trim());
-    } else {
-      currentMsg = [messages[messages.length - 1]];
+
+
+  // let currentMsg = [];
+  // if (messages.length > 0) {
+  //   if (messages[messages.length - 1].includes('\n\n')) {
+  //     currentMsg = messages[messages.length - 1].split('\n\n').map(msg => msg.trim());
+  //   } else {
+  //     currentMsg = [messages[messages.length - 1]];
+  //   }
+  // }
+  // if (currentMsg.length > 0) {
+  //   currentMsg.forEach((msg) => {
+  //     const lobbyInfo = parseLobbyInfo(msg);
+  //     if (lobbyInfo) {
+  //       lobbyInfoRef.current[lobbyInfo.lobbyName] = lobbyInfo;
+  //     }
+  //   })
+  // };
+  useEffect(() => {
+    const currentMsg = [];
+    for (let i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].includes('\n\n')) {
+        currentMsg.push(...messages[i].split('\n\n').map(msg => msg.trim()));
+      } else {
+        currentMsg.push(messages[i]);
+      }
     }
-  }
-  if (currentMsg.length > 0) {
     currentMsg.forEach((msg) => {
       const lobbyInfo = parseLobbyInfo(msg);
       if (lobbyInfo) {
         lobbyInfoRef.current[lobbyInfo.lobbyName] = lobbyInfo;
       }
-    })
-  };
+    });
+  }, [messages]);
+  
+
+
+
+
+
+
   //   currenMsg.forEach((msg) => {
   //     const lobbyInfo = parseLobbyInfo(msg);
   //     if (lobbyInfo) {
@@ -117,33 +158,41 @@ function Lobby(props) {
   //     lobbyInfoRef.current[lobbyInfo.lobbyName] = lobbyInfo;
   //   }
   // }
-  console.log(currentMsg);
   console.log(lobbyInfoRef);
 
 
   function seeAllUsers() {
-    if (stompClient) {
-      stompClient.publish({
-        destination: '/app/users',
-      });
-    } else {
+    if (!stompClient) {
       alert("잠시 후 다시 시도해주세요.")
+      return;
+    }
+  
+    try {
+      stompClient.send("/app/users", {});
+    } catch (error) {
+      alert("서버에 요청을 보내는 도중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
     }
   };
+  
 
   function createLobby(lobbyInput) {
-    if (stompClient) {
-      stompClient.publish({
-        headers: { lobbyName: lobbyInput },
-        destination: '/app/create',
-        body: '',
-      });
+    if (!stompClient) {
+      alert("잠시 후 다시 시도해주세요.")
+      return;
     }
-
+  
+    try {
+      stompClient.send("/app/create", { lobbyName: lobbyInput });
+    } catch (error) {
+      alert("서버에 요청을 보내는 도중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      return;
+    }
+  
     SettingLobbyName(lobbyInput);
     // setLobbyInput(''); // LobbyInput을 초기화
     seeAllGames();
   }
+  
 
   console.log("현재 선택된 로비", lobbyInput);
 
@@ -158,20 +207,39 @@ function Lobby(props) {
   }
 
   function startGame() {
-    navigate('/game');
-    if (stompClient) {
-      stompClient.publish({
-        headers: { lobbyName: lobbyInput },
-        destination: "/app/start"
-      })
-    } else {
+    if (!stompClient) {
       alert("잠시 후 다시 시도해주세요.")
+      return;
     }
+  
+    try {
+      stompClient.send("/app/start", { lobbyName: lobbyInput });
+    } catch (error) {
+      alert("서버에 요청을 보내는 도중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      return;
+    }
+  
+    navigate('/game');
   }
-
+  
   function joinLobby(lobbyName) {
     setLobbyInput(lobbyName);
     createLobby(lobbyName);
+    if (!stompClient) {
+      alert("잠시 후 다시 시도해주세요.")
+      return;
+    }
+  
+    try {
+      stompClient.send("/app/create", { lobbyName: lobbyName });
+    } catch (error) {
+      alert("서버에 요청을 보내는 도중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      return;
+    }
+  
+    SettingLobbyName(lobbyName);
+    // setLobbyInput(''); // LobbyInput을 초기화
+    seeAllGames();
   }
 
   return (
