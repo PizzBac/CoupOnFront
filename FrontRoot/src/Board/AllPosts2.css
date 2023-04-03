@@ -38,6 +38,7 @@ button:focus {
   color: #fff;
 }
 
+
 .seeAllPosts {
   margin-right: 1rem;
 }
@@ -57,19 +58,21 @@ button:focus {
   margin-bottom: 20px;
 }
 
-.container > * {
+.container>* {
   padding: 10px;
 }
 
-.container > *:not(:last-child) {
+.container>*:not(:last-child) {
   margin-right: 10px;
 }
 
 .filterConditon {
+  display: inline-block;
   flex-basis: 30%;
 }
 
 .filterInput {
+  display: inline-block;
   flex-basis: 60%;
 }
 
@@ -79,10 +82,10 @@ button:focus {
   margin-bottom: 20px;
 }
 
-.formContainer > * {
+.formContainer>* {
   padding: 10px;
 }
 
-.formContainer > *:not(:last-child) {
+.formContainer>*:not(:last-child) {
   margin-right: 10px;
 }

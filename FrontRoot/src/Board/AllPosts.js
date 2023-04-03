@@ -136,12 +136,12 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                         ))}
                 </tbody>
             </table>
-            <div>
-                <div>
+            <div className='underListDiv'>
+                <div className='seeWriteDiv'>
                     <button className='seeAllPosts' onClick={handleRefreshPosts}>전체 글 보기</button>
                     <button className="writeNewPost" onClick={handleWriteNewPost}>새 글 쓰러가기</button>
                 </div>
-                <div>
+                <div className='pagingDiv'>
                     <button onClick={handleClickFirstPage}>◀◀</button>
                     <button onClick={handleClickPrevPage}>◀</button>
                     {[...Array(totalPageNum)].map((_, index) => (
@@ -152,7 +152,7 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                     <button onClick={handleClickNextPage}>▶</button>
                     <button onClick={handleClickLastPage}>▶▶</button>
                 </div>
-                <div>
+                <div className='inputPageDiv'>
                     <form onSubmit={handleInputPageSubmit}>
                         <input
                             value={inputPage}
@@ -162,7 +162,7 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                         <button type="submit">이동</button>
                     </form>
                 </div>
-                <div>
+                <div className='filterDiv'>
                     <div className='filterConditon'>
                         <select id="searchFilterCondition" value={searchFilterCondition} onChange={handleSearchFilterConditionChange}>
                             <option value="title">제목</option>
