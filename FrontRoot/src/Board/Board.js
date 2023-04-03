@@ -5,7 +5,7 @@ import AllPosts from './AllPosts';
 
 function Board(props) {
 
-    const url = 'http://localhost:5000';
+    const url = 'http://localhost:5001';
     const [boardScreen, setBoardScreen] = useState("board"); // 현재 화면 지정 state
     const [allPosts, setAllPosts] = useState([]); // 전체 게시물 내용 저장 state
     const [selectedPost, setSelectedPost] = useState(null); // 개별 글 내용 저장 state

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ModifyPost from './ModifyPost';
+import './OnePost.css'
 
 function OnePost(props) {
     const { selectedPost, setBoardScreen, modifyPost, deletePost } = props;
@@ -23,28 +24,31 @@ function OnePost(props) {
 
     return (
         <>
-            {modify ? (
-                <ModifyPost
-                    selectedPost={selectedPost}
-                    setBoardScreen={setBoardScreen}
-                    modifyPost={modifyPost}
-                    setModify={setModify}
-                />
-            ) : (
-                <>
-                    <h2>제목: {selectedPost?.title}</h2>
-                    <p>내용: {selectedPost?.content}</p>
-                    <p>작성자: {selectedPost?.writer}</p>
-                    <p>조회수: {selectedPost?.readCount}</p>
-                    <p>작성일: {selectedPost?.date}</p>
-                    <p>글번호: {selectedPost?.index}</p>
-                    <button onClick={modifySubmit}>글 수정하기</button>
-                    <button onClick={deleteSubmit}>글 삭제하기</button>
-                    <button onClick={backSubmit}>뒤로 가기</button>
-                </>
-            )}
+          {modify ? (
+            <ModifyPost
+              selectedPost={selectedPost}
+              setBoardScreen={setBoardScreen}
+              modifyPost={modifyPost}
+              setModify={setModify}
+            />
+          ) : (
+            <div className="post-container">
+              <h2>제목: {selectedPost?.title}</h2>
+              <p>내용: {selectedPost?.content}</p>
+              <p>작성자: {selectedPost?.writer}</p>
+              <p>조회수: {selectedPost?.readCount}</p>
+              <p>작성일: {selectedPost?.date}</p>
+              <p>글번호: {selectedPost?.index}</p>
+              <div className="buttons">
+                <button onClick={modifySubmit}>글 수정하기</button>
+                <button onClick={deleteSubmit}>글 삭제하기</button>
+                <button onClick={backSubmit}>뒤로 가기</button>
+              </div>
+            </div>
+          )}
         </>
-    );
+      );
+      
 }
 
 export default OnePost;

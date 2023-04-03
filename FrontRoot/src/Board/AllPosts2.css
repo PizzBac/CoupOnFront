@@ -1,0 +1,88 @@
+/* 테이블 스타일 추가 */
+table {
+  border-collapse: collapse;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
+
+
+/* 버튼 스타일 추가 */
+button {
+  padding: 0.5rem;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+button:hover,
+button:focus {
+  background-color: #333;
+  color: #fff;
+}
+
+.seeAllPosts {
+  margin-right: 1rem;
+}
+
+.writeNewPost {
+  background-color: #333;
+  color: #fff;
+}
+
+/* 필터링 영역과 버튼 영역 간 구분을 위한 간격 추가 */
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.container > * {
+  padding: 10px;
+}
+
+.container > *:not(:last-child) {
+  margin-right: 10px;
+}
+
+.filterConditon {
+  flex-basis: 30%;
+}
+
+.filterInput {
+  flex-basis: 60%;
+}
+
+.formContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.formContainer > * {
+  padding: 10px;
+}
+
+.formContainer > *:not(:last-child) {
+  margin-right: 10px;
+}

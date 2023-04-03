@@ -1,0 +1,71 @@
+/* 새 글쓰기 컨테이너 */
+.container {
+  width: 80%;
+  margin: auto;
+  padding: 30px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목, 글쓴이 레이블 */
+h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #3d3d3d;
+}
+
+.col-form-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* 제목, 글쓴이 입력란 */
+.form-control {
+  height: 60px;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 내용 입력란 */
+.form-control-lg {
+  height: 300px;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 글쓰기, 뒤로 가기 버튼 */
+.btn-primary {
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 15px 50px;
+  margin-right: 10px;
+  background-color: #007bff;
+  border: none;
+}
+
+.btn-secondary {
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 15px 50px;
+  background-color: #6c757d;
+  border: none;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+  transform: scale(1.05);
+}
+
+/* 모바일 화면에서는 글쓰기, 뒤로 가기 버튼 아래로 정렬 */
+@media screen and (max-width: 576px) {
+  .btn-primary, .btn-secondary {
+    margin-top: 10px;
+  }
+}

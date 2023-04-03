@@ -16,7 +16,7 @@ import Login from "./Login"
 function App() {
     const [lobbyName, setLobbyName] = useState("");
 
-    let url = "ws://localhost:5000/ws";
+    let url = "ws://localhost:5001/ws";
     // let url = "ws://3.36.196.244:5000/ws"; // 현석씨 서버
 
     function SettingLobbyName(x) {

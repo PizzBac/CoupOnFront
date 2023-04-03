@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './AllPosts.css'
+import './AllPosts2.css'
 
 function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBoardScreen, seeAllPosts, savedSearchFilterCondition, setSavedSearchFilterCondition, savedSearchFilterInput, setSavedSearchFilterInput }) {
 
