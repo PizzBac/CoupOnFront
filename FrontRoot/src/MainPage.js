@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './reset.css'
 import './MainPage.css'
 import LobbyJH2 from './LobbyJH2'
@@ -11,8 +11,8 @@ function MainPage(props) {
   const { SettingLobbyName } = props;
   const [logoIndex, setLogoIndex] = useState(0);
   const logos = [
-    {src: logo1, alt: 'logo1'},
-    {src: logo2, alt: 'logo2'}
+    { src: logo1, alt: 'logo1' },
+    { src: logo2, alt: 'logo2' }
   ];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,8 +37,8 @@ function MainPage(props) {
       <header>
         <div className='welcome-container'>
           {/* <div> */}
-            <button onClick={handleModalOpen} className="btn-youtube"></button>
-            {/* <p>게임 규칙 도움</p> */}
+          <button onClick={handleModalOpen} className="btn-youtube"></button>
+          {/* <p>게임 규칙 도움</p> */}
           {/* </div> */}
           <span className="welcomeMsg">레지스탕스 쿠 게임에 오신 것을 환영합니다.</span>
           <button className='btn-logout'>로그아웃</button>
@@ -47,15 +47,15 @@ function MainPage(props) {
 
       {isModalOpen ? (
         <>
-        <div className="modal-wrapper">
-          <div className="modal-contents">
-            <button className="modal-close" onClick={handleModalClose}>X</button>
-            <iframe className="modal-iframe" src="https://www.youtube.com/embed/97cm0gYLttg" allowFullScreen></iframe>
+          <div className="modal-wrapper">
+            <div className="modal-contents">
+              <button className="modal-close" onClick={handleModalClose}>X</button>
+              <iframe className="modal-iframe" src="https://www.youtube.com/embed/97cm0gYLttg" allowFullScreen></iframe>
+            </div>
           </div>
-        </div>
-        <div className='main-logo'>
-          <img src={logos[logoIndex].src} alt={logos[logoIndex].alt} />
-        </div>
+          <div className='main-logo'>
+            <img src={logos[logoIndex].src} alt={logos[logoIndex].alt} />
+          </div>
         </>
       ) : (
         <div className='main-logo'>
@@ -70,7 +70,7 @@ function MainPage(props) {
           <Board className="Board-container" server={props.server}></Board>
         </section>
         <section className="card">
-          <LobbyJH2 className="Lobby-container" SettingLobbyName={SettingLobbyName}></LobbyJH2>
+          <LobbyJH2 className="Lobby-container" SettingLobbyName={SettingLobbyName} CheckConnect={props.CheckConnect}></LobbyJH2>
         </section>
       </div>
 

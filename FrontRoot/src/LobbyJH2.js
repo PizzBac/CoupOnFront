@@ -12,15 +12,24 @@ function Lobby(props) {
   const stompClient = useStompClient();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    SettingLobbyName(lobbyInput)
-  }, [lobbyInput]);
-
   if (stompClient) {
     console.log("Lobby stompClient success");
   } else {
     console.log("Lobby stompClient is null");
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!stompClient) {
+        console.log("retry connect");
+        props.CheckConnect();
+      }
+    }, 1000); // 연결 끊길 시 1초마다 연결 재시도
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [stompClient]);
 
   useSubscription('/user/lobby', (message) => {
     const msg = tryParseJSON(message.body);
