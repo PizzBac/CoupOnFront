@@ -5,7 +5,6 @@ import LobbyCard from "./LobbyCard"
 import './Lobby.css';
 
 function Lobby(props) {
-  const { SettingLobbyName } = props;
   const [messages, setMessages] = useState([]);
   const [lobbyInput, setLobbyInput] = useState("Default");
 
@@ -140,9 +139,13 @@ function Lobby(props) {
       });
     }
 
-    SettingLobbyName(lobbyInput);
+    SaveLobbyName(lobbyInput);
     // setLobbyInput(''); // LobbyInput을 초기화
     seeAllGames();
+  }
+
+  function SaveLobbyName(lobbyInput) {
+    localStorage.setItem('lobbyName', lobbyInput);
   }
 
   console.log("현재 선택된 로비", lobbyInput);

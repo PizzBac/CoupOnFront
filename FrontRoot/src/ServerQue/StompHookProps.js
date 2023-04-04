@@ -22,7 +22,12 @@ import '../reset.css';
 
 function StompHookProps(props) {
   const [destination, setDestination] = useState("/app/game");
-  const [lobbyName, setLobbyName] = useState(props.lobbyName);
+  const [lobbyName, setLobbyName] = useState(LoadLobbyName());
+
+  function LoadLobbyName() {
+    const lobbyName = localStorage.getItem('lobbyName');
+    return lobbyName ? lobbyName : "닉네임 없음";
+  }
 
   const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
@@ -137,7 +142,7 @@ function StompHookProps(props) {
     <div className='gameDiv'>
 
       <div className='topDiv'>
-        
+
       </div>
 
       <div className="bankerDiv">

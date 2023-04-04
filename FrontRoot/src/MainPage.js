@@ -8,7 +8,6 @@ import youtubeLogo from './front/images/youtube-logo.png';
 import Board from "./Board/Board"
 
 function MainPage(props) {
-  const { SettingLobbyName } = props;
   const [logoIndex, setLogoIndex] = useState(0);
   const logos = [
     { src: logo1, alt: 'logo1' },
@@ -70,7 +69,7 @@ function MainPage(props) {
           <Board className="Board-container" server={props.server}></Board>
         </section>
         <section className="card">
-          <LobbyJH2 className="Lobby-container" SettingLobbyName={SettingLobbyName} CheckConnect={props.CheckConnect}></LobbyJH2>
+          <LobbyJH2 className="Lobby-container" CheckConnect={props.CheckConnect}></LobbyJH2>
         </section>
       </div>
 
