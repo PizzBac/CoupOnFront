@@ -29,7 +29,6 @@ function StompHookProps(props) {
     return lobbyName ? lobbyName : "닉네임 없음";
   }
 
-  const body = "Income";
   const [receivedMessage, setReceivedMessage] = useState("");
   const messageListRef = useRef([]); // 축적
 
@@ -161,7 +160,7 @@ function StompHookProps(props) {
         </div>
 
         <div className='consoleAndPlayerDiv'>
-          <Console destination={destination} lobbyName={lobbyName} body={body} blockedMessages={blockedMessages} />
+          <Console destination={destination} lobbyName={lobbyName} blockedMessages={blockedMessages} />
           {latestUpdateMessage &&
             <div className="playerDiv">
               {JSON.parse(latestUpdateMessage).content.players.map((obj, index) =>

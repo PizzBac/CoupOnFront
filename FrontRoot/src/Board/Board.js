@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NewPost from './WritePost';
 import OnePost from './OnePost';
 import AllPosts from './AllPosts';
+import './Board.css';
 
 function Board(props) {
     
@@ -116,7 +117,7 @@ function Board(props) {
                 />
             ) : boardScreen === "board" ? (
                 <>
-                    <p>테스트보드</p>
+                    <div className='boardTitle'>게시판</div>
                     <AllPosts
                         allPosts={allPosts}
                         seeOnePost={seeOnePost}

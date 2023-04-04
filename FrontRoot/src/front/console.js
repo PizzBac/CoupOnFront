@@ -115,34 +115,34 @@ function Console(Props) {
 
           <div className="hex btn-coup" onClick={handleCoupClick}>
             <div className="hex-inner1">
-              <div className="hex-inner2 basic-action coup"><p className="font">쿠</p></div>
+              <div className="hex-inner2 basic-action coup"><p className="consoleFont">쿠</p></div>
             </div>
           </div>
           <div className="popup-msg coup-msg"><p>코인 7개를 사용하여 상대방의 카드 하나를 어떠한 방해도 없이 제거할 수 있습니다.</p></div>
 
           <div className="hex btn-income" onClick={handleIncomeClick}>
             <div className="hex-inner1">
-              <div className="hex-inner2 basic-action income"><p className="font">소득</p></div>
+              <div className="hex-inner2 basic-action income"><p className="consoleFont">소득</p></div>
             </div>
           </div>
           <div className="popup-msg income-msg"><p>은행에서 코인 1개를 가져올 수 있습니다.</p></div>
 
           <div className="hex btn-forgein" onClick={handleForgeinClick}>
             <div className="hex-inner1">
-              <div className="hex-inner2 basic-action forgien"><p className="font">해외원조</p></div>
+              <div className="hex-inner2 basic-action forgien"><p className="consoleFont">해외원조</p></div>
             </div>
           </div>
           <div className="popup-msg forgein-msg"><p>은행에서 코인 2개를 가져올 수 있습니다.(공작에 의해 방해될 수 있습니다.)</p></div>
 
           <div className="hex btn-challenge" onClick={handleChallengeClick}>
             <div className="hex-inner1">
-              <div className="hex-inner2 basic-action challenge"><p className="font">의심하기</p></div>
+              <div className="hex-inner2 basic-action challenge"><p className="consoleFont">의심하기</p></div>
             </div>
           </div>
 
           <div className="hex btn-pass" onClick={handlePassClick}>
             <div className="hex-inner1">
-              <div className="hex-inner2 basic-action pass"><p className="font">넘어가기</p></div>
+              <div className="hex-inner2 basic-action pass"><p className="consoleFont">넘어가기</p></div>
             </div>
           </div>
 

@@ -87,7 +87,7 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
         setSavedSearchFilterInput(searchFilterInput);
         seeOnePost(index);
     };
-    
+
     const handleWriteNewPost = () => {
         setSavedSearchFilterCondition(searchFilterCondition);
         setSavedSearchFilterInput(searchFilterInput);

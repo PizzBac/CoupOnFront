@@ -50,6 +50,11 @@ button:focus {
 
 /* 필터링 영역과 버튼 영역 간 구분을 위한 간격 추가 */
 
+.pagingDiv {
+  display: flex;
+  justify-content: center;
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
