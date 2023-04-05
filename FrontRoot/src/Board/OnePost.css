@@ -34,3 +34,8 @@
 .post-container button:hover {
   background-color: #555;
 }
+
+.comment {
+  display: flex;
+  justify-content: center;
+}

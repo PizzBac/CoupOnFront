@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import ModifyPost from './ModifyPost';
+import Reply from './Reply';
 import './OnePost.css'
 
 function OnePost(props) {
-  const { selectedPost, setBoardScreen, modifyPost, deletePost } = props;
+  const { selectedPost, setBoardScreen, modifyPost, deletePost, server } = props;
 
   const [modify, setModify] = useState(false);
 
@@ -61,11 +62,19 @@ function OnePost(props) {
           <div className="post-index">
             <p>글번호: {selectedPost?.index}</p>
           </div>
+          <hr />
           <div className="buttons">
             <button onClick={modifySubmit}>글 수정하기</button>
             <button onClick={deleteSubmit}>글 삭제하기</button>
             <button onClick={backSubmit}>뒤로 가기</button>
           </div>
+          <hr />
+          <Reply
+            server={server}
+            seeOnePost={props.seeOnePost}
+            postIndex={selectedPost?.index}
+            selectedPost={selectedPost}
+          />
         </div>
       )}
     </>

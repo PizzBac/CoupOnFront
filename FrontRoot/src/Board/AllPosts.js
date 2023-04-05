@@ -129,6 +129,9 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                                     <button onClick={() => handleSeeOnePost(post.index)}>
                                         {post.title}
                                     </button>
+                                    {post.comments && post.comments.length > 0 && (
+                                        <span style={{ color: "red" }}>[{post.comments.length}]</span>
+                                    )}
                                 </td>
                                 <td>{post.writer}</td>
                                 <td>{post.readCount}</td>

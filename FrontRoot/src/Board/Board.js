@@ -5,7 +5,7 @@ import AllPosts from './AllPosts';
 import './Board.css';
 
 function Board(props) {
-    
+
     const url = `http://${props.server}`;
     const [boardScreen, setBoardScreen] = useState("board"); // 현재 화면 지정 state
     const [allPosts, setAllPosts] = useState([]); // 전체 게시물 내용 저장 state
@@ -112,8 +112,10 @@ function Board(props) {
                 <OnePost
                     selectedPost={selectedPost}
                     setBoardScreen={setBoardScreen}
+                    seeOnePost={seeOnePost}
                     modifyPost={modifyPost}
                     deletePost={deletePost}
+                    server={props.server}
                 />
             ) : boardScreen === "board" ? (
                 <>
@@ -126,10 +128,10 @@ function Board(props) {
                         numPerPage={numPerPage}
                         setBoardScreen={setBoardScreen}
                         seeAllPosts={seeAllPosts}
-                        savedSearchFilterCondition = {savedSearchFilterCondition}
-                        setSavedSearchFilterCondition = {setSavedSearchFilterCondition}
-                        savedSearchFilterInput = {savedSearchFilterInput}
-                        setSavedSearchFilterInput = {setSavedSearchFilterInput}
+                        savedSearchFilterCondition={savedSearchFilterCondition}
+                        setSavedSearchFilterCondition={setSavedSearchFilterCondition}
+                        savedSearchFilterInput={savedSearchFilterInput}
+                        setSavedSearchFilterInput={setSavedSearchFilterInput}
                     />
                 </>
             ) : (
