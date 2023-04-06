@@ -10,7 +10,7 @@ import Login from "./Login"
 function App() {
     const [connected, setConnected] = useState(false);
 
-    const server = "localhost:5001"; // 로컬 호스트
+    const server = "localhost:5000"; // 로컬 호스트
     // const server = "3.36.196.244:5000"; // 현석씨 서버
     const url = `ws://${server}/ws`;
 
@@ -26,7 +26,7 @@ function App() {
                     <Route exact path="/game" element={<StompHookProps />} />
                     <Route exact path="/board" element={<Board />} />
                     <Route exact path="/main" element={<MainPage server={server} CheckConnect={CheckConnect} />} />
-                    <Route exact path="/login" element={<Login />} />
+                    <Route exact path="/login" element={<Login server={server}/>} />
                 </Routes>
             </BrowserRouter>
         </StompSessionProvider>

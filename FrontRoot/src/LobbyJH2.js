@@ -7,6 +7,8 @@ import './Lobby.css';
 function Lobby(props) {
   const [messages, setMessages] = useState([]);
   const [lobbyInput, setLobbyInput] = useState("Default");
+  const [users, setUsers] = useState({});
+  const [showUsers, setShowUsers] = useState(false);
 
   const stompClient = useStompClient();
   const navigate = useNavigate();
@@ -37,17 +39,36 @@ function Lobby(props) {
     if (typeof msg === 'object') {
       usermsg = 'User Message: ' + msg.userMessage;
       usermsg += '\n' + 'Content: ' + JSON.stringify(tryParseJSON(msg.content));
+
       if (msg.userMessage == "게임 시작") {
         startGame(); // 게임 시작
       }
     } else {
       usermsg = msg;
+
+      if (msg.includes("접속한 로비")) { // if user lobby info is included in the message
+        console.log(msg);
+        const regex = /(.+?) 접속한 로비 : (.+?)\n/g;
+        let match;
+        while ((match = regex.exec(msg)) !== null) {
+          const username = match[1];
+          console.log(username);
+          const lobby = match[2] === "없음" ? "대기중" : match[2];
+          setUsers(prevUsers => {
+            const newUsers = { ...prevUsers };
+            newUsers[username] = lobby;
+            return newUsers;
+          });
+        }
+      }
     }
 
     // setMessages([...messages, usermsg]);
     setMessages(prevMessages => [...prevMessages, usermsg]);
 
   });
+
+  console.log(users);
 
   const tryParseJSON = (jsonString) => {
     try {
@@ -125,10 +146,15 @@ function Lobby(props) {
       stompClient.publish({
         destination: '/app/users',
       });
+      setShowUsers(true); // show user bubble
     } else {
       alert("잠시 후 다시 시도해주세요.")
     }
   };
+
+  function closeUserBubble() {
+    setShowUsers(false); // hide user bubble
+  }
 
   function createLobby(lobbyInput) {
     if (stompClient) {
@@ -181,10 +207,27 @@ function Lobby(props) {
     <div className="chat-app">
       {/* <div className="lobby-container"> */}
       <button className='startGame' onClick={startGame}><p>로비: {lobbyInput} 의</p>게임 시작</button>
+
       <div className="chat-input">
-        <button className='seeAllUsers' onClick={seeAllUsers}>모든 유저 보기</button>
+        <div className="seeAllUsers-container">
+          <button className='seeAllUsers' onMouseEnter={seeAllUsers} onMouseLeave={closeUserBubble}>모든 유저 보기</button>
+          {showUsers && Object.keys(users).length > 0 &&
+            <div className="user-bubble">
+              <h4 className="user-card-title">접속중인 유저 ({Object.keys(users).length})</h4>
+              <div className="user-card-container">
+                {Object.entries(users).map(([username, lobby]) => (
+                  <div key={username} className="user-card">
+                    <div className="user-card-username">{username}</div>
+                    <div className="user-card-lobby">{lobby ? `로비: ${lobby}` : "로비 없음"}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          }
+        </div>
         <button className='seeAllGames' onClick={seeAllGames}>모든 게임 보기</button>
       </div>
+
       <div className="div-lobby-input">
         <span className="lobby-input-label">생성할 로비이름:</span>
         <input
