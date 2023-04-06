@@ -1,8 +1,57 @@
-.writeReplyForm {
-    display: flex;
-}
-
 .reply-container {
     max-height: 200px;
     overflow-y: scroll;
+}
+
+.writeReplyForm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.replyContent {
+    width: 100%;
+}
+
+.replyContent input {
+    width: 100%;
+    padding: 5px;
+}
+
+.comment-table {
+    width: 100%;
+}
+
+.comment-actions {
+    position: relative;
+    display: inline;
+}
+
+.toggle-button {
+    border: none;
+    background-color: transparent;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.more-options {
+    position: absolute;
+    top: 24px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 1;
+}
+
+.more-options button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
 }

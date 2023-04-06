@@ -69,8 +69,6 @@ function OnePost(props) {
           </div>
           <hr />
           <div className="buttons">
-            {/* <button onClick={modifySubmit}>글 수정하기</button>
-            <button onClick={deleteSubmit}>글 삭제하기</button> */}
             {writerCheck(selectedPost?.writer) && (
               <>
                 <button onClick={modifySubmit}>글 수정하기</button>

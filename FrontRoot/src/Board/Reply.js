@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './Reply.css';
 
 function Reply(props) {
@@ -8,12 +8,19 @@ function Reply(props) {
     const [replyWriter, setReplyWriter] = useState(LoadLoginUserId());
     const [editing, setEditing] = useState("default");
     const [editReplyContent, setEditReplyContent] = useState("");
-    const [editReplyWriter, setEditReplyWriter] = useState("");
 
     function LoadLoginUserId() {
         const loginUserId = sessionStorage.getItem('loginUserId');
         return loginUserId ? loginUserId : "아이디 없음";
     }
+
+    const [showMoreOptions, setShowMoreOptions] = useState([]);
+
+    const toggleMoreOptions = (index) => {
+        const newShowMoreOptions = [...showMoreOptions];
+        newShowMoreOptions[index] = !newShowMoreOptions[index];
+        setShowMoreOptions(newShowMoreOptions);
+    };
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -59,6 +66,7 @@ function Reply(props) {
 
     function editReply(e, idx, writer) {
         e.preventDefault();
+        setShowMoreOptions([]);
 
         const requestOptions = {
             method: "PUT",
@@ -75,7 +83,6 @@ function Reply(props) {
                 props.seeOnePost(props.postIndex);
                 setEditing("default");
                 setEditReplyContent("");
-                setEditReplyWriter("");
             })
             .catch(error => console.error(error));
     };
@@ -83,31 +90,49 @@ function Reply(props) {
     function handleCancelClick() {
         setEditing("default");
         setEditReplyContent("");
-        setEditReplyWriter("");
     };
 
     function deleteReply(e, idx, writer) {
         e.preventDefault();
+        setShowMoreOptions([]);
+        if (window.confirm("정말로 삭제하시겠습니까?")) {
+            const requestOptions = {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    idx: idx,
+                    writer: writer,
+                }),
+            };
 
-        const requestOptions = {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                idx: idx,
-                writer: writer,
-            }),
+            fetch(`${url}/board/reply/${props.postIndex}`, requestOptions)
+                .then(() => {
+                    props.seeOnePost(props.postIndex);
+                })
+                .catch(error => console.error(error));
+        }
+    };
+
+    function reportReply() {
+        alert("신고되었습니다.");
+        setShowMoreOptions([]);
+    }
+
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (e.target.className !== "toggle-button" && e.target.className !== "more-options-button") {
+                setShowMoreOptions([]);
+            }
         };
 
-        fetch(`${url}/board/reply/${props.postIndex}`, requestOptions)
-            .then(() => {
-                props.seeOnePost(props.postIndex);
-            })
-            .catch(error => console.error(error));
-    };
+        document.addEventListener("click", handleClickOutside);
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, []);
 
     return (
         <div className="reply-container">
-
             <form className='writeReplyForm' onSubmit={writeReply}>
                 <h3>댓글 쓰기</h3>
                 <div className='replyContent'>
@@ -121,45 +146,72 @@ function Reply(props) {
             </form>
 
 
-            {props.selectedPost.comments?.map((comment, index) => (
-                <div key={index} className="comment">
-                    <div>번호: {comment.idx}</div>
-                    <div className="comment-writer">작성자: {comment.writer}</div>
-                    {editing === index ? (
-                        <>
-                            <form onSubmit={(e) => editReply(e, comment.idx, comment.writer)}>
-                                <div className="comment-content">
-                                    <label>내용: </label>
-                                    <input
-                                        type="text"
-                                        value={editReplyContent}
-                                        onChange={(e) => setEditReplyContent(e.target.value)}
-                                    />
-                                </div>
-                                <button type="submit">확인</button>
-                                <button onClick={handleCancelClick}>취소</button>
-                            </form>
-                        </>
-                    ) : (
-                        <>
-                            <div className="comment-content">내용: {comment.content}</div>
-                            <div className="comment-date">
-                                작성일: {formatDate(comment.date)}
-                            </div>
-                            {writerCheck(comment.writer) && (
-                                <>
-                                    <button onClick={() => handleEditClick(index, comment.content)}>
-                                        수정
-                                    </button>
-                                    <button onClick={(e) => deleteReply(e, comment.idx, comment.writer)}>
-                                        삭제
-                                    </button>
-                                </>
-                            )}
-                        </>
-                    )}
-                </div>
-            ))}
+            <table className="comment-table">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>내용</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>작업</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {props.selectedPost.comments?.map((comment, index) => (
+                        <tr key={index}>
+                            <td>{index+1}</td>
+                            <td>
+                                {editing === index ? (
+                                    <>
+                                        <form onSubmit={(e) => editReply(e, comment.idx, comment.writer)}>
+                                            <input
+                                                type="text"
+                                                value={editReplyContent}
+                                                onChange={(e) => setEditReplyContent(e.target.value)}
+                                            />
+                                            <button type="submit">확인</button>
+                                            <button onClick={handleCancelClick}>취소</button>
+                                        </form>
+                                    </>
+                                ) : (
+                                    <>{comment.content}</>
+                                )}
+                            </td>
+                            <td>{comment.writer}</td>
+                            <td>
+                                {formatDate(comment.date)}
+                            </td>
+                            <td>
+                                {replyWriter !== "아이디 없음" && (
+                                    <div className="comment-actions">
+                                        <button className="toggle-button" onClick={() => toggleMoreOptions(index)}>
+                                            &#8942;
+                                        </button>
+                                        {showMoreOptions[index] && (
+                                            <div className="more-options">
+                                                {writerCheck(comment.writer) ? (
+                                                    <>
+                                                        <button onClick={() => handleEditClick(index, comment.content)}>
+                                                            수정
+                                                        </button>
+                                                        <button onClick={(e) => deleteReply(e, comment.idx, comment.writer)}>
+                                                            삭제
+                                                        </button>
+                                                    </>
+                                                ) : (
+                                                    <button onClick={reportReply}>
+                                                        신고
+                                                    </button>
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }
