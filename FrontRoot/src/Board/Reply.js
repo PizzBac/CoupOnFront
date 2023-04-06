@@ -38,14 +38,15 @@ function Reply(props) {
         fetch(`${url}/board/reply/${props.postIndex}`, requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                console.log(data);
                 props.seeOnePost(props.postIndex);
             })
             .catch(error => console.error(error));
     };
 
-    function handleEditClick(index) {
+    function handleEditClick(index, content) {
         setEditing(index);
+        setEditReplyContent(content);
     };
 
     function editReply(e, idx, writer) {
@@ -61,12 +62,14 @@ function Reply(props) {
             }),
         };
 
-        fetch(`${url}/board/reply/${props.postIndex}`, requestOptions);
-
-        props.seeOnePost(props.postIndex);
-        setEditing("default");
-        setEditReplyContent("");
-        setEditReplyWriter("");
+        fetch(`${url}/board/reply/${props.postIndex}`, requestOptions)
+            .then(() => {
+                props.seeOnePost(props.postIndex);
+                setEditing("default");
+                setEditReplyContent("");
+                setEditReplyWriter("");
+            })
+            .catch(error => console.error(error));
     };
 
     function handleCancelClick() {
@@ -87,8 +90,11 @@ function Reply(props) {
             }),
         };
 
-        fetch(`${url}/board/reply/${props.postIndex}`, requestOptions);
-        props.seeOnePost(props.postIndex);
+        fetch(`${url}/board/reply/${props.postIndex}`, requestOptions)
+            .then(() => {
+                props.seeOnePost(props.postIndex);
+            })
+            .catch(error => console.error(error));
     };
 
     return (
@@ -142,7 +148,7 @@ function Reply(props) {
                             <div className="comment-date">
                                 작성일: {formatDate(comment.date)}
                             </div>
-                            <button onClick={() => handleEditClick(index)}>
+                            <button onClick={() => handleEditClick(index, comment.content)}>
                                 수정
                             </button>
                             <button onClick={(e) => deleteReply(e, comment.idx, comment.writer)}>
