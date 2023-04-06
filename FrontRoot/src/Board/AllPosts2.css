@@ -94,3 +94,10 @@ button:focus {
 .formContainer>*:not(:last-child) {
   margin-right: 10px;
 }
+
+.post-title {
+  width: 300px; /* adjust to your desired width */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

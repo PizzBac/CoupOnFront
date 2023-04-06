@@ -126,7 +126,7 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                             <tr key={post.index}>
                                 <td>{post.index}</td>
                                 <td>
-                                    <button onClick={() => handleSeeOnePost(post.index)}>
+                                <button onClick={() => handleSeeOnePost(post.index)} className="post-title">
                                         {post.title}
                                     </button>
                                     {post.comments && post.comments.length > 0 && (

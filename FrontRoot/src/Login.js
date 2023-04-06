@@ -99,7 +99,7 @@ function Login(props) {
               <h2 className='title'>로그인</h2>
               <label htmlFor="notice" className='font'>아직 아이디가 없으시다면 사용할 아이디와 비밀번호를 입력해주세요</label>
               <div className="form-group">
-                <input type="text" className="form-control" id="id" placeholder="아이디" value={id} onChange={handleIdChange} />
+                <input type="email" className="form-control" id="id" placeholder="아이디" value={id} onChange={handleIdChange} required />
               </div>
               <div className="form-group">
                 <input type="password" className="form-control" id="password" placeholder="비밀번호" value={password} onChange={handlePasswordChange} />
