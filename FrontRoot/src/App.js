@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { StompSessionProvider } from "react-stomp-hooks";
 import StompHookProps from "./ServerQue/StompHookProps";
 import Board from "./Board/Board"
@@ -27,6 +27,7 @@ function App() {
                     <Route exact path="/game" element={<StompHookProps />} />
                     <Route exact path="/board" element={<Board />} />
                     <Route exact path="/lobby" element={<LobbyJH2 CheckConnect={CheckConnect} />} />
+                    <Route path="*" element={<Navigate to="/" />} /> {/* * 모든 URL을 /로 이동 */}
                 </Routes>
             </BrowserRouter>
         </StompSessionProvider>
