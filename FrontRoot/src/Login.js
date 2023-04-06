@@ -94,6 +94,7 @@ function Login(props) {
     <>
       <div className="background">
         {showLoginForm && (
+          <>
           <div className={`login-container ${animateLoginForm ? 'animate' : ''}`}>
             <form className="login-form" onSubmit={handleLogin}>
               <h2 className='title'>로그인</h2>
@@ -110,6 +111,7 @@ function Login(props) {
               <button type="submit" className="btn btn-primary">게임 하러 가기 (로그인)</button>
             </form>
           </div>
+          </>
         )}
       </div>
       {!showLoginForm && (
