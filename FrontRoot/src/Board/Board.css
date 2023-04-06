@@ -3,7 +3,8 @@
 }
 
 .board-wrap {
-    background-image: url(../front/images/paperbg.png);
+    /* height: 500px; */
+    /* background-image: url(../front/images/paperbg.png); */
     background-position: center;
     background-repeat: no-repeat;
     /* background-size: cover; */

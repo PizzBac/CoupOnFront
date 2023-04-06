@@ -1,13 +1,20 @@
 .chat-app {
-  background-color: #f0f0f0;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  /* background-image: url(./front/images/bg_lobby2.png); */
+  
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
   /* width: 30vw; */
-  /* height: 100vh; */
+  height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 2rem;
+  /* padding-top: 2rem; */
+  padding: 5rem;
   margin-bottom: 20px;
+  border: none;
 }
 
 .user-bubble {
@@ -71,8 +78,15 @@
 
 
 .lobby-container {
-  max-width: 50vw;
-  overflow-y: auto;
+  /* overflow-y: auto; */
+  /* background-color: white; */
+  /* background-image: url(./front/images/bg_lobby.png); */
+  background-image: url(./front/images/bg_chat.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 30px;
+  padding: 2rem;
 }
 
 
@@ -99,6 +113,15 @@
   padding: 1rem;
 }
 
+.seeAllUsers, .seeAllGames {
+  width: 150px;
+  /* height: fit-content; */
+  background-image: url(./front/images/btn_common.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 110%;
+  color: white;
+}
 /*
 .chat-input > button {
   width: 100px;
@@ -128,6 +151,7 @@
   padding: 1rem;
   /* max-width: calc(100vw - 2rem); */
   overflow-x: auto;
+  /* border: none; */
 }
 
 .lobby-card h2 {
@@ -140,7 +164,7 @@
 
 .lobby-card button {
   margin-top: 1rem;
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -171,11 +195,22 @@
 }
 
 .div-lobby-input {
-  background-color: #FFC09F;
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   padding: 10px;
   display: inline-flex;
   align-items: center;
+
+  background-image: url(./front/images/btn_lobby2.png);
+  background-repeat: no-repeat;
+  background-position: start;
+  background-size: contain;
+
+  /* justify-content: space-around; */
+  /* width: 70%; */
+  /* height: auto; */
+  /* object-fit: fill; */
+
 }
 
 .lobby-input {
@@ -184,27 +219,40 @@
   margin-bottom: 1rem;
   border: none;
   outline: none;
+  
 }
 
 .lobby-input-label {
   font-weight: bold;
-  margin-right: 1rem;
+  font-size: 1.5rem;
+  /* margin-right: 1rem; */
 }
 
 .lobby-input-text {
-  border: 1px solid #ccc;
-  /* border: none; */
+  /* border: 1px solid #ccc; */
+  background-color: transparent;
+  border: none;
   /* bac */
-  border-radius: 5px;
+  color: white;
+  /* border-radius: 5px; */
   padding: 0.5rem;
   margin-right: 1rem;
   font-size: 1rem;
   flex-grow: 1;
   outline: none;
+  /* margin-left: 2rem; */
+  /* padding-left: 2rem; */
+  text-align: center
+  
 }
 
+/* 방만들기 버튼 */
 .lobby-button {
-  background-color: #a3d2ca;
+  /* background-color: #a3d2ca; */
+  background-image: url(./front/images/btn_common.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   border: none;
   border-radius: 30px;
   color: #fff;
@@ -222,12 +270,18 @@
 }
 
 .startGame {
-  width: 20rem;
-  background-color: #007bff;
+  width: 15rem;
+  /* width: auto; */
+  background-color: transparent;
+  background-image: url(./front/images/btn_game_start.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* height: auto; */
   color: #fff;
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: uppercase;

@@ -17,8 +17,8 @@ function LobbyCard(props) {
       <Card className="lobby-card">
         <Card.Body>
           <Card.Title className={`card-title ${lobbyInfo.status.toLowerCase()}`}>{lobbyInfo.lobbyName}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted card-subtitle">로비상태: {lobbyInfo.status}</Card.Subtitle>
-          <Card.Text className="mb-2">참가자:</Card.Text>
+          <Card.Subtitle className="mb-2 text-muted card-subtitle">{lobbyInfo.status}</Card.Subtitle>
+          <Card.Text className="mb-2"></Card.Text>
           <ListGroup>
             {lobbyInfo.currentPlayer.map((player, index) => (
               <ListGroup.Item key={index}>{player}</ListGroup.Item>

@@ -6,7 +6,7 @@ import './Lobby.css';
 
 function Lobby(props) {
   const [messages, setMessages] = useState([]);
-  const [lobbyInput, setLobbyInput] = useState("Default");
+  const [lobbyInput, setLobbyInput] = useState("기본방");
   const [users, setUsers] = useState({});
   const [showUsers, setShowUsers] = useState(false);
 
@@ -205,7 +205,7 @@ function Lobby(props) {
 
   return (
     <div className="chat-app">
-      {/* <div className="lobby-container"> */}
+      <div className="lobby-container">
       <button className='startGame' onClick={startGame}><p>로비: {lobbyInput} 의</p>게임 시작</button>
 
       <div className="chat-input">
@@ -229,15 +229,17 @@ function Lobby(props) {
       </div>
 
       <div className="div-lobby-input">
-        <span className="lobby-input-label">생성할 로비이름:</span>
+        {/* <span className="lobby-input-label">만들 로비</span> */}
         <input
           type="text"
           className="lobby-input-text"
           value={lobbyInput}
           onChange={(e) => setLobbyInput(e.target.value)}
-        /><button className='createLobby lobby-button' onClick={() => createLobby(lobbyInput)}>로비 만들기</button>
+          maxLength={5} // 최대 8글자까지 입력 가능
+          placeholder='최대 5글자까지 입력 가능'
+        /><button className='createLobby lobby-button' onClick={() => createLobby(lobbyInput)}>방 만들기</button>
       </div>
-      <hr />
+      
       <div className="lobby-cards">
         {Object.keys(lobbyInfoRef.current).map((name, index) => (
           <LobbyCard
@@ -248,7 +250,7 @@ function Lobby(props) {
           />
         ))}
       </div>
-      {/* </div> */}
+      </div>
     </div>
   );
 };

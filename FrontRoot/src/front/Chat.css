@@ -1,23 +1,32 @@
 .chatWrapper {
     display: flex;
     flex-direction: column;
-    height: 40vh;
-    width: 30vw;
+    background-image: url(./images/bg_chat.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* height: 40vh; */
+    /* width: 30vw; */
 }
 
 /* 채팅창 보이게 하려면 스타일 적용해야 함 */
 .chatcontainer {
-    border: 0.5vmin solid black;
-    border-radius: 3%;
+    /* border: 0.5vmin solid black; */
+    /* border-radius: 3%; */
     height: 35vh;
-    background-color: bisque;
+    /* background-color: rgba(0,0,0,0.2); */
     margin: 0.5vmin;
     font-size: 2vmin;
     overflow-y: scroll;
     -ms-overflow-style: none;
     /* 인터넷 익스플로러 */
     scrollbar-width: none;
+    /* align-items: flex-start; */
     /* 파이어폭스 */
+    text-align: start;
+    padding: 2rem;
+    font-weight: bold;
+    /* color: white; */
 }
 
 .chatcontainer::-webkit-scrollbar {
@@ -25,8 +34,8 @@
 }
 
 .messageLabel {
-    background-color: bisque;
-    border: 0.5vmin solid black;
+    /* background-color: bisque; */
+    border: 0.3vmin solid black;
     margin: 0.5vmin;
     border-radius: 3%;
     height: 5vh;
@@ -39,7 +48,7 @@
     height: 4vh;
     font-size: 2vmin;
     border: none;
-    background-color: bisque;
+    background-color: transparent;
     float: left;
 }
 
@@ -47,8 +56,9 @@
     background-color: DodgerBlue;
     border: none;
     color: bisque;
-    padding: 1.2vh 1.2vw;
+    padding: 1.2vh 1.5vw;
     font-size: 2.5vmin;
     cursor: pointer;
     float: right;
+    border-radius: 50px;
 }

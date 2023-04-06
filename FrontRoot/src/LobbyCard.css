@@ -27,19 +27,28 @@
  */
 
  .lobby-card-container {
-  margin-top: 0.5rem;
+  /* margin-top: 0.5rem; */
   display: flex;
   justify-content: center;
-  width: 100%;
+  /* width: 100%; */
+  /* background-color: #fff; */
+  background-image: url(./front/images/banner2.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  
 }
 
 .lobby-card {
-  width: 90%;
-  max-width: 700px;
-  background-color: #fff;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 20px;
+  /* width: 50%; */
+  /* margin-top: 50px; */
+  /* height: auto; */
+  max-width: 100px;
+  /* background-color: #fff; */
+  /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); */
+  /* border-radius: 10px; */
+  padding: 50px;
+  
 }
 
 
@@ -55,22 +64,28 @@
 
 
 .list-group-item {
-  background-color: #f5f5f5;
+  /* width: 50px; */
+  background-color: rgba(0, 0, 0, 0.1);
+  /* opacity: 0.7; */
   border: none;
   padding: 0.5rem 1rem;
   margin-bottom: 0.5rem;
-  border-radius: 10px;
+  border-radius: 20px;
+  
+  
 }
 
 .card-title {
-  font-size: 32px;
+  margin-top: 2rem;
+  font-size: 25px;
   font-weight: bold;
   margin-bottom: 10px;
+  width: 100px;
 }
 
 .card-title.open {
   /* background-color: green; */
-  color: green;
+  color: gold;
 }
 
 .card-title.started {
@@ -79,8 +94,9 @@
 
 .card-subtitle {
   font-size: 16px;
-  font-weight: normal;
-  margin-bottom: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: white;
 }
 
 /* .list-group-item:hover {

@@ -96,7 +96,8 @@ button:focus {
 }
 
 .post-title {
-  width: 300px; /* adjust to your desired width */
+  /* adjust to your desired width */
+  width: 150px; 
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

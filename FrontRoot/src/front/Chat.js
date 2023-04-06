@@ -46,7 +46,7 @@ function Chat(props) {
             <div className="chatcontainer" >
                 {chatLog.map((item, index) => (
                     <div className="text" key={index + 1}>
-                        <strong>{item.sender}:</strong> {item.message}
+                        <strong>{item.sender} : </strong> {item.message}
                     </div>
                 ))}
                 <div ref={messagesEndRef} />

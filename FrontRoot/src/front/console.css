@@ -1,8 +1,10 @@
 .console {
   background-image: url(../front/images/table1.png);
   background-repeat: no-repeat;
-  background-size: 150% 180%;
-  background-position: 50% 50%;
+  background-position: center;
+  /* background-size: 150% 180%; */
+  /* background-position: 50% 50%; */
+  background-size: cover;
   height: 40vh;
   margin: 0.5vmin;
   display: flex;
