@@ -1,3 +1,8 @@
 .writeReplyForm {
     display: flex;
 }
+
+.reply-container {
+    max-height: 200px;
+    overflow-y: scroll;
+}

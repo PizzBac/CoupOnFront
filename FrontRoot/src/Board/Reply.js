@@ -122,7 +122,7 @@ function Reply(props) {
             </form>
 
 
-            <h3>댓글</h3>
+            {/* <h3>댓글</h3> */}
             {props.selectedPost.comments?.map((comment, index) => (
                 <div key={index} className="comment">
                     <div>번호: {comment.idx}</div>
