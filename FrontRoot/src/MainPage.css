@@ -201,6 +201,7 @@
   overflow-x: hidden;
   transform: translateY(100%);
   animation: slide-up 3s ease forwards;
+  
 }
 
 @keyframes slide-up {

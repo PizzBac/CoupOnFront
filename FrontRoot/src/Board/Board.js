@@ -102,7 +102,7 @@ function Board(props) {
     }
 
     return (
-        <>
+        <div className='board-wrap'>
             {boardScreen === "write" ? (
                 <NewPost
                     writeNewPost={writeNewPost}
@@ -140,7 +140,7 @@ function Board(props) {
                     <button className='seeAllPosts' onClick={seeAllPosts}>새로고침하기</button>
                 </>
             )}
-        </>
+        </div>
     )
 }
 

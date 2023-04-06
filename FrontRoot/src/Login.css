@@ -48,8 +48,11 @@
 
 .background {
   /* background-image: url("https://picsum.photos/1920/1080"); */
-  background-image: url("./front/images/coup-logo-explain.png");
-  background-size: contain;
+  /* background-image: url("./front/images/coup-logo-explain.png");
+   */
+
+  background-image: url(./front/images/bg_login2.jpg);
+  background-size: cover;
   background-position: center;
   height: 100vh;
   display: flex;
@@ -84,7 +87,7 @@
 
 
 .login-container {
-  background-color: rgba(22, 164, 231, 0.95);
+  /* background-color: rgba(22, 164, 231, 0.95); */
   border-radius: 20px;
   box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.3);
   padding: 60px;

@@ -1,3 +1,14 @@
 .boardTitle {
     font: bold 30px "TmonMonsori";
 }
+
+.board-wrap {
+    background-image: url(../front/images/paperbg.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+}
+
+.board-wrap > * {
+    background: transparent;
+}
