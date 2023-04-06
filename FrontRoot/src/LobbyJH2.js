@@ -171,7 +171,7 @@ function Lobby(props) {
   }
 
   function SaveLobbyName(lobbyInput) {
-    localStorage.setItem('lobbyName', lobbyInput);
+    sessionStorage.setItem('lobbyName', lobbyInput);
   }
 
   console.log("현재 선택된 로비", lobbyInput);

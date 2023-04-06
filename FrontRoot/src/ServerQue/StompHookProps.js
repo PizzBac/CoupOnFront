@@ -25,8 +25,8 @@ function StompHookProps(props) {
   const [lobbyName, setLobbyName] = useState(LoadLobbyName());
 
   function LoadLobbyName() {
-    const lobbyName = localStorage.getItem('lobbyName');
-    return lobbyName ? lobbyName : "닉네임 없음";
+    const lobbyName = sessionStorage.getItem('lobbyName');
+    return lobbyName ? lobbyName : "로비명 없음";
   }
 
   const [receivedMessage, setReceivedMessage] = useState("");

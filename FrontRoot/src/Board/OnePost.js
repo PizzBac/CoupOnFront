@@ -7,6 +7,11 @@ function OnePost(props) {
   const { selectedPost, setBoardScreen, modifyPost, deletePost, server } = props;
 
   const [modify, setModify] = useState(false);
+  const loginUserId = sessionStorage.getItem('loginUserId');
+
+  function writerCheck(writer) {
+    return loginUserId === writer;
+  }
 
   const modifySubmit = () => {
     setModify(true);
@@ -64,8 +69,14 @@ function OnePost(props) {
           </div>
           <hr />
           <div className="buttons">
-            <button onClick={modifySubmit}>글 수정하기</button>
-            <button onClick={deleteSubmit}>글 삭제하기</button>
+            {/* <button onClick={modifySubmit}>글 수정하기</button>
+            <button onClick={deleteSubmit}>글 삭제하기</button> */}
+            {writerCheck(selectedPost?.writer) && (
+              <>
+                <button onClick={modifySubmit}>글 수정하기</button>
+                <button onClick={deleteSubmit}>글 삭제하기</button>
+              </>
+            )}
             <button onClick={backSubmit}>뒤로 가기</button>
           </div>
           <hr />

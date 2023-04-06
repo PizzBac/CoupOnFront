@@ -7,7 +7,12 @@ function WritePost(props) {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [writer, setWriter] = useState('');
+  const [writer, setWriter] = useState(LoadLoginUserId());
+
+  function LoadLoginUserId() {
+    const loginUserId = sessionStorage.getItem('loginUserId');
+    return loginUserId ? loginUserId : "아이디 없음";
+  }
 
   const handleSubmit = () => {
     if (!title || !content || !writer) {
@@ -25,12 +30,12 @@ function WritePost(props) {
     setBoardScreen("board");
   };
 
-
   return (
     <>
       <div className="container">
         <h2>새 글쓰기</h2>
         <form>
+
           <div className="form-group row">
             <label htmlFor="title" className="col-sm-2 col-form-label">제목</label>
             <div className="col-sm-10">
@@ -44,20 +49,7 @@ function WritePost(props) {
               />
             </div>
           </div>
-          <div className="form-group row">
 
-            <label htmlFor="writer" className="col-sm-2 col-form-label">글쓴이</label>
-            <div className="col-sm-10">
-              <input
-                type="text"
-                className="form-control"
-                id="writer"
-                placeholder="글쓴이"
-                value={writer}
-                onChange={(e) => setWriter(e.target.value)}
-              />
-            </div>
-          </div>
           <div className="form-group row">
             <label htmlFor="content" className="col-sm-2 col-form-label">내용</label>
             <div className="col-sm-10">
@@ -70,6 +62,7 @@ function WritePost(props) {
               ></textarea>
             </div>
           </div>
+
           <div className="form-group row">
             <div className="col-sm-12">
               <button type="button" className="btn btn-primary" onClick={handleSubmit}>글쓰기</button>
@@ -80,9 +73,6 @@ function WritePost(props) {
       </div>
     </>
   );
-
-
-
 }
 
 export default WritePost;

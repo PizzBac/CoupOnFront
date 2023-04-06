@@ -47,22 +47,26 @@ function Login(props) {
 
   function ServerAccess(id, password) {
     const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            id:id,
-            password: password,
-            name: "blank"
-        })
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: id,
+        password: password,
+        name: "blank"
+      })
     };
 
     fetch(`${url}/login`, requestOptions)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            setLoginstatus(data);
-        })
-        .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(data => {
+        console.log('aaa'+data);
+        setLoginstatus(data);
+
+        if (data === 1) {
+          sessionStorage.setItem('loginUserId', id);
+        }
+      })
+      .catch(error => console.error(error));
   }
 
   function LoginStatusCheck(loginstatus) {
@@ -87,7 +91,7 @@ function Login(props) {
       window.location.reload();
     }
   }
-  
+
 
 
   return (

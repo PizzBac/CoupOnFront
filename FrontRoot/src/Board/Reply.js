@@ -5,10 +5,15 @@ function Reply(props) {
 
     const url = `http://${props.server}`;
     const [replyContent, setReplyContent] = useState("");
-    const [replyWriter, setReplyWriter] = useState("");
+    const [replyWriter, setReplyWriter] = useState(LoadLoginUserId());
     const [editing, setEditing] = useState("default");
     const [editReplyContent, setEditReplyContent] = useState("");
     const [editReplyWriter, setEditReplyWriter] = useState("");
+
+    function LoadLoginUserId() {
+        const loginUserId = sessionStorage.getItem('loginUserId');
+        return loginUserId ? loginUserId : "아이디 없음";
+    }
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -33,7 +38,6 @@ function Reply(props) {
         };
 
         setReplyContent('');
-        setReplyWriter('');
 
         fetch(`${url}/board/reply/${props.postIndex}`, requestOptions)
             .then(response => response.json())
@@ -43,6 +47,10 @@ function Reply(props) {
             })
             .catch(error => console.error(error));
     };
+
+    function writerCheck(writer) {
+        return replyWriter === writer;
+    }
 
     function handleEditClick(index, content) {
         setEditing(index);
@@ -100,17 +108,8 @@ function Reply(props) {
     return (
         <div className="reply-container">
 
-            <h3>댓글 작성</h3>
             <form className='writeReplyForm' onSubmit={writeReply}>
-                <div>작성자: </div>
-                <div className='replyWriter'>
-                    <input
-                        type="text"
-                        value={replyWriter}
-                        onChange={(e) => setReplyWriter(e.target.value)}
-                    />
-                </div>
-                <div>내용: </div>
+                <h3>댓글 쓰기</h3>
                 <div className='replyContent'>
                     <input
                         type="text"
@@ -122,7 +121,6 @@ function Reply(props) {
             </form>
 
 
-            {/* <h3>댓글</h3> */}
             {props.selectedPost.comments?.map((comment, index) => (
                 <div key={index} className="comment">
                     <div>번호: {comment.idx}</div>
@@ -148,12 +146,16 @@ function Reply(props) {
                             <div className="comment-date">
                                 작성일: {formatDate(comment.date)}
                             </div>
-                            <button onClick={() => handleEditClick(index, comment.content)}>
-                                수정
-                            </button>
-                            <button onClick={(e) => deleteReply(e, comment.idx, comment.writer)}>
-                                삭제
-                            </button>
+                            {writerCheck(comment.writer) && (
+                                <>
+                                    <button onClick={() => handleEditClick(index, comment.content)}>
+                                        수정
+                                    </button>
+                                    <button onClick={(e) => deleteReply(e, comment.idx, comment.writer)}>
+                                        삭제
+                                    </button>
+                                </>
+                            )}
                         </>
                     )}
                 </div>

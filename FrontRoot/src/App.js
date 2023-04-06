@@ -22,11 +22,11 @@ function App() {
         <StompSessionProvider url={url} debug={(s) => console.log(s)}>
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/" element={<LobbyJH2 CheckConnect={CheckConnect}/>} />
+                    <Route exact path="/" element={<Login server={server} />} />
+                    <Route exact path="/main" element={<MainPage server={server} CheckConnect={CheckConnect} />} />
                     <Route exact path="/game" element={<StompHookProps />} />
                     <Route exact path="/board" element={<Board />} />
-                    <Route exact path="/main" element={<MainPage server={server} CheckConnect={CheckConnect} />} />
-                    <Route exact path="/login" element={<Login server={server}/>} />
+                    <Route exact path="/lobby" element={<LobbyJH2 CheckConnect={CheckConnect} />} />
                 </Routes>
             </BrowserRouter>
         </StompSessionProvider>
