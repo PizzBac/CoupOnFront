@@ -18,9 +18,12 @@
 }
 
 @keyframes bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-20px);
   }
@@ -77,22 +80,25 @@
   0% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.1;
   }
+
   100% {
     opacity: 0;
   }
 }
 
 
-.login-container {
+.login-container,
+.signup-container {
   background-color: white;
   opacity: 0.9;
   border-radius: 20px;
   box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.3);
   padding: 60px;
-  
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,6 +115,7 @@
   from {
     transform: translateY(0%);
   }
+
   to {
     transform: translateY(100%);
   }
@@ -188,15 +195,19 @@ label {
   0% {
     transform: translateY(0%);
   }
+
   30% {
     transform: translateY(-30%);
   }
+
   50% {
     transform: translateY(0%);
   }
+
   70% {
     transform: translateY(-30%);
   }
+
   100% {
     transform: translateY(0%);
   }
@@ -215,4 +226,3 @@ label {
   background-color: #ff4757;
   transform: scale(1.1);
 }
-

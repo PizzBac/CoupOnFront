@@ -9,6 +9,7 @@ function Login(props) {
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [animateLoginForm, setAnimateLoginForm] = useState(false);
   const [loginstatus, setLoginstatus] = useState(0);
   const navigate = useNavigate();
@@ -27,6 +28,16 @@ function Login(props) {
 
   const handleShowLoginForm = () => {
     setShowLoginForm(true);
+  }
+
+  const handleShowSignUpForm = () => {
+    setShowLoginForm(false);
+    setShowSignUpForm(true);
+  }
+
+  const handleBackToLoginForm = () => {
+    setShowLoginForm(true);
+    setShowSignUpForm(false);
   }
 
   const handleLogin = (event) => {
@@ -59,7 +70,7 @@ function Login(props) {
       body: JSON.stringify({
         id: id,
         password: password,
-        name: "blank"
+        nickname: endpoint === '/signUp' ? nickname : '',
       })
     };
 
@@ -93,11 +104,15 @@ function Login(props) {
       alert("회원가입이 성공했습니다.\n로그인을 해주세요.");
       setId("");
       setPassword("");
+      setNickname("");
       setLoginstatus("");
+      setShowLoginForm(true);
+      setShowSignUpForm(false);
     } else if (loginstatus === -4) {
       alert("이미 존재하는 아이디입니다.");
       setId("");
       setPassword("");
+      setNickname("");
       setLoginstatus("");
     }
   }
@@ -113,25 +128,41 @@ function Login(props) {
           <>
             <div className={`login-container ${animateLoginForm ? 'animate' : ''}`}>
               <form className="login-form">
-                <h2 className='title'>로그인 / 회원가입</h2>
-                <label htmlFor="notice" className='font'>아직 아이디가 없으시다면 사용할 아이디와 비밀번호를 입력해주세요</label>
+                <h2 className='title'>로그인</h2>
+                <label htmlFor="notice" className='font'>아직 아이디가 없으시다면 먼저 회원가입을 해주세요.</label>
                 <div className="form-group">
                   <input type="email" className="form-control" id="id" placeholder="아이디" value={id} onChange={handleIdChange} required />
                 </div>
                 <div className="form-group">
                   <input type="password" className="form-control" id="password" placeholder="비밀번호" value={password} onChange={handlePasswordChange} />
                 </div>
-                {/* <div className="form-group">
-                  <input type="nickname" className="form-control" id="nickname" placeholder="사용할 일회성 닉네임" value={nickname} onChange={handleNicknameChange} />
-                </div> */}
                 <button type="button" className="btn btn-primary" onClick={handleLogin}>게임 하러 가기 (로그인)</button>
-                <button type="button" className="btn btn-secondary" onClick={handleSignUp}>회원가입</button>
+                <button type="button" className="btn btn-secondary" onClick={handleShowSignUpForm}>회원가입</button>
               </form>
             </div>
           </>
         )}
+        {showSignUpForm && (
+          <div className="signup-container">
+            <form className="signup-form">
+              <h2 className="title">회원가입</h2>
+              <div className="form-group">
+                <input type="email" className="form-control" id="id" placeholder="아이디" value={id} onChange={handleIdChange} required />
+              </div>
+              <div className="form-group">
+                <input type="password" className="form-control" id="password" placeholder="비밀번호" value={password} onChange={handlePasswordChange} />
+              </div>
+              <div className="form-group">
+                <input type="text" className="form-control" id="nickname" placeholder="닉네임" value={nickname} onChange={handleNicknameChange} />
+              </div>
+              <button type="button" className="btn btn-primary" onClick={handleSignUp}>가입하기</button>
+              <button type="button" className="btn btn-secondary" onClick={handleBackToLoginForm}>뒤로가기</button>
+            </form>
+          </div>
+        )}
       </div>
-      {!showLoginForm && (
+
+      {!showLoginForm & !showSignUpForm && (
         <button className='btn-popUp-login' onClick={handleShowLoginForm}><p>로그인 창</p><p>띄우기</p></button>
       )}
     </>
