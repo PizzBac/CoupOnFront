@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './AllPosts2.css'
+import './AllPosts.css'
 
 function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBoardScreen, seeAllPosts, savedSearchFilterCondition, setSavedSearchFilterCondition, savedSearchFilterInput, setSavedSearchFilterInput }) {
 
@@ -107,7 +107,7 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
         }
         handleSearchFilter();
     }, [sortedPosts]);
-
+    //zzzz
     return (
         <>
             <table>

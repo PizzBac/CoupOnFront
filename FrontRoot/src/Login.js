@@ -7,6 +7,7 @@ function Login(props) {
   const url = `http://${props.server}`;
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [nickname, setNickname] = useState('');
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignUpForm, setShowSignUpForm] = useState(false);
@@ -20,6 +21,10 @@ function Login(props) {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+  }
+
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
   }
 
   const handleNicknameChange = (event) => {
@@ -38,6 +43,10 @@ function Login(props) {
   const handleBackToLoginForm = () => {
     setShowLoginForm(true);
     setShowSignUpForm(false);
+    setId("");
+    setPassword("");
+    setConfirmPassword("");
+    setNickname("");
   }
 
   const handleLogin = (event) => {
@@ -53,8 +62,10 @@ function Login(props) {
 
   const handleSignUp = (event) => {
     event.preventDefault();
-    if (id === '' || password === '') {
-      alert("아이디와 비밀번호를 입력해주세요.");
+    if (id === '' || password === '' || confirmPassword === '' || nickname === '') {
+      alert("모든 정보를 입력해주세요.");
+    } else if (password !== confirmPassword) {
+      alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     } else {
       const result = window.confirm("이 정보로 회원가입 하시겠습니까?");
       if (result) {
@@ -75,12 +86,16 @@ function Login(props) {
     };
 
     fetch(`${url}${endpoint}`, requestOptions)
-      .then(response => response.json())
+      .then(response => response.text())
       .then(data => {
-        setLoginstatus(data);
+        const dataArray = data.split(',');
+        const loginStatus = parseInt(dataArray[0]);
 
-        if (data === 1 && endpoint === '/login') {
-          sessionStorage.setItem('loginUserId', id);
+        setLoginstatus(loginStatus);
+
+        if (loginStatus === 1 && endpoint === '/login') {
+          sessionStorage.setItem('loginUserId', dataArray[1]);
+          sessionStorage.setItem('loginUserNickname', dataArray[2]);
         }
       })
       .catch(error => console.error(error));
@@ -129,15 +144,15 @@ function Login(props) {
             <div className={`login-container ${animateLoginForm ? 'animate' : ''}`}>
               <form className="login-form">
                 <h2 className='title'>로그인</h2>
-                <label htmlFor="notice" className='font'>아직 아이디가 없으시다면 먼저 회원가입을 해주세요.</label>
+                <label htmlFor="notice" className='font'>아직 아이디가 없다면 먼저 회원가입을 해주세요.</label>
                 <div className="form-group">
                   <input type="email" className="form-control" id="id" placeholder="아이디" value={id} onChange={handleIdChange} required />
                 </div>
                 <div className="form-group">
                   <input type="password" className="form-control" id="password" placeholder="비밀번호" value={password} onChange={handlePasswordChange} />
                 </div>
-                <button type="button" className="btn btn-primary" onClick={handleLogin}>게임 하러 가기 (로그인)</button>
-                <button type="button" className="btn btn-secondary" onClick={handleShowSignUpForm}>회원가입</button>
+                <button type="button" className="btn btn-primary" onClick={handleLogin}>게임하러 가기</button>
+                <button type="button" className="btn btn-secondary" onClick={handleShowSignUpForm}>회원가입하러 가기</button>
               </form>
             </div>
           </>
@@ -151,6 +166,9 @@ function Login(props) {
               </div>
               <div className="form-group">
                 <input type="password" className="form-control" id="password" placeholder="비밀번호" value={password} onChange={handlePasswordChange} />
+              </div>
+              <div className="form-group">
+                <input type="password" className="form-control" id="confirmPassword" placeholder="비밀번호 확인" value={confirmPassword} onChange={handleConfirmPasswordChange} />
               </div>
               <div className="form-group">
                 <input type="text" className="form-control" id="nickname" placeholder="닉네임" value={nickname} onChange={handleNicknameChange} />
