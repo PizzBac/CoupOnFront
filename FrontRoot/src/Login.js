@@ -25,27 +25,34 @@ function Login(props) {
     setNickname(event.target.value);
   }
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    console.log(`id: ${id}, password: ${password}`);
-    setAnimateLoginForm(true);
-    ServerAccess(id, password);
-    // setTimeout(() => {
-    //   navigate('/main');
-    // }, 500);
-
-    // LoginStatusCheck(loginstatus);
-  }
-
-  useEffect(() => {
-    LoginStatusCheck(loginstatus);
-  }, [loginstatus]);
-
   const handleShowLoginForm = () => {
     setShowLoginForm(true);
   }
 
-  function ServerAccess(id, password) {
+  const handleLogin = (event) => {
+    event.preventDefault();
+    console.log(`id: ${id}, password: ${password}`);
+    // setAnimateLoginForm(true);
+    if (id === '' || password === '') {
+      alert("아이디와 비밀번호를 입력해주세요.");
+    } else {
+      serverAccess('/login', id, password);
+    }
+  }
+
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    if (id === '' || password === '') {
+      alert("아이디와 비밀번호를 입력해주세요.");
+    } else {
+      const result = window.confirm("이 정보로 회원가입 하시겠습니까?");
+      if (result) {
+        serverAccess('/signUp', id, password);
+      }
+    }
+  }
+
+  function serverAccess(endpoint, id, password) {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -56,65 +63,71 @@ function Login(props) {
       })
     };
 
-    fetch(`${url}/login`, requestOptions)
+    fetch(`${url}${endpoint}`, requestOptions)
       .then(response => response.json())
       .then(data => {
-        console.log('aaa'+data);
         setLoginstatus(data);
 
-        if (data === 1) {
+        if (data === 1 && endpoint === '/login') {
           sessionStorage.setItem('loginUserId', id);
         }
       })
       .catch(error => console.error(error));
   }
 
-  function LoginStatusCheck(loginstatus) {
-    console.log(loginstatus);
+  function loginStatusCheck(loginstatus) {
     if (loginstatus === 1) {
-      console.log("ServerAccess");
       setTimeout(() => {
         navigate('/main');
       }, 500);
     } else if (loginstatus === -1) {
-      const result = window.confirm("아직 회원이 아닙니다. 이 정보로 회원가입 하시겠습니까?");
-      if (result) {
-        ServerAccess(id, password);
-        alert("회원가입되었습니다. 로그인해주세요.");
-        setId(id);
-        setPassword(password);
-        window.location.reload();
-      }
+      alert("아이디가 존재하지 않습니다.\n먼저 회원가입을 해주세요.");
+      setId("");
+      setPassword("");
+      setLoginstatus("");
     } else if (loginstatus === -2) {
       alert("비밀번호가 틀립니다.");
       setPassword("");
-      window.location.reload();
+      setLoginstatus("");
+    } else if (loginstatus === -3) {
+      alert("회원가입이 성공했습니다.\n로그인을 해주세요.");
+      setId("");
+      setPassword("");
+      setLoginstatus("");
+    } else if (loginstatus === -4) {
+      alert("이미 존재하는 아이디입니다.");
+      setId("");
+      setPassword("");
+      setLoginstatus("");
     }
   }
 
-
+  useEffect(() => {
+    loginStatusCheck(loginstatus);
+  }, [loginstatus]);
 
   return (
     <>
       <div className="background">
         {showLoginForm && (
           <>
-          <div className={`login-container ${animateLoginForm ? 'animate' : ''}`}>
-            <form className="login-form" onSubmit={handleLogin}>
-              <h2 className='title'>로그인</h2>
-              <label htmlFor="notice" className='font'>아직 아이디가 없으시다면 사용할 아이디와 비밀번호를 입력해주세요</label>
-              <div className="form-group">
-                <input type="email" className="form-control" id="id" placeholder="아이디" value={id} onChange={handleIdChange} required />
-              </div>
-              <div className="form-group">
-                <input type="password" className="form-control" id="password" placeholder="비밀번호" value={password} onChange={handlePasswordChange} />
-              </div>
-              {/* <div className="form-group">
-                <input type="nickname" className="form-control" id="nickname" placeholder="사용할 일회성 닉네임" value={nickname} onChange={handleNicknameChange} />
-              </div> */}
-              <button type="submit" className="btn btn-primary">게임 하러 가기 (로그인)</button>
-            </form>
-          </div>
+            <div className={`login-container ${animateLoginForm ? 'animate' : ''}`}>
+              <form className="login-form">
+                <h2 className='title'>로그인 / 회원가입</h2>
+                <label htmlFor="notice" className='font'>아직 아이디가 없으시다면 사용할 아이디와 비밀번호를 입력해주세요</label>
+                <div className="form-group">
+                  <input type="email" className="form-control" id="id" placeholder="아이디" value={id} onChange={handleIdChange} required />
+                </div>
+                <div className="form-group">
+                  <input type="password" className="form-control" id="password" placeholder="비밀번호" value={password} onChange={handlePasswordChange} />
+                </div>
+                {/* <div className="form-group">
+                  <input type="nickname" className="form-control" id="nickname" placeholder="사용할 일회성 닉네임" value={nickname} onChange={handleNicknameChange} />
+                </div> */}
+                <button type="button" className="btn btn-primary" onClick={handleLogin}>게임 하러 가기 (로그인)</button>
+                <button type="button" className="btn btn-secondary" onClick={handleSignUp}>회원가입</button>
+              </form>
+            </div>
           </>
         )}
       </div>

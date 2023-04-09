@@ -87,7 +87,8 @@
 
 
 .login-container {
-  /* background-color: rgba(22, 164, 231, 0.95); */
+  background-color: white;
+  opacity: 0.9;
   border-radius: 20px;
   box-shadow: 30px 30px 30px rgba(0, 0, 0, 0.3);
   padding: 60px;
@@ -164,7 +165,20 @@ label {
   padding: 10px 20px;
   font-size: 2rem;
   width: 100%;
-  background-color: #ff6b6b;
+  background-color: blue;
+  margin-top: 20px;
+  color: white;
+  animation: bounce 5s infinite;
+}
+
+.btn-secondary {
+  font-family: 'MakGeolli';
+  border-radius: 20px;
+  border: none;
+  padding: 10px 20px;
+  font-size: 2rem;
+  width: 100%;
+  background-color: gray;
   margin-top: 20px;
   color: white;
   animation: bounce 5s infinite;
@@ -195,3 +209,10 @@ label {
   background-color: #ff4757;
   transform: scale(1.1);
 }
+
+.btn-secondary:hover {
+  font-family: 'MakGeolli';
+  background-color: #ff4757;
+  transform: scale(1.1);
+}
+
