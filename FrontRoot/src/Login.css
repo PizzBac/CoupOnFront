@@ -2,17 +2,15 @@
 
 @import url('https://webfontworld.github.io/pocheon/MakGeolli.css');
 
-
 .btn-popUp-login {
   background-color: #ff6b6b;
-  /* border-radius: 50px 50px 0 0; */
   border-radius: 50px 50px 50px 50px;
   border: none;
   font-size: 1.5rem;
   padding: 1rem 2rem;
   position: absolute;
-  bottom: 0px;
-  left: 50%;
+  bottom: 10%;
+  /* left: 50%; */
   transform: translateX(-50%);
   animation: bounce 3s infinite;
 }
@@ -40,7 +38,6 @@
 }
 
 
-
 .font {
   font-family: 'MakGeolli';
   font-size: 1.5rem;
@@ -51,9 +48,7 @@
 
 .background {
   /* background-image: url("https://picsum.photos/1920/1080"); */
-  /* background-image: url("./front/images/coup-logo-explain.png");
-   */
-
+  /* background-image: url("./front/images/coup-logo-explain.png"); */
   background-image: url(./front/images/bg_login2.jpg);
   background-size: cover;
   background-position: center;

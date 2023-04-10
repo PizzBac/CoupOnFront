@@ -1,4 +1,5 @@
 /* 테이블 스타일 추가 */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -20,8 +21,12 @@ th {
   font-weight: bold;
 }
 
+.postTitle {
+  width: 100%;
+}
 
 /* 버튼 스타일 추가 */
+
 button {
   padding: 0.5rem;
   background-color: #fff;
@@ -39,67 +44,55 @@ button:focus {
   color: #fff;
 }
 
-
-.seeAllPosts {
-  margin-right: 1rem;
+.seeWriteDiv {
+  margin-bottom: 5px;
 }
 
-/* .writeNewPost {
-  background-color: #333;
-  color: #fff;
-} */
+.seeAllPosts {
+  margin-right: 20px;
+}
 
 /* 필터링 영역과 버튼 영역 간 구분을 위한 간격 추가 */
 
 .pagingDiv {
   display: flex;
   justify-content: center;
+  margin-bottom: 5px;
 }
 
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
+.handleClickFirstPage {
+  margin-right: 2px;
 }
 
-.container>* {
-  padding: 10px;
+.handleClickPage {
+  margin-right: 2px;
+  margin-left: 2px;
 }
 
-.container>*:not(:last-child) {
-  margin-right: 10px;
+.handleClickLastPage {
+  margin-left: 2px;
+}
+
+.inputPageDiv {
+  margin-bottom: 5px;
+}
+
+.inputPage {
+  margin-right: 2px;
+}
+
+.filterDiv {
+  padding-bottom: 5px;
 }
 
 .filterConditon {
   display: inline-block;
   flex-basis: 30%;
+  margin-right: 2px;
 }
 
 .filterInput {
   display: inline-block;
   flex-basis: 60%;
-}
-
-.formContainer {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.formContainer>* {
-  padding: 10px;
-}
-
-.formContainer>*:not(:last-child) {
-  margin-right: 10px;
-}
-
-.post-title {
-  /* adjust to your desired width */
-  width: 150px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  margin-right: 2px;
 }

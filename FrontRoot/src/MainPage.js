@@ -24,12 +24,8 @@ function MainPage(props) {
     setActiveMenu(menu);
   };
 
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
+  const handleModalStatus = () => {
+    setIsModalOpen(prev => !prev);
   };
 
   const handleLogout = () => {
@@ -47,10 +43,10 @@ function MainPage(props) {
     <div className="App">
       <header>
         <div className='welcome-container'>
-          {/* <div> */}
-          <button onClick={handleModalOpen} className="btn-youtube"></button>
-          {/* <p>게임 규칙 도움</p> */}
-          {/* </div> */}
+          {/* <div>
+            <p>게임 규칙 도움</p>
+          </div> */}
+          <button className="btn-youtube" onClick={handleModalStatus}></button>
           <span className="welcomeMsg">레지스탕스 쿠 게임에 오신 것을 환영합니다.</span>
           <button className='btn-logout' onClick={handleLogout}>로그아웃</button>
         </div>
@@ -60,7 +56,7 @@ function MainPage(props) {
         <>
           <div className="modal-wrapper">
             <div className="modal-contents">
-              <button className="modal-close" onClick={handleModalClose}>X</button>
+              <button className="modal-close" onClick={handleModalStatus}>X</button>
               <iframe className="modal-iframe" src="https://www.youtube.com/embed/97cm0gYLttg" allowFullScreen></iframe>
             </div>
           </div>
@@ -86,7 +82,7 @@ function MainPage(props) {
               채팅창
             </button>
             <button className={activeMenu === 'hallOfFame' ? 'menu-btn active' : 'menu-btn'} onClick={() => handleMenuClick('hallOfFame')}>
-              명예당
+              명예장
             </button>
           </div>
           <div className="menu-content">

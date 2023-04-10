@@ -50,22 +50,23 @@ function OnePost(props) {
       ) : (
         <div className="post-container">
           <div className="post-title">
-            <h2>제목: {selectedPost?.title}</h2>
+            <h2>{selectedPost?.index}. {selectedPost?.title}</h2>
           </div>
+          <hr />
+          <div>
+            <div className="post-writer">
+              <p>작성자: {selectedPost?.writer}</p>
+            </div>
+            <div className="post-readCount">
+              <p>조회수: {selectedPost?.readCount}</p>
+            </div>
+            <div className="post-date">
+              <p>작성일: {formatDate(selectedPost?.date)}</p>
+            </div>
+          </div>
+          <hr />
           <div className="post-content">
-            <p>내용: {selectedPost?.content}</p>
-          </div>
-          <div className="post-writer">
-            <p>작성자: {selectedPost?.writer}</p>
-          </div>
-          <div className="post-readCount">
-            <p>조회수: {selectedPost?.readCount}</p>
-          </div>
-          <div className="post-date">
-            <p>작성일: {formatDate(selectedPost?.date)}</p>
-          </div>
-          <div className="post-index">
-            <p>글번호: {selectedPost?.index}</p>
+            <p>{selectedPost?.content}</p>
           </div>
           <hr />
           <div className="buttons">

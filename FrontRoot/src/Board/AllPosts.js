@@ -107,9 +107,10 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
         }
         handleSearchFilter();
     }, [sortedPosts]);
-    //zzzz
+
     return (
         <>
+            <div className='boardTitle'>자유 게시판</div>
             <table>
                 <thead>
                     <tr>
@@ -126,12 +127,12 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                             <tr key={post.index}>
                                 <td>{post.index}</td>
                                 <td>
-                                <button onClick={() => handleSeeOnePost(post.index)} className="post-title">
-                                        {post.title}
+                                    <button onClick={() => handleSeeOnePost(post.index)} className="postTitle">
+                                        {post.title.length <= 7 ? post.title : post.title.slice(0, 7) + "..."}
+                                        {post.comments && post.comments.length > 0 && (
+                                            <span style={{ color: "red" }}>[{post.comments.length}]</span>
+                                        )}
                                     </button>
-                                    {post.comments && post.comments.length > 0 && (
-                                        <span style={{ color: "red" }}>[{post.comments.length}]</span>
-                                    )}
                                 </td>
                                 <td>{post.writer}</td>
                                 <td>{post.readCount}</td>
@@ -145,29 +146,36 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                     <button className="writeNewPost" onClick={handleWriteNewPost}>새 글 쓰러가기</button>
                 </div>
                 <div className='pagingDiv'>
-                    <button onClick={handleClickFirstPage}>◀◀</button>
-                    <button onClick={handleClickPrevPage}>◀</button>
+                    <button className="handleClickFirstPage" onClick={handleClickFirstPage}>◀◀</button>
+                    <button className="handleClickPrevPage" onClick={handleClickPrevPage}>◀</button>
                     {[...Array(totalPageNum)].map((_, index) => (
-                        <button key={index} onClick={() => handleClickPage(index + 1)}>
+                        <button key={index} className="handleClickPage" onClick={() => handleClickPage(index + 1)}>
                             {index + 1}
                         </button>
                     ))}
-                    <button onClick={handleClickNextPage}>▶</button>
-                    <button onClick={handleClickLastPage}>▶▶</button>
+                    <button className="handleClickNextPage" onClick={handleClickNextPage}>▶</button>
+                    <button className="handleClickLastPage" onClick={handleClickLastPage}>▶▶</button>
                 </div>
                 <div className='inputPageDiv'>
                     <form onSubmit={handleInputPageSubmit}>
                         <input
+                            className='inputPage'
                             value={inputPage}
                             onChange={handleInputPage}
                             placeholder={`페이지로 이동`}
+                            style={{ height: '29px' }}
                         />
                         <button type="submit">이동</button>
                     </form>
                 </div>
                 <div className='filterDiv'>
                     <div className='filterConditon'>
-                        <select id="searchFilterCondition" value={searchFilterCondition} onChange={handleSearchFilterConditionChange}>
+                        <select
+                            id="searchFilterCondition"
+                            value={searchFilterCondition}
+                            onChange={handleSearchFilterConditionChange}
+                            style={{ height: '25px' }}
+                        >
                             <option value="title">제목</option>
                             <option value="writer">글쓴이</option>
                         </select>
@@ -178,9 +186,10 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                             value={searchFilterInput}
                             onChange={handleSearchFilterInputChange}
                             placeholder="내용 입력"
+                            style={{ height: '29px' }}
                         />
-                        <button onClick={handleSearchFilter}>검색하기</button>
                     </div>
+                    <button onClick={handleSearchFilter}>검색하기</button>
                 </div>
             </div>
         </>

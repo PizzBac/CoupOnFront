@@ -118,22 +118,19 @@ function Board(props) {
                     server={props.server}
                 />
             ) : boardScreen === "board" ? (
-                <>
-                    <div className='boardTitle'>게시판</div>
-                    <AllPosts
-                        allPosts={allPosts}
-                        seeOnePost={seeOnePost}
-                        pageNum={pageNum}
-                        setPageNum={setPageNum}
-                        numPerPage={numPerPage}
-                        setBoardScreen={setBoardScreen}
-                        seeAllPosts={seeAllPosts}
-                        savedSearchFilterCondition={savedSearchFilterCondition}
-                        setSavedSearchFilterCondition={setSavedSearchFilterCondition}
-                        savedSearchFilterInput={savedSearchFilterInput}
-                        setSavedSearchFilterInput={setSavedSearchFilterInput}
-                    />
-                </>
+                <AllPosts
+                    allPosts={allPosts}
+                    seeOnePost={seeOnePost}
+                    pageNum={pageNum}
+                    setPageNum={setPageNum}
+                    numPerPage={numPerPage}
+                    setBoardScreen={setBoardScreen}
+                    seeAllPosts={seeAllPosts}
+                    savedSearchFilterCondition={savedSearchFilterCondition}
+                    setSavedSearchFilterCondition={setSavedSearchFilterCondition}
+                    savedSearchFilterInput={savedSearchFilterInput}
+                    setSavedSearchFilterInput={setSavedSearchFilterInput}
+                />
             ) : (
                 <>
                     불러올 값이 없습니다.

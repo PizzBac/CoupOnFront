@@ -182,11 +182,10 @@ function Login(props) {
             </form>
           </div>
         )}
+        {!showLoginForm & !showSignUpForm && (
+          <button className='btn-popUp-login' onClick={handleShowLoginForm}><p>로그인하러</p><p>가기</p></button>
+        )}
       </div>
-
-      {!showLoginForm & !showSignUpForm && (
-        <button className='btn-popUp-login' onClick={handleShowLoginForm}><p>로그인 창</p><p>띄우기</p></button>
-      )}
     </>
   );
 }
