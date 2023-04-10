@@ -33,6 +33,7 @@ function MainPage(props) {
   };
 
   const handleLogout = () => {
+    sessionStorage.clear();
     navigate('/login');
   }
   // useEffect(() => {
@@ -89,19 +90,19 @@ function MainPage(props) {
             </button>
           </div>
           <div className="menu-content">
-          {activeMenu === 'board' ? (
-            <div className='board-wrap'>
-              <Board className="Board-container" server={props.server}></Board>
+            {activeMenu === 'board' ? (
+              <div className='board-wrap'>
+                <Board className="Board-container" server={props.server}></Board>
               </div>
-          ) : null}
-          {activeMenu === 'chat' ? (
-            <div className='chat-wrap'>
-              <Chat lobbyName={"MainPage"}/>
-            </div>
-          ) : null}
-          {activeMenu === 'hallOfFame' ? (
+            ) : null}
+            {activeMenu === 'chat' ? (
+              <div className='chat-wrap'>
+                <Chat lobbyName={"MainPage"} />
+              </div>
+            ) : null}
+            {activeMenu === 'hallOfFame' ? (
               <h2>명예의 전당</h2>
-          ) : null}
+            ) : null}
           </div>
         </section>
         <section className="card-wrap">

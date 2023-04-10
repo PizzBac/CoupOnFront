@@ -41,7 +41,7 @@ function Lobby(props) {
       usermsg += '\n' + 'Content: ' + JSON.stringify(tryParseJSON(msg.content));
 
       if (msg.userMessage == "게임 시작") {
-        startGame(); // 게임 시작
+        startGame();
       }
     } else {
       usermsg = msg;
@@ -84,8 +84,6 @@ function Lobby(props) {
 
 
   console.log(messages);
-
-  let lobbyInfo;
 
   function parseLobbyInfo(messages) {
     let regex = /로비 이름 : (.*?)\n현재 상태 : (.*?)\n현재 플레이어: (\[(.*?)])/;
@@ -156,12 +154,14 @@ function Lobby(props) {
     setShowUsers(false); // hide user bubble
   }
 
+  const loginUserId = sessionStorage.getItem('loginUserId');
+
   function createLobby(lobbyInput) {
     if (stompClient) {
       stompClient.publish({
         headers: { lobbyName: lobbyInput },
         destination: '/app/create',
-        body: '',
+        body: loginUserId, // 서버에서 값 요청함
       });
     }
 
@@ -206,50 +206,50 @@ function Lobby(props) {
   return (
     <div className="chat-app">
       <div className="lobby-container">
-      <button className='startGame' onClick={startGame}><p>로비: {lobbyInput} 의</p>게임 시작</button>
+        <button className='startGame' onClick={startGame}><p>로비: {lobbyInput} 의</p>게임 시작</button>
 
-      <div className="chat-input">
-        <div className="seeAllUsers-container">
-          <button className='seeAllUsers' onMouseEnter={seeAllUsers} onMouseLeave={closeUserBubble}>모든 유저 보기</button>
-          {showUsers && Object.keys(users).length > 0 &&
-            <div className="user-bubble">
-              <h4 className="user-card-title">접속중인 유저 ({Object.keys(users).length})</h4>
-              <div className="user-card-container">
-                {Object.entries(users).map(([username, lobby]) => (
-                  <div key={username} className="user-card">
-                    <div className="user-card-username">{username}</div>
-                    <div className="user-card-lobby">{lobby ? `로비: ${lobby}` : "로비 없음"}</div>
-                  </div>
-                ))}
+        <div className="chat-input">
+          <div className="seeAllUsers-container">
+            <button className='seeAllUsers' onMouseEnter={seeAllUsers} onMouseLeave={closeUserBubble}>모든 유저 보기</button>
+            {showUsers && Object.keys(users).length > 0 &&
+              <div className="user-bubble">
+                <h4 className="user-card-title">접속중인 유저 ({Object.keys(users).length})</h4>
+                <div className="user-card-container">
+                  {Object.entries(users).map(([username, lobby]) => (
+                    <div key={username} className="user-card">
+                      <div className="user-card-username">{username}</div>
+                      <div className="user-card-lobby">{lobby ? `로비: ${lobby}` : "로비 없음"}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          }
+            }
+          </div>
+          <button className='seeAllGames' onClick={seeAllGames}>모든 게임 보기</button>
         </div>
-        <button className='seeAllGames' onClick={seeAllGames}>모든 게임 보기</button>
-      </div>
 
-      <div className="div-lobby-input">
-        {/* <span className="lobby-input-label">만들 로비</span> */}
-        <input
-          type="text"
-          className="lobby-input-text"
-          value={lobbyInput}
-          onChange={(e) => setLobbyInput(e.target.value)}
-          maxLength={5} // 최대 8글자까지 입력 가능
-          placeholder='최대 5글자까지 입력 가능'
-        /><button className='createLobby lobby-button' onClick={() => createLobby(lobbyInput)}>방 만들기</button>
-      </div>
-      
-      <div className="lobby-cards">
-        {Object.keys(lobbyInfoRef.current).map((name, index) => (
-          <LobbyCard
-            key={index}
-            lobbyInfoRef={lobbyInfoRef}
-            lobbyName={name}
-            onJoinLobby={() => joinLobby(name)}
-          />
-        ))}
-      </div>
+        <div className="div-lobby-input">
+          {/* <span className="lobby-input-label">만들 로비</span> */}
+          <input
+            type="text"
+            className="lobby-input-text"
+            value={lobbyInput}
+            onChange={(e) => setLobbyInput(e.target.value)}
+            maxLength={5} // 최대 8글자까지 입력 가능
+            placeholder='최대 5글자까지 입력 가능'
+          /><button className='createLobby lobby-button' onClick={() => createLobby(lobbyInput)}>방 만들기</button>
+        </div>
+
+        <div className="lobby-cards">
+          {Object.keys(lobbyInfoRef.current).map((name, index) => (
+            <LobbyCard
+              key={index}
+              lobbyInfoRef={lobbyInfoRef}
+              lobbyName={name}
+              onJoinLobby={() => joinLobby(name)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

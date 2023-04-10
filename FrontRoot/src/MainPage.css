@@ -13,13 +13,16 @@
   /* text-shadow: 0px 0px 0px white, 0px 0px 10px yellow, 0px 0px 20px yellow, 0px 0px 30px yellow, 0px 0px 40px yellow, 0px 0px 50px yellow, 0px 0px 60px yellow, 0px 0px 70px yellow, 0px 0px 80px yellow; */
   animation: shadow 4s linear infinite;
 }
+
 @keyframes shadow {
   0% {
     text-shadow: 0px 0px 0px white, 0px 0px 10px yellow, 0px 0px 20px yellow, 0px 0px 30px yellow, 0px 0px 40px yellow, 0px 0px 50px yellow, 0px 0px 60px yellow, 0px 0px 70px yellow, 0px 0px 80px yellow;
   }
+
   50% {
     text-shadow: 0px 0px 0px white, 0px 0px 10px green, 0px 0px 20px green, 0px 0px 30px green, 0px 0px 40px green, 0px 0px 50px green, 0px 0px 60px green, 0px 0px 70px green, 0px 0px 80px green;
   }
+
   100% {
     text-shadow: 0px 0px 0px white, 0px 0px 10px yellow, 0px 0px 20px yellow, 0px 0px 30px yellow, 0px 0px 40px yellow, 0px 0px 50px yellow, 0px 0px 60px yellow, 0px 0px 70px yellow, 0px 0px 80px yellow;
   }
@@ -54,9 +57,11 @@
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -140,15 +145,16 @@
   align-items: center;
   justify-content: center;
   transform: translateY(0%);
-  animation: slide-up1 1s ease reverse;
+  animation: slide-up1 1s ease forwards;
 }
 
 @keyframes slide-up1 {
   from {
-    transform: translateY(0%);
-  }
-  to {
     transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0%);
   }
 }
 
@@ -217,15 +223,16 @@
   flex-direction: column;
   overflow-x: hidden;
   transform: translateY(100%);
-  animation: slide-up 3s ease forwards;
-  
-  
+  animation: slide-up 1s ease forwards;
+
+
 }
 
 @keyframes slide-up {
   from {
     transform: translateY(100%);
   }
+
   to {
     transform: translateY(0%);
   }
@@ -236,6 +243,7 @@
   /* width: 70%; */
   height: auto;
 }
+
 /* section {
   padding: 40px;
 } */
@@ -303,7 +311,9 @@ section:nth-child(odd) {
 
 /* 모달 */
 
-/* MainPage.css *//* MainPage.css *//* MainPage.css */
+/* MainPage.css */
+/* MainPage.css */
+/* MainPage.css */
 .modal-wrapper {
   position: fixed;
   top: 0;

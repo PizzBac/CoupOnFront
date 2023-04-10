@@ -38,6 +38,8 @@ function Login(props) {
   const handleShowSignUpForm = () => {
     setShowLoginForm(false);
     setShowSignUpForm(true);
+    setId("");
+    setPassword("");
   }
 
   const handleBackToLoginForm = () => {
@@ -120,6 +122,7 @@ function Login(props) {
       setId("");
       setPassword("");
       setNickname("");
+      setConfirmPassword("");
       setLoginstatus("");
       setShowLoginForm(true);
       setShowSignUpForm(false);
@@ -127,6 +130,7 @@ function Login(props) {
       alert("이미 존재하는 아이디입니다.");
       setId("");
       setPassword("");
+      setConfirmPassword("");
       setNickname("");
       setLoginstatus("");
     }
