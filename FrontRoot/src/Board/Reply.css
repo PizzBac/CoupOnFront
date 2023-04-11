@@ -1,7 +1,7 @@
-.reply-container {
+/* .reply-container {
     max-height: 200px;
     overflow-y: scroll;
-}
+} */
 
 .writeReplyForm {
     display: flex;

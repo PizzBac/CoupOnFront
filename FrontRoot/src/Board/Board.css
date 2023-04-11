@@ -1,16 +1,6 @@
-.boardTitle {
-    font: bold 30px "TmonMonsori";
-}
-
 .board-wrap {
-    /* height: 500px; */
-    /* background-image: url(../front/images/paperbg.png); */
     background-position: center;
     background-repeat: no-repeat;
-    background-color: white;
-    /* background-size: cover; */
-}
-
-.board-wrap > * {
-    background: transparent;
+    background-color: rgb(250, 215, 173);
+    height: 83vh;
 }

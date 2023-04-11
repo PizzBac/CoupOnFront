@@ -53,21 +53,18 @@ function MainPage(props) {
       </header>
 
       {isModalOpen ? (
-        <>
-          <div className="modal-wrapper">
-            <div className="modal-contents">
-              <button className="modal-close" onClick={handleModalStatus}>X</button>
-              <iframe className="modal-iframe" src="https://www.youtube.com/embed/97cm0gYLttg" allowFullScreen></iframe>
-            </div>
+        <div className="modal-wrapper">
+          <div className="modal-contents">
+            <button className="modal-close" onClick={handleModalStatus}>X</button>
+            <iframe className="modal-iframe" src="https://www.youtube.com/embed/97cm0gYLttg" allowFullScreen></iframe>
           </div>
-          <div className='main-logo'>
-            <img className='main-logo-img' src={logos[logoIndex].src} alt={logos[logoIndex].alt} />
-          </div>
-        </>
-      ) : (
-        <div className='main-logo'>
-          <img className='main-logo-img' src={logos[logoIndex].src} alt={logos[logoIndex].alt} />
         </div>
+      ) : (
+        <>
+          {/* <div className='main-logo'>
+            <img className='main-logo-img' src={logos[logoIndex].src} alt={logos[logoIndex].alt} />
+          </div> */}
+        </>
       )}
 
 

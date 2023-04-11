@@ -29,7 +29,7 @@ function Reply(props) {
         const day = String(date.getDate()).padStart(2, "0");
         const hours = String(date.getHours()).padStart(2, "0");
         const minutes = String(date.getMinutes()).padStart(2, "0");
-        return `${year}-${month}-${day} ${hours}:${minutes}`;
+        return `${year}-${month}-${day}\n${hours}:${minutes}`;
     };
 
     function writeReply(e) {
@@ -149,7 +149,6 @@ function Reply(props) {
             <table className="comment-table">
                 <thead>
                     <tr>
-                        <th>번호</th>
                         <th>내용</th>
                         <th>작성자</th>
                         <th>작성일</th>
@@ -159,7 +158,6 @@ function Reply(props) {
                 <tbody>
                     {props.selectedPost.comments?.map((comment, index) => (
                         <tr key={index}>
-                            <td>{index+1}</td>
                             <td>
                                 {editing === index ? (
                                     <>
