@@ -28,7 +28,7 @@
 
 .buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -44,4 +44,6 @@
   margin-bottom: 20px;
   white-space: pre-wrap;
   word-wrap: break-word;
+  text-align: left;
+  line-height: 1.5;
 }

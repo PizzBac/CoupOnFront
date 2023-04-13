@@ -8,8 +8,12 @@ import logo2 from './front/images/coup-logo-explain.png'; // 이미지 파일 �
 import youtubeLogo from './front/images/youtube-logo.png';
 import Board from "./Board/Board"
 import Chat from "./front/Chat"
+import HallOfFame from './HallOfFame';
 
 function MainPage(props) {
+
+  const url = `http://${props.server}`;
+
   const [logoIndex, setLogoIndex] = useState(0);
   const logos = [
     { src: logo1, alt: 'logo1' },
@@ -20,7 +24,12 @@ function MainPage(props) {
   const [activeMenu, setActiveMenu] = useState('board');
   const navigate = useNavigate();
 
+  const [hallOfFameData, setHallOfFameData] = useState([]);
+
   const handleMenuClick = (menu) => {
+    if (menu === 'hallOfFame') {
+      getHallOfFameData();
+    }
     setActiveMenu(menu);
   };
 
@@ -38,6 +47,19 @@ function MainPage(props) {
   //   }, 5000);
   //   return () => clearInterval(interval);
   // }, [logos.length]);
+
+  function getHallOfFameData() {
+    const requestOptions = {
+      method: 'GET'
+    };
+
+    fetch(`${url}/rank`, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        setHallOfFameData(data);
+      })
+      .catch(error => console.error(error));
+  }
 
   return (
     <div className="App">
@@ -94,7 +116,7 @@ function MainPage(props) {
               </div>
             ) : null}
             {activeMenu === 'hallOfFame' ? (
-              <h2>명예의 전당</h2>
+              <HallOfFame data={hallOfFameData} />
             ) : null}
           </div>
         </section>

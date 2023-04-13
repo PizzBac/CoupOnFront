@@ -50,7 +50,7 @@ function OnePost(props) {
       ) : (
         <div className="post-container">
           <div className="post-title">
-            <h2>{selectedPost?.index}. {selectedPost?.title}</h2>
+            <h2>{selectedPost?.title}</h2>
           </div>
           <hr />
           <div>

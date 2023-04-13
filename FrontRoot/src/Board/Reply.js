@@ -29,11 +29,16 @@ function Reply(props) {
         const day = String(date.getDate()).padStart(2, "0");
         const hours = String(date.getHours()).padStart(2, "0");
         const minutes = String(date.getMinutes()).padStart(2, "0");
+
         return `${year}-${month}-${day}\n${hours}:${minutes}`;
     };
 
     function writeReply(e) {
         e.preventDefault();
+        if (!replyContent) {
+            alert('댓글 내용을 입력해주세요.');
+            return;
+        }
 
         const requestOptions = {
             method: "POST",
@@ -66,6 +71,11 @@ function Reply(props) {
 
     function editReply(e, idx, writer) {
         e.preventDefault();
+        if (!editReplyContent) {
+            alert('댓글 내용을 입력해주세요.');
+            return;
+        }
+
         setShowMoreOptions([]);
 
         const requestOptions = {
@@ -134,31 +144,32 @@ function Reply(props) {
     return (
         <div className="reply-container">
             <form className='writeReplyForm' onSubmit={writeReply}>
-                <h3>댓글 쓰기</h3>
                 <div className='replyContent'>
-                    <input
+                    <textarea
+                        className='replyContentTextarea'
                         type="text"
                         value={replyContent}
                         onChange={(e) => setReplyContent(e.target.value)}
+                        placeholder='댓글을 입력하세요.'
                     />
                 </div>
-                <button className='replyBtn'>댓글 작성</button>
+                <button className='replyBtn'>댓글 쓰기</button>
             </form>
 
 
             <table className="comment-table">
-                <thead>
-                    <tr>
-                        <th>내용</th>
-                        <th>작성자</th>
-                        <th>작성일</th>
-                        <th>작업</th>
-                    </tr>
-                </thead>
                 <tbody>
                     {props.selectedPost.comments?.map((comment, index) => (
                         <tr key={index}>
-                            <td>
+                            <td className="column-writer">
+                                {comment.writer}
+                                <br />
+                                <br />
+                                <div className="date-div">
+                                    {formatDate(comment.date)}
+                                </div>
+                            </td>
+                            <td className="column-content">
                                 {editing === index ? (
                                     <>
                                         <form onSubmit={(e) => editReply(e, comment.idx, comment.writer)}>
@@ -175,11 +186,7 @@ function Reply(props) {
                                     <>{comment.content}</>
                                 )}
                             </td>
-                            <td>{comment.writer}</td>
-                            <td>
-                                {formatDate(comment.date)}
-                            </td>
-                            <td>
+                            <td className="column-actions">
                                 {replyWriter !== "아이디 없음" && (
                                     <div className="comment-actions">
                                         <button className="toggle-button" onClick={() => toggleMoreOptions(index)}>
