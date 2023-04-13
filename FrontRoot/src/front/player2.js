@@ -11,29 +11,40 @@ function Player(props) {
   let card3 = "back";
   let card4 = "back";
 
-  console.log("네임", name, userName);
-  console.log("잃은카드:", localPlayerlostCards);
-  if (localPlayerlostCards.length == 1) {
-    card3 = localPlayerlostCards[0]
-  } else if (localPlayerlostCards.length == 2) {
-    card3 = localPlayerlostCards[0]
-    card4 = localPlayerlostCards[1]
-  }
-  // 중복 요소를 제거하는 함수
-  // const removeDuplicates = (arr) => {
-  //   const set = new Set(arr);
-  //   return Array.from(set);
-  // };
+//   if (localPlayerCards.length == 2 ) {
+//     let card0 = localPlayerCards[0];
+//     let card1 = localPlayerCards[1];
+//   } else if (localPlayerCards.length == 1 && localPlayerlostCards.length == 1) {
+//     let card0 = localPlayerCards[0];
+//     let card1 = localPlayerlostCards[0];
+    
+//     card3 = localPlayerlostCards[0]
+//   } else if (localPlayerCards.length == 0 && localPlayerlostCards.length == 2) {
+//     let card0 = localPlayerlostCards[0];
+//     let card1 = localPlayerlostCards[1];
 
-  // const localPlayerCardsRef = useRef(localPlayerCards);
+//     card3 = localPlayerlostCards[0]
+//     card4 = localPlayerlostCards[1]
+//   }
 
-  // useEffect(() => {
-  //   localPlayerCardsRef.current = [...localPlayerCardsRef.current, localPlayerCards];
-  //   // 배열에서 중복된 요소를 제거.
-  //   localPlayerCardsRef.current = removeDuplicates(localPlayerCardsRef.current);
-  // }, [localPlayerCards]);
+const updatedPlayers = players.map((player) => {
+    if (player.name === userName){
+        console.log(userName);
+        return {
+            ...player,
+            localPlayerCards: localPlayerCards,
+            localPlayerlostCards: localPlayerlostCards,
+          };  
+    }
+      return {
+        ...player,
+        localPlayerCards: ["back", "back"],
+        localPlayerlostCards: localPlayerlostCards,
+      };
 
-  // console.log(localPlayerCardsRef);
+  });
+
+    console.log(updatedPlayers);
 
   const stompClient = useStompClient();
   const [subscription, setSubscription] = useState("/user/lobby");
@@ -45,7 +56,6 @@ function Player(props) {
   };
 
   const handleButtonClick = () => {
-    console.log(name);
     publishMessage(name);
   };
   const handleCard0Click = () => {
@@ -102,8 +112,18 @@ function Player(props) {
         <div className={`player ${className}`}>
           <button className='player_font' onClick={handleButtonClick}>{name}</button>
             <div>
+            {localPlayerlostCards[0] &&
+              <img src={require("" + `./images/${localPlayerlostCards[0]}.png`)} className="img cardImg" />
+            }
+            {!localPlayerlostCards[0] &&
               <img src={require("" + `./images/${card3}.png`)} className="img cardImg" />
+            }
+            {localPlayerlostCards[1] &&
+              <img src={require("" + `./images/${localPlayerlostCards[1]}.png`)} className="img cardImg" />
+            }
+            {!localPlayerlostCards[1] &&
               <img src={require("" + `./images/${card4}.png`)} className="img cardImg" />
+            }
             </div>
           <div className='coin_container'>
             <div className='coin img'></div><span className='coin_font'>{coins}</span>

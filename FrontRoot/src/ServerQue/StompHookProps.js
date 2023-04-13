@@ -4,7 +4,7 @@ import { useSubscription } from 'react-stomp-hooks';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import Banker from '../front/banker';
 import Console from '../front/console';
-import Player from '../front/player';
+import Player from '../front/player2';
 import Chat from '../front/Chat';
 import './StompHookProps.css';
 import '../reset.css';
@@ -167,6 +167,7 @@ function StompHookProps(props) {
                 <Player
                   className={`player${index + 1} ${index < 3 ? 'top' : 'bottom'}`}
                   localPlayerCards={JSON.parse(latestUpdateMessage).content.localPlayerCards}
+                  localPlayerlostCards={JSON.parse(latestUpdateMessage).content.localPlayerlostCards}
                   lobbyName={lobbyName}
                   name={obj.name}
                   coins={obj.coins}
