@@ -40,6 +40,10 @@
   height: 10vh;
   margin-left: 5px;
 }
+.lostCards {
+  opacity: 0.5;
+  border: 2px solid red;
+}
 
 .coin_container {
   display: flex;

@@ -27,24 +27,11 @@ function Player(props) {
 //     card4 = localPlayerlostCards[1]
 //   }
 
-const updatedPlayers = players.map((player) => {
-    if (player.name === userName){
-        console.log(userName);
-        return {
-            ...player,
-            localPlayerCards: localPlayerCards,
-            localPlayerlostCards: localPlayerlostCards,
-          };  
-    }
-      return {
-        ...player,
-        localPlayerCards: ["back", "back"],
-        localPlayerlostCards: localPlayerlostCards,
-      };
+  const filteredPlayers = players.filter((player) => player.name !== userName);
+  const targetPlayer = players.find((player) => player.name === name);
 
-  });
 
-    console.log(updatedPlayers);
+  console.log(filteredPlayers);
 
   const stompClient = useStompClient();
   const [subscription, setSubscription] = useState("/user/lobby");
@@ -86,8 +73,14 @@ const updatedPlayers = players.map((player) => {
             {card0 &&
               <img src={require("" + `./images/${card0}.png`)} alt={card0} className="img cardImg" onClick={handleCard0Click} />
             }
+            {!card0 &&
+              <img src={require("" + `./images/${localPlayerlostCards[1]}.png`)} className="img cardImg lostCards"/>
+            }
             {card1 &&
               <img src={require("" + `./images/${card1}.png`)} alt={card1} className="img cardImg" onClick={handleCard1Click} />
+            }
+            {!card1 &&
+              <img src={require("" + `./images/${localPlayerlostCards[0]}.png`)} className="img cardImg lostCards"/>
             }
             {exchangedCardOptions && (
               <>
@@ -108,23 +101,24 @@ const updatedPlayers = players.map((player) => {
           </div>
         </div>
       )}
-      {!owner && (
+            {!owner && (
         <div className={`player ${className}`}>
           <button className='player_font' onClick={handleButtonClick}>{name}</button>
-            <div>
-            {localPlayerlostCards[0] &&
-              <img src={require("" + `./images/${localPlayerlostCards[0]}.png`)} className="img cardImg" />
-            }
-            {!localPlayerlostCards[0] &&
-              <img src={require("" + `./images/${card3}.png`)} className="img cardImg" />
-            }
-            {localPlayerlostCards[1] &&
-              <img src={require("" + `./images/${localPlayerlostCards[1]}.png`)} className="img cardImg" />
-            }
-            {!localPlayerlostCards[1] &&
-              <img src={require("" + `./images/${card4}.png`)} className="img cardImg" />
-            }
-            </div>
+          <div>
+            {targetPlayer.lostcards.length > 0 ? (
+              targetPlayer.lostcards.map((card, index) => (
+                <>
+                <img key={index} src={require("" + `./images/${card}.png`)} className="img cardImg" />
+                <img src={require("" + `./images/${"back"}.png`)} className="img cardImg" />
+                </>
+              ))
+            ) : (
+              <>
+                <img src={require("" + `./images/${"back"}.png`)} className="img cardImg" />
+                <img src={require("" + `./images/${"back"}.png`)} className="img cardImg" />
+              </>
+            )}
+          </div>
           <div className='coin_container'>
             <div className='coin img'></div><span className='coin_font'>{coins}</span>
           </div>
