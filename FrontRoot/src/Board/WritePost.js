@@ -52,7 +52,7 @@ function WritePost(props) {
           <label htmlFor="content" className="col-sm-2 col-form-label">내용</label>
           <div className="col-sm-10">
             <textarea
-              className="form-control"
+              className="form-control write-text"
               id="content"
               placeholder="내용"
               value={content}

@@ -35,7 +35,7 @@ function OnePost(props) {
     const day = String(date.getDate()).padStart(2, '0');
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
-    return `${year}-${month}-${day} ${hours}:${minutes}`;
+    return `${year}-${month}-${day}\n${hours}:${minutes}`;
   };
 
   return (
@@ -50,7 +50,7 @@ function OnePost(props) {
       ) : (
         <div className="post-container">
           <div className="post-title">
-            <h2>{selectedPost?.index}. {selectedPost?.title}</h2>
+            <h2>{selectedPost?.title}</h2>
           </div>
           <hr />
           <div>

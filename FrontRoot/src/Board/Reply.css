@@ -1,8 +1,3 @@
-/* .reply-container {
-    max-height: 200px;
-    overflow-y: scroll;
-} */
-
 .writeReplyForm {
     display: flex;
     align-items: center;
@@ -19,8 +14,43 @@
     padding: 5px;
 }
 
+.replyContentTextarea {
+    width: 100%;
+    resize: none;
+    height: 48px;
+    line-height: 16px;
+    border-color: lightgray;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.replyBtn {
+    margin-left: 5px;
+}
+
 .comment-table {
     width: 100%;
+}
+
+.column-writer {
+    width: 20%;
+}
+
+.date-div {
+    font-size: 11px;
+}
+
+.column-content {
+    width: 60%;
+    text-align: left;
+    vertical-align: middle;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.column-actions {
+    width: 20%;
+    vertical-align: middle;
 }
 
 .comment-actions {
@@ -37,14 +67,14 @@
 
 .more-options {
     position: absolute;
-    top: 24px;
+    bottom: 24px;
     right: 0;
     background-color: white;
     border: 1px solid #ccc;
     padding: 4px;
     border-radius: 4px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 4px;
     z-index: 1;
 }
