@@ -61,12 +61,16 @@ function Player(props) {
     publishMessage(name);
   };
   const handleCard0Click = () => {
-    console.log(card0);
     publishMessage(card0);
   };
   const handleCard1Click = () => {
-    console.log(card1);
     publishMessage(card1);
+  };
+  const handleCard2Click = () => {
+    publishMessage(exchangedCardOptions[2]);
+  };
+  const handleCard3Click = () => {
+    publishMessage(exchangedCardOptions[3]);
   };
 
   if (name === userName) {
@@ -85,17 +89,17 @@ function Player(props) {
               <img src={require("" + `./images/${card0}.png`)} alt={card0} className="img cardImg" onClick={handleCard0Click} />
             }
             {card1 &&
-              <img src={require("" + `./images/${card1}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
+              <img src={require("" + `./images/${card1}.png`)} alt={card1} className="img cardImg" onClick={handleCard1Click} />
             }
             {exchangedCardOptions && (
               <>
                 {exchangedCardOptions.length === 3 &&
-                  <img src={require("" + `./images/${exchangedCardOptions[2]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
+                  <img src={require("" + `./images/${exchangedCardOptions[2]}.png`)} className="img cardImg" onClick={handleCard2Click} />
                 }
                 {exchangedCardOptions.length === 4 &&
                   <>
-                    <img src={require("" + `./images/${exchangedCardOptions[2]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
-                    <img src={require("" + `./images/${exchangedCardOptions[3]}.png`)} alt={card0} className="img cardImg" onClick={handleCard1Click} />
+                    <img src={require("" + `./images/${exchangedCardOptions[2]}.png`)} className="img cardImg" onClick={handleCard2Click} />
+                    <img src={require("" + `./images/${exchangedCardOptions[3]}.png`)} className="img cardImg" onClick={handleCard3Click} />
                   </>
                 }
               </>
