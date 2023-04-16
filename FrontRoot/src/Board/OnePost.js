@@ -65,9 +65,10 @@ function OnePost(props) {
             </div>
           </div>
           <hr />
-          <div className="post-content">
-            <p>{selectedPost?.content}</p>
-          </div>
+          <div
+            className="post-content"
+            dangerouslySetInnerHTML={{ __html: selectedPost?.content }}
+          />
           <hr />
           <div className="buttons">
             {writerCheck(selectedPost?.writer) && (

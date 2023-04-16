@@ -180,8 +180,9 @@ function AllPosts({ allPosts, seeOnePost, pageNum, setPageNum, numPerPage, setBo
                             <option value="writer">글쓴이</option>
                         </select>
                     </div>
-                    <div className='filterInput'>
+                    <div className='filterInputDiv'>
                         <input
+                            className='filterInput'
                             type="text"
                             value={searchFilterInput}
                             onChange={handleSearchFilterInputChange}

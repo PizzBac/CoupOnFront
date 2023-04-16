@@ -1,5 +1,6 @@
 .boardTitle {
   font: bold 30px "TmonMonsori";
+  padding: 10px 0 10px 0;
 }
 
 /* 테이블 스타일 추가 */
@@ -83,6 +84,7 @@ button:focus {
 
 .inputPage {
   margin-right: 2px;
+  padding: 0 0 0 5px;
 }
 
 .filterDiv {
@@ -95,8 +97,12 @@ button:focus {
   margin-right: 2px;
 }
 
-.filterInput {
+.filterInputDiv {
   display: inline-block;
   flex-basis: 60%;
   margin-right: 2px;
+}
+
+.filterInput {
+  padding: 0 0 0 5px;
 }
