@@ -5,18 +5,18 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    /* height: 40vh; */
-    /* width: 30vw; */
+    border-radius: 1vmin;
 }
 
 /* 채팅창 보이게 하려면 스타일 적용해야 함 */
 .chatcontainer {
-    /* border: 0.5vmin solid black; */
-    /* border-radius: 3%; */
+    border: 1px solid black;
+    border-radius: 1vmin;
     height: 35vh;
-    /* background-color: rgba(0,0,0,0.2); */
+    background-color: rgb(235, 190, 135);
     margin: 0.5vmin;
     font-size: 2vmin;
+    font-weight: bold;
     overflow-y: scroll;
     -ms-overflow-style: none;
     /* 인터넷 익스플로러 */
@@ -24,8 +24,7 @@
     /* align-items: flex-start; */
     /* 파이어폭스 */
     text-align: start;
-    padding: 2rem;
-    font-weight: bold;
+    padding: 1vmin;
     /* color: white; */
 }
 
@@ -34,8 +33,9 @@
 }
 
 .messageLabel {
-    /* background-color: bisque; */
+    background-color: rgb(235, 190, 135);
     border: 0.3vmin solid black;
+    border-radius: 10vmin;
     margin: 0.5vmin;
     border-radius: 3%;
     height: 5vh;
@@ -47,18 +47,25 @@
     width: 28vw;
     height: 4vh;
     font-size: 2vmin;
+    font-weight: bold;
+    padding: 0 0 0 1vmin;
     border: none;
     background-color: transparent;
     float: left;
 }
 
+.messageInput::placeholder {
+    color: rgb(255, 255, 255);
+    /* text-shadow: -0.1px 0 black, 0 0.1px black, 0.1px 0 black, 0 -0.1px black; */
+}
+
 .submitBtn {
-    background-color: DodgerBlue;
+    background-color: transparent;
     border: none;
-    color: bisque;
+    color: white;
     padding: 1.2vh 1.5vw;
     font-size: 2.5vmin;
     cursor: pointer;
     float: right;
-    border-radius: 50px;
+    border-radius: 1vmin;
 }

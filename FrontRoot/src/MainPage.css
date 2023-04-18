@@ -3,6 +3,7 @@
 @import url('https://webfontworld.github.io/pocheon/MakGeolli.css');
 
 .App {
+  aspect-ratio: 16/9;
   text-align: center;
   display: flex;
   flex-direction: column;

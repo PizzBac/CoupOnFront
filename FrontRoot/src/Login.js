@@ -8,7 +8,7 @@ function Login(props) {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useState('default');
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [animateLoginForm, setAnimateLoginForm] = useState(false);
@@ -27,9 +27,9 @@ function Login(props) {
     setConfirmPassword(event.target.value);
   }
 
-  const handleNicknameChange = (event) => {
-    setNickname(event.target.value);
-  }
+  // const handleNicknameChange = (event) => {
+  //   setNickname(event.target.value);
+  // }
 
   const handleShowLoginForm = () => {
     setShowLoginForm(true);
@@ -48,7 +48,7 @@ function Login(props) {
     setId("");
     setPassword("");
     setConfirmPassword("");
-    setNickname("");
+    // setNickname("");
   }
 
   const handleLogin = (event) => {
@@ -64,7 +64,7 @@ function Login(props) {
 
   const handleSignUp = (event) => {
     event.preventDefault();
-    if (id === '' || password === '' || confirmPassword === '' || nickname === '') {
+    if (id === '' || password === '' || confirmPassword === '') {
       alert("모든 정보를 입력해주세요.");
     } else if (password !== confirmPassword) {
       alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
@@ -121,7 +121,7 @@ function Login(props) {
       alert("회원가입이 성공했습니다.\n로그인을 해주세요.");
       setId("");
       setPassword("");
-      setNickname("");
+      // setNickname("");
       setConfirmPassword("");
       setLoginstatus("");
       setShowLoginForm(true);
@@ -131,7 +131,7 @@ function Login(props) {
       setId("");
       setPassword("");
       setConfirmPassword("");
-      setNickname("");
+      // setNickname("");
       setLoginstatus("");
     }
   }
@@ -174,9 +174,9 @@ function Login(props) {
               <div className="form-group">
                 <input type="password" className="form-control" id="confirmPassword" placeholder="비밀번호 확인" value={confirmPassword} onChange={handleConfirmPasswordChange} />
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <input type="text" className="form-control" id="nickname" placeholder="닉네임" value={nickname} onChange={handleNicknameChange} />
-              </div>
+              </div> */}
               <button type="button" className="btn btn-primary" onClick={handleSignUp}>가입하기</button>
               <button type="button" className="btn btn-secondary" onClick={handleBackToLoginForm}>뒤로가기</button>
             </form>

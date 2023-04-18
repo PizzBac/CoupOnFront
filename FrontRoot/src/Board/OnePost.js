@@ -10,7 +10,7 @@ function OnePost(props) {
   const loginUserId = sessionStorage.getItem('loginUserId');
 
   function writerCheck(writer) {
-    return loginUserId === writer;
+    return loginUserId === writer || loginUserId === "GM";
   }
 
   const modifySubmit = () => {

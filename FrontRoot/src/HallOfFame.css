@@ -1,0 +1,42 @@
+.hallofFame {
+    background-image: url(./front/images/bg_chat.png);
+    padding: 1vmin 1vmin 1px 1vmin;
+}
+
+.hallofFame h2 {
+    background-image: linear-gradient(to right, #ffdb58, #ffaf4b);
+    font: italic bold 4vmin/2 "Arial", sans-serif;
+    border: 1px solid black;
+    border-radius: 1vmin;
+}
+
+.hallofFame table thead tr th {
+    background-color: gray;
+    color: white;
+    font-weight: bold;
+}
+
+.hallofFame table tbody tr {
+    font-weight: bold;
+}
+
+.hallofFame table tbody tr:nth-child(1) {
+    background-color: gold;
+    font-size: 5vmin;
+}
+
+.hallofFame table tbody tr:nth-child(2) {
+    background-color: silver;
+    font-size: 3.5vmin;
+}
+
+.hallofFame table tbody tr:nth-child(3) {
+    background-color: #cd7f32;
+    font-size: 2.5vmin;
+}
+
+.hallofFame table tbody tr:nth-child(4),
+.hallofFame table tbody tr:nth-child(5) {
+    background-color: #f2f2f2;
+    font-size: 2vmin;
+}

@@ -59,7 +59,7 @@ function Chat(props) {
                         type="text"
                         value={message}
                         onChange={handleChangeMessage}
-                        placeholder="메시지를 입력하세요"
+                        placeholder="채팅을 입력하세요"
                     />
                     <span className="submitBtn" onClick={handleSubmit}>
                         <FaPaperPlane />

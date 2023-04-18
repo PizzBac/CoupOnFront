@@ -61,7 +61,7 @@ function Reply(props) {
     };
 
     function writerCheck(writer) {
-        return replyWriter === writer;
+        return replyWriter === writer || replyWriter === "GM";
     }
 
     function handleEditClick(index, content) {

@@ -1,10 +1,11 @@
 import React from 'react';
+import './HallOfFame.css';
 
 function HallOfFame(props) {
     const { data } = props;
 
     return (
-        <div>
+        <div className="hallofFame">
             <h2>명예의 전당</h2>
             <table>
                 <thead>
@@ -18,7 +19,7 @@ function HallOfFame(props) {
                     {data.map((member, index) => (
                         <tr key={member.id}>
                             <td>{index + 1}</td>
-                            <td>{member.nickname}</td>
+                            <td>{member.id}</td>
                             <td>{member.wincount}</td>
                         </tr>
                     ))}
