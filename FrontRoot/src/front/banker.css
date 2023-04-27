@@ -1,9 +1,9 @@
 .announcement {
-  padding: 1vmin;
-  font: bold 2.5vmin "TmonMonsori";
+  font: bold 2vmin "TmonMonsori";
   text-align: center;
   overflow-y: scroll;
-  height: 7.5vh;
+  height: 12vh;
+  padding: 1vh 0 1vh 0;
 }
 
 .announcement::-webkit-scrollbar {

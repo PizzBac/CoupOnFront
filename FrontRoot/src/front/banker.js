@@ -22,9 +22,15 @@ function Banker(props) {
     }
   }, [receivedMessage]);
 
+  // const displayMessage = `type : ${message.type}\nuserMessage : ${message.userMessage}\nContent: ${JSON.stringify(message.content)}`;
+  const displayMessage = `${message.userMessage}`;
+  const messageLines = displayMessage.split('\n').map((line, index) => (
+    <div key={index}>{line}</div>
+  ));
+
   return (
     <div className="announcement anc-message" ref={scrollRef}>
-      {receivedMessage ? receivedMessage : message}
+      {messageLines}
     </div>
   );
 }

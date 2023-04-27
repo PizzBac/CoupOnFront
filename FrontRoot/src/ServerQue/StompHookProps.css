@@ -17,8 +17,11 @@
 
 .bankerDiv {
   width: 100vw;
-  height: 10vh;
+  height: 14vh;
   background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bottomDiv {
